@@ -25,7 +25,7 @@ void TEST(EightGame* Curr, int size);
 
 int main() {
 	EightGame Item;
-	char test[9] = {'1','2','3','6','0','4','8','7', '5'};
+	char test[9] = {'1','2','3','6','x','4','8','7', '5'};
 
 	Item.SetBoard(test, BOARDSIZE);
 
@@ -100,15 +100,8 @@ void DisplayBoard(char* currentBoard, int size){
 		{
 			cout << endl;
 		}
+		cout << currentBoard[i] << " ";
 
-		if(currentBoard[i] != '0')
-		{
-			cout << currentBoard[i] << " ";
-		}
-		else
-		{
-			cout << "_" << " ";
-		}	
 	}
 	cout << endl;
 }

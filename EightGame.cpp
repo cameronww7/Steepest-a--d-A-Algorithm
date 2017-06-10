@@ -31,7 +31,7 @@ bool EightGame::CheckForWin()
 		&& m_GameBoard[1] == '2'
 		&& m_GameBoard[2] == '3' 
 		&& m_GameBoard[3] == '8' 
-		&& m_GameBoard[4] == '0' 
+		&& m_GameBoard[4] == 'x' 
 		&& m_GameBoard[5] == '4' 
 		&& m_GameBoard[6] == '7'  
 		&& m_GameBoard[7] == '6' 
@@ -56,7 +56,7 @@ int EightGame::FindEmptySlot()
 {
 	for(int i = 0; i < BOARDSIZE; i++)
 	{
-		if(m_GameBoard[i] == '0')
+		if(m_GameBoard[i] == 'x')
 		{
 			return i;
 		}
