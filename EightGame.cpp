@@ -66,6 +66,13 @@ int EightGame::FindEmptySlot()
 }
 
 
+//===SwapSpace=====================
+//Move the empty slot to the new slot 
+//	vase on the direction input
+// direction	[IN] 	- direction to move
+//	return
+//		None
+//====================================== 
 void EightGame::SwapSpace(int direction)
 {
 	int empty = FindEmptySlot();
@@ -78,8 +85,10 @@ void EightGame::SwapSpace(int direction)
 			break;
 		case UP: newPosition = empty - 3;
 			break;
-		case DOWN: newPosition = empty + 1;
+		case DOWN: newPosition = empty + 3;
 			break;
+		default:
+			return;
 	}
 
 	char temp = m_GameBoard[newPosition];
@@ -88,16 +97,24 @@ void EightGame::SwapSpace(int direction)
 
 }
 
+//===MoveDirection=====================
+//Receive direction and make a game move
+// direction	[IN] 	- direction to move
+//	return
+//		True if successfully make a move
+//====================================== 
 bool EightGame::MoveDirection(int direction)
 {
 	if(IsMovable(direction))
 	{
 		SwapSpace(direction);
+		return true;
 	}
+	return false;
 }
 
 //===IsMovable=====================
-//check if the slot can move in inout direction
+//check if the move is valid
 // direction	[IN] 	- direction to move
 //	return
 //		return an index wher empty slot reside
@@ -105,12 +122,21 @@ bool EightGame::MoveDirection(int direction)
 bool EightGame::IsMovable(int direction)
 {
 	int empty = FindEmptySlot();
-	//check up
+	
+	if (direction != UP
+		&& direction != DOWN
+		&& direction != LEFT
+		&& direction != RIGHT)
+	{
+		//invalid input
+		return false;
+	}
+
 	if(empty < 3 && direction == UP){
 		//no up
 		return false;
 	}
-	if(empty > 4  && direction == DOWN){
+	if(empty > 5  && direction == DOWN){
 		// no down
 		return false;
 	}
@@ -118,7 +144,7 @@ bool EightGame::IsMovable(int direction)
 		// no left
 		return false;
 	}
-	if(empty % 2 == 2   && direction == RIGHT){
+	if(empty % 3 == 2 && direction == RIGHT){
 		// no right
 		return false;
 	}

@@ -21,10 +21,11 @@ using namespace std;
 // int BOARDSIZE = 9;
 
 void DisplayBoard(char* currentBoard, int size);
+void TEST(EightGame* Curr, int size);
 
 int main() {
 	EightGame Item;
-	char test[9] = {'1','2','3','5','6','7','4','0', '8'};
+	char test[9] = {'1','2','3','6','0','4','8','7', '5'};
 
 	Item.SetBoard(test, BOARDSIZE);
 
@@ -37,17 +38,18 @@ int main() {
 	cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
 	cout << "------------------" << endl;
-	TEST(Item,BOARDSIZE);
+	TEST(&Item,BOARDSIZE);
 
 	return 0;
 }
+
 
 //====TEST====================================
 //This is use to test the game 
 void TEST(EightGame* Curr, int size){
 
 	int command;
-	char* tt = Curr.GetBoard();
+	char* tt = Curr->GetBoard();
 
 	while(1){
 		DisplayBoard(tt, BOARDSIZE);
@@ -64,7 +66,7 @@ void TEST(EightGame* Curr, int size){
 		}
 		else
 		{
-			if(Curr.MoveDirection(command))
+			if(Curr->MoveDirection(command))
 			{
 				cout << "good Move" << endl;
 			}
@@ -72,8 +74,17 @@ void TEST(EightGame* Curr, int size){
 			{
 				cout << "Invalid Move" << endl;
 			}
+
+			if(Curr->CheckForWin())
+			{
+				cout << "!!--WINNER--!!" << endl;
+				DisplayBoard(tt, BOARDSIZE);
+				break;
+			}
 		}
 	}
+
+	cout << "Exit Game" << endl;
 }
 
 
