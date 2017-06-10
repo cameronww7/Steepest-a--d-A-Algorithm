@@ -33,8 +33,47 @@ int main() {
 
 	char* tt = Item.GetBoard();
 	DisplayBoard(tt, BOARDSIZE);
+	cout << "Is win:: " << Item.CheckForWin() << endl;
+	cout << "Where is _:: " << Item.FindEmptySlot() << endl;
+
+	cout << "------------------" << endl;
+	TEST(Item,BOARDSIZE);
 
 	return 0;
+}
+
+//====TEST====================================
+//This is use to test the game 
+void TEST(EightGame* Curr, int size){
+
+	int command;
+	char* tt = Curr.GetBoard();
+
+	while(1){
+		DisplayBoard(tt, BOARDSIZE);
+
+		cout << "Enter Direction: ";
+		cin >> command; 
+
+		if(command != 8
+			&& command != 4
+			&& command != 6
+			&&command != 2)
+		{
+			break;
+		}
+		else
+		{
+			if(Curr.MoveDirection(command))
+			{
+				cout << "good Move" << endl;
+			}
+			else
+			{
+				cout << "Invalid Move" << endl;
+			}
+		}
+	}
 }
 
 

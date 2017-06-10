@@ -1,16 +1,25 @@
 
 
 const int BOARDSIZE = 9;
+const int LEFT = 4;
+const int RIGHT = 6;
+const int UP = 8;
+const int DOWN = 2;
 
 class EightGame
 {
 public:
-	EightGame(void){GameBoard[0]=0;};
+	EightGame(void){m_GameBoard[0]=0;};
 
-	char* GetBoard(){return GameBoard;};
+	char* GetBoard(){return m_GameBoard;};
 	bool SetBoard(char arr[], int size = BOARDSIZE);
+	bool CheckForWin();
+	int FindEmptySlot();
 
+	void SwapSpace(int direction);
+	bool MoveDirection(int direction);
+	bool IsMovable(int direction);
 
 private:
-	char GameBoard[BOARDSIZE];
+	char m_GameBoard[BOARDSIZE];
 };
