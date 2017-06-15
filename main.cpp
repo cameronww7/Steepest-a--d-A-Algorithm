@@ -30,10 +30,18 @@ void TEST(EightGame* Curr, int size);
 int CountingTilesOutOfPlace(char board[]);
 
 //Read from file
-void readFromFile(string fileName);
+void readFromFile(string fileName, EightGame&, EightGame&);
 
 int main() {
-	readFromFile("input.txt");
+	EightGame init;
+	EightGame goal;
+	readFromFile("input.txt", init, goal);
+
+	cout << "initial board from file: " << endl;
+	DisplayBoard(init.GetBoard(), 9);
+	cout << "Goal state from file: " << endl;
+	DisplayBoard(goal.GetBoard(), 9);
+
 
 	EightGame Item;
 	char test[] = {'1','2','3','6','x','4','8','7', '5', '\0'};
@@ -140,13 +148,25 @@ int CountingTilesOutOfPlace(char board[]) {
 	return count;
 }
 
-void readFromFile(string fileName) {
+void readFromFile(string fileName, EightGame &init, EightGame &goal) {
 	string line;
+	char board[9];
 	ifstream myfile(fileName);
 	if (myfile.is_open()) {
-		while (getline(myfile, line)) {
-			cout << line << endl;
+		for (int i = 0; i < 9; i++)
+		{
+			board[i] = myfile.get();
+			myfile.get();
 		}
+
+		myfile.ignore(1,'\n');
+		init.SetBoard(board,9);
+		for (int i = 0; i < 9; i++)
+		{
+			board[i] = myfile.get();
+			myfile.get();
+		}
+		goal.SetBoard(board, 9);
 		myfile.close();
 	}
 	else cout << "Unable to open file";
