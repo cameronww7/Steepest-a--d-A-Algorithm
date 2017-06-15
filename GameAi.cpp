@@ -3,12 +3,17 @@
 #include "GameAi.h"
 using namespace std;
 
+//=======NEED TO BE CHANGE==================
 bool GameAi::SetGameBoard(EightGame setItem)
 {
 	m_currentBoard = setItem;
 	return true;
 }
 
+//==CountingTilesOutOfPlace=====================================
+//Count tile out of place
+// return - number of tile out of place
+//==================================================
 int GameAi::CountingTilesOutOfPlace() 
 {
 	int count = 0;
