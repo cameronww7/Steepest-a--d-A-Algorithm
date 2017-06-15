@@ -15,6 +15,7 @@ public:
 	bool SetBoard(char arr[], int size = BOARDSIZE);
 	bool CheckForWin();
 	int FindEmptySlot();
+	int FindCharInBoard(char input);
 
 	void SwapSpace(int direction);
 	bool MoveDirection(int direction);

@@ -121,6 +121,10 @@ void DisplayBoard(char* currentBoard, int size){
 	cout << endl;
 }
 
+//==DisplayBoard=====================================
+//Count tile out of place
+// size [IN]		  - 
+//==================================================
 int CountingTilesOutOfPlace(char board[]) {
 	int count = 0;
 	if (board[0] != '1') count++;

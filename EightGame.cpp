@@ -2,6 +2,24 @@
 using namespace std;
 #include "EightGame.h"
 
+//===FindCharInBoard=====================
+//Search Value from Board
+// input [IN] - char to find in the board
+//	return
+//		index where the char is
+//======================================
+int EightGame::FindCharInBoard(char input)
+{
+	for(int i = 0; i < BOARDSIZE; i++)
+	{
+		if(m_GameBoard[i] == input)
+		{
+			return i;
+		}
+	}
+
+	return -1;
+}
 
 //===SetBoard=====================
 //Copy the direction into the private valiable
