@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-#include "eightGame.h"
+#include "EightGame.h"
 
 
 //===SetBoard=====================
