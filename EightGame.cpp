@@ -16,7 +16,7 @@ int EightGame::FindCharInBoard(char input)
 		{
 			return i;
 		}
-	}
+	} 
 
 	return -1;
 }
