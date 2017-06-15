@@ -1,6 +1,6 @@
 
-
-const int BOARDSIZE = 9;
+//Size 10 to accomodate the null character
+const int BOARDSIZE = 10;
 const int LEFT = 4;
 const int RIGHT = 6;
 const int UP = 8;
