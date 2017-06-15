@@ -45,7 +45,7 @@ int main() {
 
 
 //====TEST====================================
-//This is use to test the game 
+//This is use to test/play the game 
 void TEST(EightGame* Curr, int size){
 
 	int command;
@@ -57,12 +57,12 @@ void TEST(EightGame* Curr, int size){
 		cout << "Enter Direction: ";
 		cin >> command; 
 
-		if(command != 8
+		if (command != 8
 			&& command != 4
 			&& command != 6
-			&&command != 2)
+			&& command != 2)
 		{
-			break;
+			cout << "Invalid move" << endl << endl;
 		}
 		else
 		{
