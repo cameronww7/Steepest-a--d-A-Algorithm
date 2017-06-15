@@ -14,7 +14,9 @@
 #include <iostream>
 #include <cstring>
 #include <stdio.h>
-#include "./eightGame.h"
+#include <fstream>
+#include <string>
+#include "./EightGame.h"
 
 using namespace std;
 
@@ -26,7 +28,12 @@ void TEST(EightGame* Curr, int size);
 //Heuristic function: Counting tiles out of place
 int CountingTilesOutOfPlace(char board[]);
 
+//Read from file
+void readFromFile(string fileName);
+
 int main() {
+	readFromFile("input.txt");
+
 	EightGame Item;
 	char test[] = {'1','2','3','6','x','4','8','7', '5', '\0'};
 
@@ -37,8 +44,8 @@ int main() {
 
 	char* tt = Item.GetBoard();
 	DisplayBoard(tt, BOARDSIZE);
-	cout << "Is win:: " << Item.CheckForWin() << endl;
-	cout << "Where is _:: " << Item.FindEmptySlot() << endl;
+	//cout << "Is win:: " << Item.CheckForWin() << endl;
+	//cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
 	cout << "------------------" << endl;
 	TEST(&Item,BOARDSIZE);
@@ -126,6 +133,18 @@ int CountingTilesOutOfPlace(char board[]) {
 	if (board[7] != '6') count++;
 	if (board[8] != '5') count++;
 	return count;
+}
+
+void readFromFile(string fileName) {
+	string line;
+	ifstream myfile(fileName);
+	if (myfile.is_open()) {
+		while (getline(myfile, line)) {
+			cout << line << endl;
+		}
+		myfile.close();
+	}
+	else cout << "Unable to open file";
 }
 
 
