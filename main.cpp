@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <string>
+#include <cstdlib>
 #include "./EightGame.h"
 
 using namespace std;
