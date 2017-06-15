@@ -23,9 +23,12 @@ using namespace std;
 void DisplayBoard(char* currentBoard, int size);
 void TEST(EightGame* Curr, int size);
 
+//Heuristic function: Counting tiles out of place
+int CountingTilesOutOfPlace(char board[]);
+
 int main() {
 	EightGame Item;
-	char test[9] = {'1','2','3','6','x','4','8','7', '5'};
+	char test[] = {'1','2','3','6','x','4','8','7', '5', '\0'};
 
 	Item.SetBoard(test, BOARDSIZE);
 
@@ -40,6 +43,8 @@ int main() {
 	cout << "------------------" << endl;
 	TEST(&Item,BOARDSIZE);
 
+	cout << endl;
+	system("PAUSE");
 	return 0;
 }
 
@@ -54,6 +59,9 @@ void TEST(EightGame* Curr, int size){
 	while(1){
 		DisplayBoard(tt, BOARDSIZE);
 
+		cout << "Counting tiles out of place: " 
+			<< CountingTilesOutOfPlace(Curr->GetBoard()) << endl << endl;
+
 		cout << "Enter Direction: ";
 		cin >> command; 
 
@@ -62,7 +70,7 @@ void TEST(EightGame* Curr, int size){
 			&& command != 6
 			&& command != 2)
 		{
-			cout << "Invalid move" << endl << endl;
+			cout << "Invalid Move" << endl << endl;
 		}
 		else
 		{
@@ -105,3 +113,19 @@ void DisplayBoard(char* currentBoard, int size){
 	}
 	cout << endl;
 }
+
+int CountingTilesOutOfPlace(char board[]) {
+	int count = 0;
+	if (board[0] != '1') count++;
+	if (board[1] != '2') count++;
+	if (board[2] != '3') count++;
+	if (board[3] != '8') count++;
+	if (board[4] != 'x') count++;
+	if (board[5] != '4') count++;
+	if (board[6] != '7') count++;
+	if (board[7] != '6') count++;
+	if (board[8] != '5') count++;
+	return count;
+}
+
+
