@@ -171,3 +171,21 @@ bool EightGame::IsMovable (int xDirection)
 	}
 	return ableMove;
 }
+
+//Needs input from text file
+char** createBoard(int rows, int columns, char data[])
+{
+	char** board = new char*[rows];
+	int dataIt = 0;
+
+	for (int i = 0; i < rows; i++)
+	{
+		board[i] = new char[columns];
+		for (int j = 0; j < columns; j++)
+		{
+			board[i][j] = data[dataIt];
+			dataIt++;
+		}
+	}
+	return board;
+}

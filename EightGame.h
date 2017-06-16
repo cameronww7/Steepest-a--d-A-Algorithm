@@ -13,6 +13,7 @@
 
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class EightGame {
@@ -27,6 +28,10 @@ public:
 	bool   IsMovable       (int xDirection);
 	int    FindEmptySlot   ();
 	int    FindCharInBoard (char xInput);
+	
+	//2D array version
+	char** createBoard(int rows, int columns, char data[]);
+	
 
 private:
 	static const int BOARD_SIZE = 10; //Size 10 to accommodate the null character
