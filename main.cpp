@@ -11,6 +11,7 @@
  * 				: the 8-puzzle problem.
  *****************************************************************/
 
+
 #include <iostream>
 #include <cstring>
 #include <stdio.h>
@@ -21,45 +22,47 @@
 
 using namespace std;
 
-// int BOARDSIZE = 9;
+const int BOARD_SIZE = 9;
 
-void DisplayBoard(char* currentBoard, int size);
-void TEST(EightGame* Curr, int size);
+void displayBoard (char * xCurrentBoard);
+
+//This is use to test/play the game
+void testGameAndPlay (EightGame * xCurr);
 
 //Heuristic function: Counting tiles out of place
-int CountingTilesOutOfPlace(char board[]);
+int countingTilesOutOfPlace (char xBoard[]);
 
-//Read from file
-void readFromFile(string fileName, EightGame&, EightGame&);
+void readFromFile (string      xFileName,
+				   EightGame & xInit,
+				   EightGame & xGoal);
 
 int main() {
 	EightGame init;
 	EightGame goal;
+	EightGame item;
+
 	readFromFile("input.txt", init, goal);
 
-	cout << "initial board from file: " << endl;
-	DisplayBoard(init.GetBoard(), 9);
-	cout << "Goal state from file: " << endl;
-	DisplayBoard(goal.GetBoard(), 9);
+	cout << "initial board from file: " << std::endl;
+	displayBoard(init.GetBoard());
+	cout << "Goal state from file: " << std::endl;
+	displayBoard(goal.GetBoard());
 
-
-	EightGame Item;
 	char test[] = {'1','2','3','6','x','4','8','7', '5', '\0'};
 
-	Item.SetBoard(test, BOARDSIZE);
+	item.SetBoard(test);
 
-	cout << "Board: " << Item.GetBoard() << "End"<< endl; 
-	// there are overflow in the returning array
+	cout << "Board: " << item.GetBoard() << " End " << std::endl;
 
-	char* tt = Item.GetBoard();
-	DisplayBoard(tt, BOARDSIZE);
+	char * board = item.GetBoard();
+	displayBoard(board);
 	//cout << "Is win:: " << Item.CheckForWin() << endl;
 	//cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
-	cout << "------------------" << endl;
-	TEST(&Item,BOARDSIZE);
+	cout << "------------------" << std::endl;
+	testGameAndPlay(&item);
 
-	cout << endl;
+	cout << std::endl;
 	system("PAUSE");
 	return 0;
 }
@@ -67,109 +70,100 @@ int main() {
 
 //====TEST====================================
 //This is use to test/play the game 
-void TEST(EightGame* Curr, int size){
+void testGameAndPlay (EightGame * xCurr) {
 
 	int command;
-	char* tt = Curr->GetBoard();
+	char * board = xCurr->GetBoard();
 
-	while(1){
-		DisplayBoard(tt, BOARDSIZE);
+	while (1) { // XX Why is this while(1)? while True?
+		displayBoard(board);
 
 		cout << "Counting tiles out of place: " 
-			<< CountingTilesOutOfPlace(Curr->GetBoard()) << endl << endl;
+			<< countingTilesOutOfPlace(xCurr->GetBoard()) << std::endl << std::endl;
 
 		cout << "Enter Direction: ";
 		cin >> command; 
 
-		if (command != 8
-			&& command != 4
-			&& command != 6
-			&& command != 2)
-		{
-			cout << "Invalid Move" << endl << endl;
-		}
-		else
-		{
-			if(Curr->MoveDirection(command))
-			{
-				cout << "good Move" << endl;
-			}
-			else
-			{
-				cout << "Invalid Move" << endl;
+		if (command != 8 &&
+			command != 4 &&
+			command != 6 &&
+			command != 2) {
+			cout << "Invalid Move" << std::endl << std::endl;
+		} else {
+			if (xCurr->MoveDirection(command)) {
+				cout << "good Move" << std::endl;
+			} else {
+				cout << "Invalid Move" << std::endl;
 			}
 
-			if(Curr->CheckForWin())
-			{
-				cout << "!!--WINNER--!!" << endl;
-				DisplayBoard(tt, BOARDSIZE);
+			if (xCurr->CheckForWin()) {
+				cout << "!!--WINNER--!!" << std::endl;
+				displayBoard(board);
 				break;
 			}
 		}
 	}
-
-	cout << "Exit Game" << endl;
+	cout << "Exit Game" << std::endl;
 }
-
 
 //==DisplayBoard=====================================
 //Display the current game board in 3 X 3 format
 // currentBoard [IN]  - array contain board face value
 // size [IN]		  - size of the array
 //==================================================
-void DisplayBoard(char* currentBoard, int size){
-	for(int i = 0; i < size; i++)
-	{
-		if((i % 3) == 0  && i != 0)
-		{
-			cout << endl;
+void displayBoard(char * xCurrentBoard) {
+	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
+		if ((currentPosition % 3) == 0  && currentPosition != 0) {
+			cout << std::endl;
 		}
-		cout << currentBoard[i] << " ";
-
+		cout << xCurrentBoard[currentPosition] << " ";
 	}
-	cout << endl;
+	cout << std::endl;
 }
 
 //==DisplayBoard=====================================
 //Count tile out of place
 // size [IN]		  - 
 //==================================================
-int CountingTilesOutOfPlace(char board[]) {
+int countingTilesOutOfPlace(char xBoard[]) {
 	int count = 0;
-	if (board[0] != '1') count++;
-	if (board[1] != '2') count++;
-	if (board[2] != '3') count++;
-	if (board[3] != '8') count++;
-	if (board[4] != 'x') count++;
-	if (board[5] != '4') count++;
-	if (board[6] != '7') count++;
-	if (board[7] != '6') count++;
-	if (board[8] != '5') count++;
+	if (xBoard[0] != '1') count++;
+	if (xBoard[1] != '2') count++;
+	if (xBoard[2] != '3') count++;
+	if (xBoard[3] != '8') count++;
+	if (xBoard[4] != 'x') count++;
+	if (xBoard[5] != '4') count++;
+	if (xBoard[6] != '7') count++;
+	if (xBoard[7] != '6') count++;
+	if (xBoard[8] != '5') count++;
 	return count;
 }
 
-void readFromFile(string fileName, EightGame &init, EightGame &goal) {
-	string line;
-	char board[9];
-	ifstream myfile(fileName);
+void readFromFile(string xFileName, EightGame & xInit, EightGame & xGoal) {
+	char     board[BOARD_SIZE];
+	string   line;
+	ifstream myfile(xFileName);
+
 	if (myfile.is_open()) {
-		for (int i = 0; i < 9; i++)
-		{
-			board[i] = myfile.get();
+
+		for (int index = 0; index < BOARD_SIZE; index++) {
+			board[index] = myfile.get();
 			myfile.get();
 		}
 
 		myfile.ignore(1,'\n');
-		init.SetBoard(board,9);
-		for (int i = 0; i < 9; i++)
-		{
-			board[i] = myfile.get();
+		xInit.SetBoard(board);
+
+		for (int index = 0; index < BOARD_SIZE; index++) {
+			board[index] = myfile.get();
 			myfile.get();
 		}
-		goal.SetBoard(board, 9);
+
+		xGoal.SetBoard(board);
 		myfile.close();
+	} else {
+		cout << "Unable to open file";
 	}
-	else cout << "Unable to open file";
 }
 
 

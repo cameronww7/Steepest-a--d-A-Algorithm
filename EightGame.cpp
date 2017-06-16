@@ -1,5 +1,17 @@
-#include <iostream>
-using namespace std;
+/******************************************************************
+ * Name	1		:	Cameron Walters
+ * Name 2		:	Payaam Emami
+ * Name 3		:	Itsarapong Sawangsri
+ * Name 4		:	Justin Aebiskiver
+ * Name 5		:	Kenny Nham
+ * Project Name	:	Assignment 1
+ * Due Date		:	6/20
+ * Objectives	: Implementing a steepest-ascent/-descent hill-
+ * 				: climbing algorithm and A* algorithm to solve
+ * 				: the 8-puzzle problem.
+ *****************************************************************/
+
+
 #include "EightGame.h"
 
 //===FindCharInBoard=====================
@@ -8,78 +20,68 @@ using namespace std;
 //	return
 //		index where the char is
 //======================================
-int EightGame::FindCharInBoard(char input)
+int EightGame::FindCharInBoard (char xInput)
 {
-	for(int i = 0; i < BOARDSIZE; i++)
-	{
-		if(m_GameBoard[i] == input)
-		{
-			return i;
+	int foundChar = -1;
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		if (mGameBoard[index] == xInput) {
+			foundChar = index;
 		}
 	} 
-
-	return -1;
+	return foundChar;
 }
 
 //===SetBoard=====================
-//Copy the direction into the private valiable
-// arr [IN]		- array of board face value
-// size [IN] 	- size of array
+//Copy the direction into the private available
+// xArr [IN]		- array of board face value
 // return
-//		true if successfully copoy
+//		true if successfully copy
 //====================================== 
-bool EightGame::SetBoard(char  arr[], int size)
+bool EightGame::SetBoard (char xArr[])
 {
-	for(int i = 0; i < size; i++)
-	{
-		m_GameBoard[i] = arr[i];
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		mGameBoard[index] = xArr[index];
 	}
 	return true;
 }
-
 
 //===CheckForWin=====================
 //Check if the current board is at a win state
 // return
 //		return true if the board is in win state
 //====================================== 
-bool EightGame::CheckForWin()
+bool EightGame::CheckForWin ()
 {
-	if(m_GameBoard[0] == '1'
-		&& m_GameBoard[1] == '2'
-		&& m_GameBoard[2] == '3' 
-		&& m_GameBoard[3] == '8' 
-		&& m_GameBoard[4] == 'x' 
-		&& m_GameBoard[5] == '4' 
-		&& m_GameBoard[6] == '7'  
-		&& m_GameBoard[7] == '6' 
-		&& m_GameBoard[8] == '5' 
-	)
-	{
-		return true;
+	bool checkForWin = false;
+	if (mGameBoard[0] == '1' &&
+	    mGameBoard[1] == '2' &&
+	    mGameBoard[2] == '3' &&
+	    mGameBoard[3] == '8' &&
+	    mGameBoard[4] == 'x' &&
+	    mGameBoard[5] == '4' &&
+	    mGameBoard[6] == '7' &&
+	    mGameBoard[7] == '6' &&
+	    mGameBoard[8] == '5') {
+		checkForWin = true;
+	} else {
+		checkForWin = false;
 	}
-	else
-	{
-		return false;
-	}
+	return checkForWin;
 }
 
 
 //===FindEmptySlot=====================
 //Search m_GameBoard for the empty slot
 //	return
-//		return an index wher empty slot reside
+//		return an index where empty slot reside
 //====================================== 
-int EightGame::FindEmptySlot()
+int EightGame::FindEmptySlot ()
 {
-	for(int i = 0; i < BOARDSIZE; i++)
-	{
-		if(m_GameBoard[i] == 'x')
-		{
-			return i;
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		if (mGameBoard[index] == 'x') {
+			return index;
 		}
 	}
-
 	return -1;
 }
 
@@ -91,27 +93,27 @@ int EightGame::FindEmptySlot()
 //	return
 //		None
 //====================================== 
-void EightGame::SwapSpace(int direction)
+void EightGame::SwapSpace (int xDirection)
 {
 	int empty = FindEmptySlot();
 	int newPosition;
 
-	switch (direction){
-		case LEFT: newPosition = empty - 1;
+	switch (xDirection) {
+		case LEFT:  newPosition = empty - 1;
 			break;
 		case RIGHT: newPosition = empty + 1;
 			break;
-		case UP: newPosition = empty - 3;
+		case UP:    newPosition = empty - 3;
 			break;
-		case DOWN: newPosition = empty + 3;
+		case DOWN:  newPosition = empty + 3;
 			break;
 		default:
 			return;
 	}
 
-	char temp = m_GameBoard[newPosition];
-	m_GameBoard[newPosition] = m_GameBoard[empty];
-	m_GameBoard[empty] = temp;
+	char temp = mGameBoard[newPosition];
+	mGameBoard[newPosition] = mGameBoard[empty];
+	mGameBoard[empty] = temp;
 
 }
 
@@ -121,50 +123,51 @@ void EightGame::SwapSpace(int direction)
 //	return
 //		True if successfully make a move
 //====================================== 
-bool EightGame::MoveDirection(int direction)
+bool EightGame::MoveDirection (int xDirection)
 {
-	if(IsMovable(direction))
-	{
-		SwapSpace(direction);
-		return true;
+	bool ableMove = false;
+	if (IsMovable(xDirection)) {
+		SwapSpace(xDirection);
+		ableMove =  true;
 	}
-	return false;
+	return ableMove;
 }
 
 //===IsMovable=====================
 //check if the move is valid
 // direction	[IN] 	- direction to move
 //	return
-//		return an index wher empty slot reside
+//		return an index where empty slot reside
 //====================================== 
-bool EightGame::IsMovable(int direction)
+bool EightGame::IsMovable (int xDirection)
 {
-	int empty = FindEmptySlot();
+	bool ableMove = false;
+	int  empty    = FindEmptySlot();
 	
-	if (direction != UP
-		&& direction != DOWN
-		&& direction != LEFT
-		&& direction != RIGHT)
-	{
-		//invalid input
-		return false;
+	//Check for invalid input
+	if (xDirection != UP   &&
+		xDirection != DOWN &&
+		xDirection != LEFT &&
+		xDirection != RIGHT) {
+		ableMove = false;
+	} else {
+		//cannot move up
+		if (empty < 3 && xDirection == UP) {
+			ableMove = false;
+		}
+		//cannot move down
+		if (empty > 5 && xDirection == DOWN) {
+			ableMove = false;
+		}
+		//cannot move left
+		if (empty % 3 == 0 && xDirection == LEFT) {
+			ableMove = false;
+		}
+		//cannot move right
+		if (empty % 3 == 2 && xDirection == RIGHT) {
+			ableMove = false;
+		}
+		ableMove = true;
 	}
-
-	if(empty < 3 && direction == UP){
-		//no up
-		return false;
-	}
-	if(empty > 5  && direction == DOWN){
-		// no down
-		return false;
-	}
-	if(empty % 3 == 0   && direction == LEFT){
-		// no left
-		return false;
-	}
-	if(empty % 3 == 2 && direction == RIGHT){
-		// no right
-		return false;
-	}
-	return true;
+	return ableMove;
 }
