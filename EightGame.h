@@ -11,6 +11,8 @@
  * 				: the 8-puzzle problem.
  *****************************************************************/
 
+#ifndef EIGHT_GAME_H
+#define EIGHT_GAME_H
 
 #include <iostream>
 #include <vector>
@@ -42,3 +44,5 @@ private:
 
 	char mGameBoard[BOARD_SIZE];
 };
+
+#endif

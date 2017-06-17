@@ -19,6 +19,7 @@
 #include <string>
 #include <cstdlib>
 #include "./EightGame.h"
+#include "State.h"
 
 using namespace std;
 
@@ -41,7 +42,9 @@ int main() {
 	EightGame goal;
 	EightGame item;
 
+
 	readFromFile("input.txt", init, goal);
+
 
 	cout << "initial board from file: " << std::endl;
 	displayBoard(init.GetBoard());
