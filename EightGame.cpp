@@ -189,3 +189,13 @@ char** createBoard(int rows, int columns, char data[])
 	}
 	return board;
 }
+
+void EightGame::displayBoard() {
+	for (int currentPosition = 0; currentPosition < 9; currentPosition++) {
+		if ((currentPosition % 3) == 0  && currentPosition != 0) {
+			cout << std::endl;
+		}
+		cout << mGameBoard[currentPosition] << " ";
+	}
+	cout << std::endl;
+}

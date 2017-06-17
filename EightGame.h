@@ -30,6 +30,7 @@ public:
 	bool   IsMovable       (int xDirection);
 	int    FindEmptySlot   ();
 	int    FindCharInBoard (char xInput);
+	void   displayBoard();
 	
 	//2D array version
 	char** createBoard(int rows, int columns, char data[]);

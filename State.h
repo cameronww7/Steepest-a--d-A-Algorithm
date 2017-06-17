@@ -10,10 +10,11 @@
 class State {
 public:
     State();
-    void SetBoard            (char *);
-    EightGame GetBoardState()     { return  mBoardState;};
-    void SetHeuristicValue   (int);
-    int  GetHeuristicValue() {return  mHeuristicValue;};
+    State(EightGame);
+    void SetBoard             (EightGame);
+    EightGame GetBoardState() { return  mBoardState;};
+    void SetHeuristicValue    (int);
+    int  GetHeuristicValue()  {return  mHeuristicValue;};
 private:
     EightGame mBoardState;
     int       mHeuristicValue;

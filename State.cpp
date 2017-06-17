@@ -8,9 +8,14 @@ State::State() {
     mHeuristicValue = 0;
 }
 
+State::State(EightGame xEGBoard) {
+    mHeuristicValue = 0;
+    mBoardState = xEGBoard;
+}
 
-void State::SetBoard(char * xBoard) {
-    mBoardState.SetBoard(xBoard);
+
+void State::SetBoard(EightGame xEGBoard) {
+    mBoardState = xEGBoard;
 
 }
 

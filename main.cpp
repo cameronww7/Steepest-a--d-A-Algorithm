@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include "./EightGame.h"
 #include "State.h"
+#include "StateGenerator.h"
 
 using namespace std;
 
@@ -41,9 +42,18 @@ int main() {
 	EightGame init;
 	EightGame goal;
 	EightGame item;
+	State current;
+	StateGenerator generator;
 
 
 	readFromFile("input.txt", init, goal);
+
+	cout << "Current board state:" << endl;
+	current.SetBoard(init);
+	generator.setCurrentState(current.GetBoardState());
+	cout << "Generating state list: " << endl;
+	list<State> stateList = generator.GenerateStateList();
+	generator.PrintList(stateList);
 
 
 	cout << "initial board from file: " << std::endl;
