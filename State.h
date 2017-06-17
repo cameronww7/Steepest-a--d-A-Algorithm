@@ -15,10 +15,13 @@ class State {
 public:
     State();
     State(EightGame);
-    void SetBoard             (EightGame);
-    EightGame GetBoardState() { return  mBoardState;};
-    void SetHeuristicValue    (int);
-    int  GetHeuristicValue()  {return  mHeuristicValue;};
+    void SetBoard             	(EightGame);
+    EightGame GetBoardState		(){ return  mBoardState;};
+    void SetHeuristicValue    	(int);
+    int  GetHeuristicValue		(){return  mHeuristicValue;};
+
+    int CalulateHeuristicOne	();
+    int CalulateHeuristicTwo	();
 private:
     EightGame mBoardState;
     int       mHeuristicValue;

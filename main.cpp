@@ -64,10 +64,15 @@ int main() {
 	item.SetBoard(init.GetBoard());
 	item.SetWinBoard(init.GetWinBoard());
 
-	cout << "Board: " << item.GetBoard() << " End " << std::endl;
+	cout << "Board: " << init.GetBoard() << " End " << std::endl;
 
 	char * board = item.GetBoard();
 	displayBoard(board);
+	current.SetBoard(init);
+	//Set current
+
+
+	cout <<"H(n) 1 : "<< current.CalulateHeuristicOne() << endl;
 	//cout << "Is win:: " << Item.CheckForWin() << endl;
 	//cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
