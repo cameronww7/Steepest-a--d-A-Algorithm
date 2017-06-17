@@ -31,13 +31,11 @@ public:
 	char * GetWinBoard     (){return mWinBoard;};
 	bool   SetWinBoard     (char xArr[]);
 
-
-	void   displayBoard	    ();
-
+	void   DisplayBoard	    ();
 	
 	//2D array version
-	void createBoard(int rows, int columns, char data[]);
-	void printGameBoard(int rows, int columns);
+	void CreateBoard(int rows, int columns, char data[]);
+	void PrintGameBoard(int rows, int columns);
 
 private:
 	static const int BOARD_SIZE = 10; //Size 10 to accommodate the null character
@@ -50,5 +48,5 @@ private:
 	char mWinBoard[BOARD_SIZE];
 
 	//2D Game board
-	char** gameboard;
+	char** m2DGameboard;
 };

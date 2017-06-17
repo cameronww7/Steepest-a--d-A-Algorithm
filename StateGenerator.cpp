@@ -1,6 +1,16 @@
-//
-// Created by justin on 6/17/17.
-//
+/******************************************************************
+ * Name	1		:	Cameron Walters
+ * Name 2		:	Payaam Emami
+ * Name 3		:	Itsarapong Sawangsri
+ * Name 4		:	Justin Aebiskiver
+ * Name 5		:	Kenny Nham
+ * Project Name	:	Assignment 1
+ * Due Date		:	6/20
+ * Objectives	: Implementing a steepest-ascent/-descent hill-
+ * 				: climbing algorithm and A* algorithm to solve
+ * 				: the 8-puzzle problem.
+ *****************************************************************/
+
 
 #include "StateGenerator.h"
 enum DIRECTION {UP = 8, LEFT = 4, RIGHT = 6, DOWN = 2};
@@ -15,34 +25,35 @@ void StateGenerator::setCurrentState(EightGame xCurrent) {
  */
 list <State> StateGenerator::GenerateStateList() {
     list<State> pStateList;
-    State xNewState;
-    EightGame xCurrentBoard = mCurrentState.GetBoardState();
+    State 		xNewState;
+    EightGame 	xCurrentBoard = mCurrentState.GetBoardState();
+
     list<State>::iterator itr = pStateList.begin();
 
     if (xCurrentBoard.IsMovable(UP)) {
-        cout << "Log: UP was called" << endl;
+        cout << "Log: UP was called" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
         xNewState.GetBoardState().SwapSpace(UP);
-        cout << "Log current board: " << endl;
-        xCurrentBoard.displayBoard();
+        cout << "Log current board: " << std::endl;
+        xCurrentBoard.DisplayBoard();
         cout << "Log board after move: " << endl;
-        xNewState.GetBoardState().displayBoard();
+        xNewState.GetBoardState().DisplayBoard();
         pStateList.insert(itr,xNewState);
     }
     if (xCurrentBoard.IsMovable(DOWN)) {
-        cout << "Log: DOWN was called" << endl;
+        cout << "Log: DOWN was called" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
         xNewState.GetBoardState().SwapSpace(DOWN);
         pStateList.insert(itr,xNewState);
     }
     if (xCurrentBoard.IsMovable(LEFT)) {
-        cout << "Log: LEFT was called" << endl;
+        cout << "Log: LEFT was called" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
         xNewState.GetBoardState().SwapSpace(LEFT);
         pStateList.insert(itr,xNewState);
     }
     if (xCurrentBoard.IsMovable(RIGHT)) {
-        cout << "Log: RIGHT was called" << endl;
+        cout << "Log: RIGHT was called" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
         xNewState.GetBoardState().SwapSpace(RIGHT);
         pStateList.insert(itr,xNewState);
@@ -53,9 +64,9 @@ list <State> StateGenerator::GenerateStateList() {
 
 //This is just for debugging
 void StateGenerator::PrintList(list <State> xStateList) {
-    int i = 0;
+    int index = 0;
     for (list<State>::iterator itr = xStateList.begin(); itr != xStateList.end(); itr++) {
-        cout << "State: " << i++ << endl;
-        itr->GetBoardState().displayBoard();
+        cout << "State: " << index++ << std::endl;
+        itr->GetBoardState().DisplayBoard();
     }
 }

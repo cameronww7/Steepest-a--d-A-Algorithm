@@ -18,8 +18,7 @@
 // Initialize both array with null so it will
 // not have any overflow
 //==========================================
-EightGame::EightGame()
-{
+EightGame::EightGame() {
 	//initial cuurent board
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		mGameBoard[index] = '\0';
@@ -35,7 +34,7 @@ EightGame::EightGame()
 // currentBoard [IN]  - array contain board face value
 // size [IN]		  - size of the array
 //==================================================
-void EightGame::displayBoard() {
+void EightGame::DisplayBoard() {
 	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
 		if ((currentPosition % 3) == 0  && currentPosition != 0) {
 			cout << std::endl;
@@ -51,8 +50,7 @@ void EightGame::displayBoard() {
 //	return
 //		index where the char is
 //======================================
-int EightGame::FindCharInBoard (char xInput)
-{
+int EightGame::FindCharInBoard (char xInput) {
 	int foundChar = -1;
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		if (mGameBoard[index] == xInput) {
@@ -68,8 +66,7 @@ int EightGame::FindCharInBoard (char xInput)
 // return
 //		true if successfully copy
 //====================================== 
-bool EightGame::SetBoard (char xArr[])
-{
+bool EightGame::SetBoard (char xArr[]) {
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		mGameBoard[index] = xArr[index];
 	}
@@ -84,8 +81,7 @@ bool EightGame::SetBoard (char xArr[])
 // return
 //		true if successfully copy
 //====================================== 
-bool EightGame::SetWinBoard (char xArr[])
-{
+bool EightGame::SetWinBoard (char xArr[]) {
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		mWinBoard[index] = xArr[index];
 	}
@@ -98,8 +94,7 @@ bool EightGame::SetWinBoard (char xArr[])
 // return
 //		return true if the board is in win state
 //====================================== 
-bool EightGame::CheckForWin ()
-{
+bool EightGame::CheckForWin () {
 	bool checkForWin = false;
 	if (mGameBoard[0] == mWinBoard[0] &&
 	    mGameBoard[1] == mWinBoard[1] &&
@@ -123,8 +118,7 @@ bool EightGame::CheckForWin ()
 //	return
 //		return an index where empty slot reside
 //====================================== 
-int EightGame::FindEmptySlot ()
-{
+int EightGame::FindEmptySlot () {
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		if (mGameBoard[index] == 'x') {
 			return index;
@@ -141,8 +135,7 @@ int EightGame::FindEmptySlot ()
 //	return
 //		None
 //====================================== 
-void EightGame::SwapSpace (int xDirection)
-{
+void EightGame::SwapSpace (int xDirection) {
 	int empty = FindEmptySlot();
 	int newPosition;
 
@@ -171,8 +164,7 @@ void EightGame::SwapSpace (int xDirection)
 //	return
 //		True if successfully make a move
 //====================================== 
-bool EightGame::MoveDirection (int xDirection)
-{
+bool EightGame::MoveDirection (int xDirection) {
 	bool ableMove = false;
 	if (IsMovable(xDirection)) {
 		SwapSpace(xDirection);
@@ -187,8 +179,7 @@ bool EightGame::MoveDirection (int xDirection)
 //	return
 //		return an index where empty slot reside
 //====================================== 
-bool EightGame::IsMovable (int xDirection)
-{
+bool EightGame::IsMovable (int xDirection) {
 	bool ableMove = false;
 	int  empty    = FindEmptySlot();
 	
@@ -221,32 +212,26 @@ bool EightGame::IsMovable (int xDirection)
 }
 
 //Needs input from text file
-void EightGame::createBoard(int rows, int columns, char data[])
-{
-	char** board = new char*[rows];
+void EightGame::CreateBoard(int xRows, int xColumns, char xData[]) {
+	char** board = new char*[xRows];
 	int dataIt = 0;
 
-	for (int i = 0; i < rows; i++)
-	{
-		board[i] = new char[columns];
-		for (int j = 0; j < columns; j++)
-		{
-			board[i][j] = data[dataIt];
+	for (int rows = 0; rows < xRows; rows++) {
+		board[rows] = new char[xColumns];
+		for (int columns = 0; columns < xColumns; columns++) {
+			board[rows][columns] = xData[dataIt];
 			dataIt++;
 		}
 	}
-	gameboard = board;
+	m2DGameboard = board;
 }
 
 
-void EightGame::printGameBoard(int rows, int columns)
-{
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < columns; j++)
-		{
-			cout << gameboard[i][j] << " ";
+void EightGame::PrintGameBoard(int xRows, int xColumns) {
+	for (int rows = 0; rows < xRows; rows++) {
+		for (int columns = 0; columns < xColumns; columns++) {
+			cout << m2DGameboard[rows][columns] << " ";
 		}
-		cout << endl;
+		cout << std::endl;
 	}
 }
