@@ -223,6 +223,7 @@ void EightGame::createBoard(int rows, int columns, char data[])
 	gameboard = board;
 }
 
+
 void EightGame::printGameBoard(int rows, int columns)
 {
 	for (int i = 0; i < rows; i++)
