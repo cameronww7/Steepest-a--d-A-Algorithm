@@ -21,6 +21,8 @@ bool GameAi::SetGameBoard(EightGame xSetItem)
 	return true;
 }
 
+
+
 //==CountingTilesOutOfPlace=====================================
 //Count tile out of place
 // return - number of tile out of place

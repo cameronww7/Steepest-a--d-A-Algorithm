@@ -7,14 +7,14 @@ main.o: main.cpp EightGame.h GameAi.h State.h StateGenerator.h
 GameAi.o: GameAi.h GameAi.cpp EightGame.h
 	g++ -std=c++11 -Wall -c GameAi.cpp
 
-EightGame.o: EightGame.h EightGame.cpp
-	g++ -std=c++11 -Wall -c EightGame.cpp
+StateGenerator.o: StateGenerator.h StateGenerator.cpp
+	g++ -std=c++11 -Wall -c StateGenerator.cpp
 
 State.o: State.h State.cpp
 	g++ -std=c++11 -Wall -c State.cpp
 
-StateGenerator.o: StateGenerator.h StateGenerator.cpp
-	g++ -std=c++11 -Wall -c StateGenerator.cpp
+EightGame.o: EightGame.h EightGame.cpp
+	g++ -std=c++11 -Wall -c EightGame.cpp
 
 clean:
 	rm *.o

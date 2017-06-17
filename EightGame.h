@@ -27,13 +27,13 @@ public:
 	bool   IsMovable       (int xDirection);
 	int    FindEmptySlot   ();
 	int    FindCharInBoard (char xInput);
-<<<<<<< HEAD
+
 	char * GetWinBoard     (){return mWinBoard;};
 	bool   SetWinBoard     (char xArr[]);
 
-=======
-	void   displayBoard();
->>>>>>> ed7aa3b51a287891c12d01cde476c6ac8efcd70a
+
+	void   displayBoard	    ();
+
 	
 	//2D array version
 	void createBoard(int rows, int columns, char data[]);

@@ -30,6 +30,21 @@ EightGame::EightGame()
 	}
 }
 
+//==DisplayBoard=====================================
+//Display the current game board in 3 X 3 format
+// currentBoard [IN]  - array contain board face value
+// size [IN]		  - size of the array
+//==================================================
+void EightGame::displayBoard() {
+	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
+		if ((currentPosition % 3) == 0  && currentPosition != 0) {
+			cout << std::endl;
+		}
+		cout << mGameBoard[currentPosition] << " ";
+	}
+	cout << std::endl;
+}
+
 //===FindCharInBoard=====================
 //Search Value from Board
 // input [IN] - char to find in the board
