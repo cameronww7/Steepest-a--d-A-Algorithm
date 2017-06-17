@@ -11,11 +11,8 @@
  * 				: the 8-puzzle problem.
  *****************************************************************/
 
-#ifndef EIGHT_GAME_H
-#define EIGHT_GAME_H
 
 #include <iostream>
-#include <vector>
 using namespace std;
 
 class EightGame {
@@ -32,8 +29,8 @@ public:
 	int    FindCharInBoard (char xInput);
 	
 	//2D array version
-	char** createBoard(int rows, int columns, char data[]);
-	
+	void createBoard(int rows, int columns, char data[]);
+	void printGameBoard(int rows, int columns);
 
 private:
 	static const int BOARD_SIZE = 10; //Size 10 to accommodate the null character
@@ -43,6 +40,7 @@ private:
 	static const int DOWN       = 2;
 
 	char mGameBoard[BOARD_SIZE];
-};
 
-#endif
+	//2D Game board
+	char** gameboard;
+};
