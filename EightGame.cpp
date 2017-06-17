@@ -14,6 +14,22 @@
 
 #include "EightGame.h"
 
+//===Ctor====================================
+// Initialize both array with null so it will
+// not have any overflow
+//==========================================
+EightGame::EightGame()
+{
+	//initial cuurent board
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		mGameBoard[index] = '\0';
+	}
+	//initial win state
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		mWinBoard[index] = '\0';
+	}
+}
+
 //===FindCharInBoard=====================
 //Search Value from Board
 // input [IN] - char to find in the board
@@ -32,7 +48,7 @@ int EightGame::FindCharInBoard (char xInput)
 }
 
 //===SetBoard=====================
-//Copy the direction into the private available
+//Set the initial board
 // xArr [IN]		- array of board face value
 // return
 //		true if successfully copy
@@ -42,6 +58,23 @@ bool EightGame::SetBoard (char xArr[])
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		mGameBoard[index] = xArr[index];
 	}
+	mGameBoard[BOARD_SIZE - 1] = '\0';
+	return true;
+}
+
+
+//===SetWinBoard=====================
+//Set the winning board
+// xArr [IN]		- array of board face value
+// return
+//		true if successfully copy
+//====================================== 
+bool EightGame::SetWinBoard (char xArr[])
+{
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		mWinBoard[index] = xArr[index];
+	}
+	mWinBoard[BOARD_SIZE - 1] = '\0';
 	return true;
 }
 
@@ -53,15 +86,15 @@ bool EightGame::SetBoard (char xArr[])
 bool EightGame::CheckForWin ()
 {
 	bool checkForWin = false;
-	if (mGameBoard[0] == '1' &&
-	    mGameBoard[1] == '2' &&
-	    mGameBoard[2] == '3' &&
-	    mGameBoard[3] == '8' &&
-	    mGameBoard[4] == 'x' &&
-	    mGameBoard[5] == '4' &&
-	    mGameBoard[6] == '7' &&
-	    mGameBoard[7] == '6' &&
-	    mGameBoard[8] == '5') {
+	if (mGameBoard[0] == mWinBoard[0] &&
+	    mGameBoard[1] == mWinBoard[1] &&
+	    mGameBoard[2] == mWinBoard[2] &&
+	    mGameBoard[3] == mWinBoard[3] &&
+	    mGameBoard[4] == mWinBoard[4] &&
+	    mGameBoard[5] == mWinBoard[5] &&
+	    mGameBoard[6] == mWinBoard[6] &&
+	    mGameBoard[7] == mWinBoard[7] &&
+	    mGameBoard[8] == mWinBoard[8]) {
 		checkForWin = true;
 	} else {
 		checkForWin = false;

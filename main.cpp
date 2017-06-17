@@ -34,26 +34,25 @@ void testGameAndPlay (EightGame * xCurr);
 int countingTilesOutOfPlace (char xBoard[]);
 
 void readFromFile (string      xFileName,
-				   EightGame & xInit,
-				   EightGame & xGoal);
+				   EightGame & xInit);
 
 int main() {
 	EightGame init;
-	EightGame goal;
 	EightGame item;
 
 
-	readFromFile("input.txt", init, goal);
+	readFromFile("input.txt", init);
 
 
 	cout << "initial board from file: " << std::endl;
 	displayBoard(init.GetBoard());
 	cout << "Goal state from file: " << std::endl;
-	displayBoard(goal.GetBoard());
+	displayBoard(init.GetWinBoard());
 
-	char test[] = {'1','2','3','6','x','4','8','7', '5', '\0'};
+	//char test[] = {'1','2','3','6','x','4','8','7', '5', '\0'};
 
-	item.SetBoard(test);
+	item.SetBoard(init.GetBoard());
+	item.SetWinBoard(init.GetWinBoard());
 
 	cout << "Board: " << item.GetBoard() << " End " << std::endl;
 
@@ -63,7 +62,7 @@ int main() {
 	//cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
 	cout << "------------------" << std::endl;
-	testGameAndPlay(&item);
+	//testGameAndPlay(&item);
 
 	cout << std::endl;
 	system("PAUSE");
@@ -142,7 +141,7 @@ int countingTilesOutOfPlace(char xBoard[]) {
 	return count;
 }
 
-void readFromFile(string xFileName, EightGame & xInit, EightGame & xGoal) {
+void readFromFile(string xFileName, EightGame & xInit) {
 	char     board[BOARD_SIZE];
 	string   line;
 	ifstream myfile(xFileName);
@@ -162,7 +161,7 @@ void readFromFile(string xFileName, EightGame & xInit, EightGame & xGoal) {
 			myfile.get();
 		}
 
-		xGoal.SetBoard(board);
+		xInit.SetWinBoard(board);
 		myfile.close();
 	} else {
 		cout << "Unable to open file";

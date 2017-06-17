@@ -17,9 +17,9 @@ using namespace std;
 
 class EightGame {
 public:
-	EightGame(void) {mGameBoard[0]=0;};
+	EightGame			   ();
 
-	char * GetBoard()      {return mGameBoard;};
+	char * GetBoard        (){return mGameBoard;};     
 	void   SwapSpace       (int xDirection);
 	bool   SetBoard        (char xArr[]);
 	bool   CheckForWin     ();
@@ -27,6 +27,9 @@ public:
 	bool   IsMovable       (int xDirection);
 	int    FindEmptySlot   ();
 	int    FindCharInBoard (char xInput);
+	char * GetWinBoard     (){return mWinBoard;};
+	bool   SetWinBoard     (char xArr[]);
+
 	
 	//2D array version
 	void createBoard(int rows, int columns, char data[]);
@@ -40,6 +43,7 @@ private:
 	static const int DOWN       = 2;
 
 	char mGameBoard[BOARD_SIZE];
+	char mWinBoard[BOARD_SIZE];
 
 	//2D Game board
 	char** gameboard;
