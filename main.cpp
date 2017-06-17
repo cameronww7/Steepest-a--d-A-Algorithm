@@ -18,8 +18,8 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-#include "./EightGame.h"
 #include "State.h"
+//#include "EightGame.h"
 
 using namespace std;
 
