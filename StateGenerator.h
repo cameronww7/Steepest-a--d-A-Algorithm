@@ -8,6 +8,10 @@
 #include <list>
 #include "State.h"
 
+/*
+ * This class will be used to create a list of possible moves given the current state of the board
+ * Doesn't work correctly currently.
+ */
 class StateGenerator {
 public:
     list <State> GenerateStateList();

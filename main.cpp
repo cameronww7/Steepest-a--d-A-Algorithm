@@ -47,12 +47,13 @@ int main() {
 
 	readFromFile("input.txt", init, goal);
 
-	cout << "Current board state:" << endl;
-	current.SetBoard(init);
-	generator.setCurrentState(current.GetBoardState());
-	cout << "Generating state list: " << endl;
-	list<State> stateList = generator.GenerateStateList();
-	generator.PrintList(stateList);
+	//Just testing stuff out here
+//	cout << "Current board state:" << endl;
+//	current.SetBoard(init);
+//	generator.setCurrentState(current.GetBoardState());
+//	cout << "Generating state list: " << endl;
+//	list<State> stateList = generator.GenerateStateList();
+//	generator.PrintList(stateList);
 
 
 	cout << "initial board from file: " << std::endl;

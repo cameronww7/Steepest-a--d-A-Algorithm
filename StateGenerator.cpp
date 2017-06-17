@@ -9,6 +9,10 @@ void StateGenerator::setCurrentState(EightGame xCurrent) {
     mCurrentState.SetBoard(xCurrent);
 }
 
+/*
+ * Generates the state list of possible states. Doesn't work yet.
+ * Uses the member variable mCurrentState to generate the possible states from
+ */
 list <State> StateGenerator::GenerateStateList() {
     list<State> pStateList;
     State xNewState;
