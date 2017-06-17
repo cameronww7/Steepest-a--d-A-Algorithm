@@ -72,7 +72,7 @@ int main() {
 	//Set current
 
 
-	cout <<"H(n) 1 : "<< current.CalulateHeuristicOne() << endl;
+	cout <<"H(n) 1 : "<< current.CalulateHeuristicOne() << std::endl;
 	//cout << "Is win:: " << Item.CheckForWin() << endl;
 	//cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
