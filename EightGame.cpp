@@ -173,7 +173,7 @@ bool EightGame::IsMovable (int xDirection)
 }
 
 //Needs input from text file
-char** createBoard(int rows, int columns, char data[])
+void EightGame::createBoard(int rows, int columns, char data[])
 {
 	char** board = new char*[rows];
 	int dataIt = 0;
@@ -187,15 +187,18 @@ char** createBoard(int rows, int columns, char data[])
 			dataIt++;
 		}
 	}
-	return board;
+	gameboard = board;
 }
 
-void EightGame::displayBoard() {
-	for (int currentPosition = 0; currentPosition < 9; currentPosition++) {
-		if ((currentPosition % 3) == 0  && currentPosition != 0) {
-			cout << std::endl;
+
+void EightGame::printGameBoard(int rows, int columns)
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			cout << gameboard[i][j] << " ";
 		}
-		cout << mGameBoard[currentPosition] << " ";
+		cout << endl;
 	}
-	cout << std::endl;
 }
