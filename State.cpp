@@ -65,53 +65,29 @@ int State::CalulateHeuristicOne(){
 //==================================================
 int State::CalulateHeuristicTwo(){
 	int count = 0;
-	int temp;
 
-	for(index = 0; index < Board_Size; index++)
+	int BoardMain;
+	int WinMain;
+
+	int DivBoard;
+	int ModBoard;
+
+	int DivWin;
+	int ModWin;
+
+	for(int index = 0; index < 9; index++)
 	{
-		//index store correct tile number
-		//temp store the current tile the number is in
-		temp = mBoardState.FindCharInBoard(mBoardState.GetWinBoard()[index]);
+		WinMain = index;
+		BoardMain = mBoardState.FindCharInBoard(mBoardState.GetWinBoard()[index]);
 
-		if(temp != index){
-			if((temp - index) == 1){
-				if(mBoardState.IsMovable(RIGHT)) count++;
-				else count = count + 3;
-			}
-			else if (temp - index ==  -1){
-				if(mBoardState.IsMovable(LEFT)) count++;
-				else count = count + 3;
-			}
-			else if(abs(temp - index) == 2){
-				count = count + 2;
-			}
-			else if(abs(temp - index) == 3){
-				count++;
-			}
-			else if(abs(temp - index) == 4){
-				count = count + 2;
-			}
-			else if(abs(temp - index) == 5){
-				count = count + 3;
-			}
-			else if(abs(temp - index) == 8){
-				count = count + 4;
-			}
-			else if(abs(temp - index) == 4){
-				count = count + 2;
-			}
+		DivBoard = BoardMain / 3;
+		ModBoard = BoardMain % 3;
 
+		DivWin = WinMain / 3;
+		ModWin = WinMain % 3;
 
-
-		}
-
-
-
-
+		count = count + (abs(DivBoard-DivWin) + abs(ModBoard-ModWin));
 	}
-
-
-
 	return count;
 }
 
