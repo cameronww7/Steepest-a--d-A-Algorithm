@@ -34,6 +34,8 @@ public:
 	list <State> GenerateStateList();
 	// Sets the current state
     void         setCurrentState(EightGame xCurrent);
+	//Return current board
+	EightGame	 getCurrentBoard() { return mCurrentBoard;};
 	// Print functions for lists
     void         PrintList(list<State> xStateList);
     void 		 PrintLocalList();

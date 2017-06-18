@@ -116,67 +116,49 @@ void GameAi::playGameSteepHillClimb()
 list <State> GameAi::GenerateStateList() {
     list<State> pStateList;
     State 		xNewState;
-    EightGame 	xCurrentBoard = mCurrentState.GetBoardState();
-
-    list<State>::iterator itr = pStateList.begin();
+    EightGame 	xCurrentBoard = this->getCurrentBoard();
+    cout << "Did this call correctly?" << endl;
+    xCurrentBoard.DisplayBoard();
 
     list<State>::iterator itr2 = mOrderOfInsertion.begin();
 
     if (xCurrentBoard.IsMovable(UP)) {
         cout << "Log: UP was called------------" << std::endl;
-        xNewState.SetBoard(xCurrentBoard);
-
-
-        //test =================
-        cout << "Log: SET was called" << std::endl;
-        xNewState.GetBoardState().DisplayBoard();
-
-        xNewState.GetBoardState().MoveDirection(UP);
-        //test =====================
-        cout << "Log: SET2 was called" << std::endl;
-        xNewState.GetBoardState().DisplayBoard();
-
-
-        //xNewState.GetBoardState().SwapSpace(UP);
-        cout << "Log current board: " << std::endl;
-        xCurrentBoard.DisplayBoard();
-        cout << "Log board after move: " << endl;
-        xNewState.GetBoardState().DisplayBoard();
-        pStateList.insert(itr,xNewState);
+        EightGame xNewBoard = xCurrentBoard;
+        xNewBoard.MoveDirection(UP);
+        xNewBoard.DisplayBoard();
+        cout << " ------------------------------" << std::endl;
+        pStateList.emplace_back(State(xNewBoard));
 
         mOrderOfInsertion.insert(itr2,xNewState);
     }
     if (xCurrentBoard.IsMovable(DOWN)) {
-        cout << "Log: DOWN was called-------------" << std::endl;
-        xNewState.SetBoard(xCurrentBoard);
+        EightGame xNewBoard = xCurrentBoard;
+        xNewBoard.MoveDirection(DOWN);
+        xNewBoard.DisplayBoard();
+        cout << " ------------------------------" << std::endl;
+        pStateList.emplace_back(State(xNewBoard));
 
-        xNewState.GetBoardState().MoveDirection(DOWN);
-        //xNewState.GetBoardState().SwapSpace(DOWN);
-        pStateList.insert(itr,xNewState);
-
-        xNewState.GetBoardState().DisplayBoard();
         mOrderOfInsertion.insert(itr2,xNewState);
     }
     if (xCurrentBoard.IsMovable(LEFT)) {
         cout << "Log: LEFT was called ------------" << std::endl;
-        xNewState.SetBoard(xCurrentBoard);
+        EightGame xNewBoard = xCurrentBoard;
+        xNewBoard.MoveDirection(LEFT);
+        xNewBoard.DisplayBoard();
+        cout << " ------------------------------" << std::endl;
+        pStateList.emplace_back(State(xNewBoard));
 
-        xNewState.GetBoardState().MoveDirection(LEFT);
-        //xNewState.GetBoardState().SwapSpace(LEFT);
-        pStateList.insert(itr,xNewState);
-
-        xNewState.GetBoardState().DisplayBoard();
         mOrderOfInsertion.insert(itr2,xNewState);
     }
     if (xCurrentBoard.IsMovable(RIGHT)) {
         cout << "Log: RIGHT was called-------------" << std::endl;
-        xNewState.SetBoard(xCurrentBoard);
+        EightGame xNewBoard = xCurrentBoard;
+        xNewBoard.MoveDirection(RIGHT);
+        xNewBoard.DisplayBoard();
+        cout << " ------------------------------" << std::endl;
+        pStateList.emplace_back(State(xNewBoard));
 
-        xNewState.GetBoardState().MoveDirection(RIGHT);
-        //xNewState.GetBoardState().SwapSpace(RIGHT);
-        pStateList.insert(itr,xNewState);
-
-        xNewState.GetBoardState().DisplayBoard();
         mOrderOfInsertion.insert(itr2,xNewState);
     }
 
@@ -185,6 +167,7 @@ list <State> GameAi::GenerateStateList() {
 
 void GameAi::setCurrentState(EightGame xCurrent) {
     mCurrentState.SetBoard(xCurrent);
+    mCurrentBoard = xCurrent;
 }
 
 //This is just for debugging

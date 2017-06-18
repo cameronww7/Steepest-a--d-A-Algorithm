@@ -50,8 +50,8 @@ int main() {
 	generator.setCurrentState(current.GetBoardState());
 	cout << "Generating state list: " << endl;
 	list<State> stateList = generator.GenerateStateList();
-	//generator.PrintList(stateList);
-	generator.PrintLocalList();
+	generator.PrintList(stateList);
+	//generator.PrintLocalList();
 
 
 	cout << "------------------" << std::endl;
