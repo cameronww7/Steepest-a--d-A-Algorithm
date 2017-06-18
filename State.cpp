@@ -85,6 +85,32 @@ int State::CalulateHeuristicTwo() {
 	return count;
 }
 
+
+
+//===CalulateHeuristicThree==========================
+// Calculate Heuristic value base on the tile out of
+//	position in the board
+//	Compare current to the winning state
+// Return: 	Heuristic Value:
+//	** this does not store the calculate value
+//==================================================
+int State::CalulateHeuristicThree() {
+	int count = 0;
+
+	for (int index = 0; index < 9; index++) {
+		int boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
+
+		if(boardMain / 3 != index / 3){
+			count++;
+		}
+
+		if(boardMain % 3 != index % 3){
+			count++;
+		}
+	}
+	return count;
+}
+
 void State::DisplayState(){
 	mCurrentBoard.DisplayBoard();
 }

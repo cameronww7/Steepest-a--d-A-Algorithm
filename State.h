@@ -41,7 +41,7 @@ public:
     // How Far the Tile
     int  CalulateHeuristicTwo	();
     // Out of Colume and Row
-    //int  CalulateHeuristicThree ();
+    int  CalulateHeuristicThree ();
 
 private:
     EightGame mCurrentBoard;
