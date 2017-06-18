@@ -130,7 +130,7 @@ list <State> GameAi::GenerateStateList() {
         cout << " ------------------------------" << std::endl;
         pStateList.emplace_back(State(xNewBoard));
 
-        mOrderOfInsertion.insert(itr2,xNewState);
+        mOrderOfInsertion.emplace_back(State(xNewBoard));
     }
     if (xCurrentBoard.IsMovable(DOWN)) {
         EightGame xNewBoard = xCurrentBoard;
@@ -139,7 +139,7 @@ list <State> GameAi::GenerateStateList() {
         cout << " ------------------------------" << std::endl;
         pStateList.emplace_back(State(xNewBoard));
 
-        mOrderOfInsertion.insert(itr2,xNewState);
+        mOrderOfInsertion.emplace_back(State(xNewBoard));
     }
     if (xCurrentBoard.IsMovable(LEFT)) {
         cout << "Log: LEFT was called ------------" << std::endl;
@@ -149,7 +149,7 @@ list <State> GameAi::GenerateStateList() {
         cout << " ------------------------------" << std::endl;
         pStateList.emplace_back(State(xNewBoard));
 
-        mOrderOfInsertion.insert(itr2,xNewState);
+        mOrderOfInsertion.emplace_back(State(xNewBoard));
     }
     if (xCurrentBoard.IsMovable(RIGHT)) {
         cout << "Log: RIGHT was called-------------" << std::endl;
@@ -159,7 +159,7 @@ list <State> GameAi::GenerateStateList() {
         cout << " ------------------------------" << std::endl;
         pStateList.emplace_back(State(xNewBoard));
 
-        mOrderOfInsertion.insert(itr2,xNewState);
+        mOrderOfInsertion.emplace_back(State(xNewBoard));
     }
 
     return pStateList;
