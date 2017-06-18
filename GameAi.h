@@ -28,7 +28,7 @@ public:
     int  CalulateHeuristicOne	();
     // How Far the Tile
     int  CalulateHeuristicTwo	();
-    // How Far the Tile
+    // tile out of col and row seperately
     int  CalulateHeuristicThree	();
 	//Start here
 	void playGameSteepHillClimb();

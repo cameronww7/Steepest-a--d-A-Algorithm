@@ -83,9 +83,9 @@ int GameAi::CalulateHeuristicTwo() {
 }
 
 //===CalulateHeuristicThree==========================
-// Calculate Heuristic value base on the tile out of
-//  position in the board
-//      AKA: Tile out of row and colume
+// Calculate Heuristic value base on each tile out of
+//  coloum + out of row
+//      AKA: Tile out of row and colume - Admissible
 //  Compare current to the winning state
 // Return:  Heuristic Value:
 //  ** this does not store the calculate value
