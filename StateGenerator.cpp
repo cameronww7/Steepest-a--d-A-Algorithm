@@ -33,11 +33,22 @@ list <State> StateGenerator::GenerateStateList() {
     list<State>::iterator itr2 = mOrderOfInsertion.begin();
 
     if (xCurrentBoard.IsMovable(UP)) {
-        cout << "Log: UP was called" << std::endl;
+        cout << "Log: UP was called------------" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
 
 
+        //test =================
+        cout << "Log: SET was called" << std::endl;
+        xNewState.GetBoardState().DisplayBoard();
+        xNewState.DisplayState();
+
+
         xNewState.GetBoardState().MoveDirection(UP);
+        //test =====================
+        cout << "Log: SET2 was called" << std::endl;
+        xNewState.GetBoardState().DisplayBoard();
+        xNewState.DisplayState();
+
         //xNewState.GetBoardState().SwapSpace(UP);
         cout << "Log current board: " << std::endl;
         xCurrentBoard.DisplayBoard();
@@ -48,7 +59,7 @@ list <State> StateGenerator::GenerateStateList() {
         mOrderOfInsertion.insert(itr2,xNewState);
     }
     if (xCurrentBoard.IsMovable(DOWN)) {
-        cout << "Log: DOWN was called" << std::endl;
+        cout << "Log: DOWN was called-------------" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
 
         xNewState.GetBoardState().MoveDirection(DOWN);
@@ -59,7 +70,7 @@ list <State> StateGenerator::GenerateStateList() {
         mOrderOfInsertion.insert(itr2,xNewState);
     }
     if (xCurrentBoard.IsMovable(LEFT)) {
-        cout << "Log: LEFT was called" << std::endl;
+        cout << "Log: LEFT was called ------------" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
 
         xNewState.GetBoardState().MoveDirection(LEFT);
@@ -70,7 +81,7 @@ list <State> StateGenerator::GenerateStateList() {
         mOrderOfInsertion.insert(itr2,xNewState);
     }
     if (xCurrentBoard.IsMovable(RIGHT)) {
-        cout << "Log: RIGHT was called" << std::endl;
+        cout << "Log: RIGHT was called-------------" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
 
         xNewState.GetBoardState().MoveDirection(RIGHT);

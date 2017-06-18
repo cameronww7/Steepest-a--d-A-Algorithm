@@ -34,6 +34,8 @@ public:
     void SetHeuristicValue    	(int);
     int  GetHeuristicValue		() {return  mHeuristicValue;};
 
+    void DisplayState           ();
+
     // Tile Out Of Position
     int  CalulateHeuristicOne	();
     // How Far the Tile

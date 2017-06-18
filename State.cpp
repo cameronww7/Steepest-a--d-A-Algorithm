@@ -84,3 +84,7 @@ int State::CalulateHeuristicTwo() {
 	}
 	return count;
 }
+
+void State::DisplayState(){
+	mCurrentBoard.DisplayBoard();
+}

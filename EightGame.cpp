@@ -144,7 +144,6 @@ int EightGame::FindEmptySlot () {
 void EightGame::SwapSpace (int xDirection) {
 	int empty = FindEmptySlot();
 	int newPosition;
-
 	switch (xDirection) {
 		case LEFT:  newPosition = empty - 1;
 			break;
@@ -161,7 +160,6 @@ void EightGame::SwapSpace (int xDirection) {
 	char temp = mGameBoard[newPosition];
 	mGameBoard[newPosition] = mGameBoard[empty];
 	mGameBoard[empty] = temp;
-
 }
 
 //===MoveDirection=====================
@@ -175,6 +173,7 @@ bool EightGame::MoveDirection (int xDirection) {
 	if (IsMovable(xDirection)) {
 		SwapSpace(xDirection);
 		ableMove =  true;
+		//DisplayBoard();
 	}
 	return ableMove;
 }
@@ -195,24 +194,27 @@ bool EightGame::IsMovable (int xDirection) {
 		xDirection != LEFT &&
 		xDirection != RIGHT) {
 		ableMove = false;
-	} else {
+	} 
+	else {
 		//cannot move up
 		if (empty < 3 && xDirection == UP) {
 			ableMove = false;
 		}
 		//cannot move down
-		if (empty > 5 && xDirection == DOWN) {
+		else if (empty > 5 && xDirection == DOWN) {
 			ableMove = false;
 		}
 		//cannot move left
-		if (empty % 3 == 0 && xDirection == LEFT) {
+		else if (empty % 3 == 0 && xDirection == LEFT) {
 			ableMove = false;
 		}
 		//cannot move right
-		if (empty % 3 == 2 && xDirection == RIGHT) {
+		else if (empty % 3 == 2 && xDirection == RIGHT) {
 			ableMove = false;
 		}
-		ableMove = true;
+		else{
+			ableMove = true;
+		}
 	}
 	return ableMove;
 }

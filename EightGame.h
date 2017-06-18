@@ -19,14 +19,16 @@ public:
 	EightGame			   ();
 
 	char * GetBoard        (){return mGameBoard;};     
-	void   SwapSpace       (int xDirection);
-	void   DisplayBoard	    ();
 	bool   SetBoard        (char xArr[]);
+	void   DisplayBoard	    ();
 	bool   CheckForWin     ();
-	bool   MoveDirection   (int xDirection);
-	bool   IsMovable       (int xDirection);
+
 	int    FindEmptySlot   ();
 	int    FindCharInBoard (char xInput);
+
+	bool   MoveDirection   (int xDirection);
+	bool   IsMovable       (int xDirection);
+	void   SwapSpace       (int xDirection);
 
 	char * GetWinBoard     (){return mWinBoard;};
 	bool   SetWinBoard     (char xArr[]);
