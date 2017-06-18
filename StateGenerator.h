@@ -28,9 +28,11 @@ public:
     list <State> GenerateStateList();
     void         setCurrentState(EightGame xCurrent);
     void         PrintList(list<State> xStateList);
+    void 		 PrintLocalList();
 
 private:
     State mCurrentState;
+    list <State> mOrderOfInsertion;
 };
 
 

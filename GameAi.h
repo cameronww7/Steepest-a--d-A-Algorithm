@@ -23,9 +23,6 @@ public:
 
 	bool SetGameBoard (EightGame xSetItem);
 
-	//heuristic
-	int CountingTilesOutOfPlace ();
-
     // Tile Out Of Position
     int  CalulateHeuristicOne	();
     // How Far the Tile

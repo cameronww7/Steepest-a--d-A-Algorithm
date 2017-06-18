@@ -30,33 +30,55 @@ list <State> StateGenerator::GenerateStateList() {
 
     list<State>::iterator itr = pStateList.begin();
 
+    list<State>::iterator itr2 = mOrderOfInsertion.begin();
+
     if (xCurrentBoard.IsMovable(UP)) {
         cout << "Log: UP was called" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
-        xNewState.GetBoardState().SwapSpace(UP);
+
+
+        xNewState.GetBoardState().MoveDirection(UP);
+        //xNewState.GetBoardState().SwapSpace(UP);
         cout << "Log current board: " << std::endl;
         xCurrentBoard.DisplayBoard();
         cout << "Log board after move: " << endl;
         xNewState.GetBoardState().DisplayBoard();
         pStateList.insert(itr,xNewState);
+
+        mOrderOfInsertion.insert(itr2,xNewState);
     }
     if (xCurrentBoard.IsMovable(DOWN)) {
         cout << "Log: DOWN was called" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
-        xNewState.GetBoardState().SwapSpace(DOWN);
+
+        xNewState.GetBoardState().MoveDirection(DOWN);
+        //xNewState.GetBoardState().SwapSpace(DOWN);
         pStateList.insert(itr,xNewState);
+
+        xNewState.GetBoardState().DisplayBoard();
+        mOrderOfInsertion.insert(itr2,xNewState);
     }
     if (xCurrentBoard.IsMovable(LEFT)) {
         cout << "Log: LEFT was called" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
-        xNewState.GetBoardState().SwapSpace(LEFT);
+
+        xNewState.GetBoardState().MoveDirection(LEFT);
+        //xNewState.GetBoardState().SwapSpace(LEFT);
         pStateList.insert(itr,xNewState);
+
+        xNewState.GetBoardState().DisplayBoard();
+        mOrderOfInsertion.insert(itr2,xNewState);
     }
     if (xCurrentBoard.IsMovable(RIGHT)) {
         cout << "Log: RIGHT was called" << std::endl;
         xNewState.SetBoard(xCurrentBoard);
-        xNewState.GetBoardState().SwapSpace(RIGHT);
+
+        xNewState.GetBoardState().MoveDirection(RIGHT);
+        //xNewState.GetBoardState().SwapSpace(RIGHT);
         pStateList.insert(itr,xNewState);
+
+        xNewState.GetBoardState().DisplayBoard();
+        mOrderOfInsertion.insert(itr2,xNewState);
     }
 
     return pStateList;
@@ -70,3 +92,13 @@ void StateGenerator::PrintList(list <State> xStateList) {
         itr->GetBoardState().DisplayBoard();
     }
 }
+
+void StateGenerator::PrintLocalList() {
+    int index = 0;
+    //cout << "State222: " <<  mOrderOfInsertion.end() << std::endl;
+    for (list<State>::iterator itr =  mOrderOfInsertion.begin(); itr !=  mOrderOfInsertion.end(); itr++) {
+        cout << "State: " << index++ << std::endl;
+        itr->GetBoardState().DisplayBoard();
+    }
+}
+

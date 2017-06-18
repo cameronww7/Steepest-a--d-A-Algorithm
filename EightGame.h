@@ -11,7 +11,6 @@
  * 				: the 8-puzzle problem.
  *****************************************************************/
 
-
 #include <iostream>
 using namespace std;
 

@@ -34,6 +34,11 @@ public:
     void SetHeuristicValue    	(int);
     int  GetHeuristicValue		() {return  mHeuristicValue;};
 
+    // Tile Out Of Position
+    int  CalulateHeuristicOne	();
+    // How Far the Tile
+    int  CalulateHeuristicTwo	();
+
 private:
     EightGame mCurrentBoard;
     int       mHeuristicValue;

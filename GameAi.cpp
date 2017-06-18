@@ -24,27 +24,6 @@ bool GameAi::SetGameBoard(EightGame  xSetItem)
 }
 
 
-
-//==CountingTilesOutOfPlace=====================================
-// Count tile out of place
-// return - number of tile out of place
-//==================================================
-int GameAi::CountingTilesOutOfPlace() 
-{
-	int count = 0;
-	if (0 != mCurrentBoard.FindCharInBoard('1')) count++;
-	if (1 != mCurrentBoard.FindCharInBoard('2')) count++;
-	if (2 != mCurrentBoard.FindCharInBoard('3')) count++;
-	if (3 != mCurrentBoard.FindCharInBoard('8')) count++;
-	if (4 != mCurrentBoard.FindCharInBoard('x')) count++;
-	if (5 != mCurrentBoard.FindCharInBoard('4')) count++;
-	if (6 != mCurrentBoard.FindCharInBoard('7')) count++;
-	if (7 != mCurrentBoard.FindCharInBoard('6')) count++;
-	if (8 != mCurrentBoard.FindCharInBoard('5')) count++;
-	return count;
-}
-
-
 //===CalulateHeuristicOne==========================
 // Calculate Heuristic value base on the tile out of
 //	position in the board

@@ -18,8 +18,9 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-#include "State.h"
+//#include "State.h"
 #include "StateGenerator.h"
+//#include "GameAi.h"
 //#include "EightGame.h"
 using namespace std;
 
@@ -41,18 +42,23 @@ int main() {
 	EightGame item;
 	State current;
 	StateGenerator generator;
+	//GameAi mainAi;
 
 
 	readFromFile("input.txt", init);
 
 	//Just testing stuff out here
-//	cout << "Current board state:" << endl;
-//	current.SetBoard(init);
-//	generator.setCurrentState(current.GetBoardState());
-//	cout << "Generating state list: " << endl;
-//	list<State> stateList = generator.GenerateStateList();
-//	generator.PrintList(stateList);
+	cout << "Current board state:" << endl;
+	current.SetBoard(init);
+	generator.setCurrentState(current.GetBoardState());
+	cout << "Generating state list: " << endl;
+	list<State> stateList = generator.GenerateStateList();
+	//generator.PrintList(stateList);
+	generator.PrintLocalList();
 
+
+	cout << "------------------" << std::endl;
+	cout << "------------------" << std::endl;
 
 	cout << "initial board from file: " << std::endl;
 	displayBoard(init.GetBoard());
@@ -64,16 +70,18 @@ int main() {
 	item.SetBoard(init.GetBoard());
 	item.SetWinBoard(init.GetWinBoard());
 
+	//mainAi.SetGameBoard(init);
+
 	cout << "Board: " << init.GetBoard() << " End " << std::endl;
 
 	char * board = item.GetBoard();
 	displayBoard(board);
-	current.SetBoard(init);
+	//current.SetBoard(init);
 	//Set current
 
 
-//	cout <<"H(n) 1 : "<< current.CalulateHeuristicOne() << std::endl;
-//	cout <<"H(n) 2 : "<< current.CalulateHeuristicTwo() << std::endl;
+//	cout <<"H(n) 1 : "<< mainAi.CalulateHeuristicOne() << std::endl;
+//	cout <<"H(n) 2 : "<< mainAi.CalulateHeuristicTwo() << std::endl;
 //  cout << "Is win:: " << Item.CheckForWin() << endl;
 //  cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
