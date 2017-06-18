@@ -17,24 +17,25 @@
 
 #include "EightGame.h"
 
-/*
- * Represents state of a board at a given time, along with their heuristic value,
- * with the idea that they be used for the queues when implementing the search algorithms.
- */
+/****************************************************************
+ *  Goal of Class
+ *  ------------------------------------------------------------
+ *  Represents state of a board at a given time, along with their
+ *  heuristic value, with the idea that they be used for the
+ *  queues when implementing the search algorithms.
+ ***************************************************************/
 class State {
 public:
     State();
     State(EightGame);
 
-    EightGame GetBoardState		() { return  mBoardState;};
+    EightGame GetBoardState		() { return  mCurrentBoard;};
     void SetBoard             	(EightGame);
     void SetHeuristicValue    	(int);
     int  GetHeuristicValue		() {return  mHeuristicValue;};
-    int CalulateHeuristicOne	();
-    int CalulateHeuristicTwo	();
 
 private:
-    EightGame mBoardState;
+    EightGame mCurrentBoard;
     int       mHeuristicValue;
 };
 
