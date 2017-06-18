@@ -84,7 +84,7 @@ int GameAi::CalulateHeuristicTwo() {
 
 void GameAi::playGameSteepHillClimb()
 {
-	while (1)
+	while (numSteps < MAX_STEPS)
 	{
 		//if current state is a solution RETURN
 		if (mCurrentBoard.CheckForWin()) return;
@@ -97,11 +97,18 @@ void GameAi::playGameSteepHillClimb()
 		for (list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++)
 		{
 			//Apply the heuristic here
-			
 			//if heuristic one is chosen
-			itr->CalulateHeuristicOne();
+			// ----  NOTE: Need to do this for every heuristic? 
+			// -----       Only doing one for now               
+			itr->SetHeuristicValue(CalulateHeuristicOne());
 		}
 
 		//Select the BEST state
+
+
+		//Print the BEST state to out.txt
+
+		//Update the number of steps
+		numSteps++;
 	}
 }
