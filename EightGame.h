@@ -21,6 +21,7 @@ public:
 
 	char * GetBoard        (){return mGameBoard;};     
 	void   SwapSpace       (int xDirection);
+	void   DisplayBoard	    ();
 	bool   SetBoard        (char xArr[]);
 	bool   CheckForWin     ();
 	bool   MoveDirection   (int xDirection);
@@ -30,12 +31,10 @@ public:
 
 	char * GetWinBoard     (){return mWinBoard;};
 	bool   SetWinBoard     (char xArr[]);
-
-	void   DisplayBoard	    ();
 	
 	//2D array version
-	void CreateBoard(int rows, int columns, char data[]);
-	void PrintGameBoard(int rows, int columns);
+	void CreateBoard(int xRows, int xColumns, char xData[]);
+	void PrintGameBoard(int xRows, int xColumns);
 
 private:
 	static const int BOARD_SIZE = 10; //Size 10 to accommodate the null character

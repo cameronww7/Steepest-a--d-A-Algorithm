@@ -26,6 +26,12 @@ EightGame::EightGame() {
 	//initial win state
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		mWinBoard[index] = '\0';
+
+	}
+
+	m2DGameboard = new char*['\0'];
+	for(int index = 0; index < BOARD_SIZE; index++) {
+	  m2DGameboard[index] = new char['\0'];
 	}
 }
 

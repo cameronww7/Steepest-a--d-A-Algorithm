@@ -16,14 +16,22 @@
 #include <iostream>
 using namespace std;
 
-class GameAi
-{
+class GameAi {
 public:
+
+	GameAi();
 
 	bool SetGameBoard (EightGame xSetItem);
 
 	//heuristic
 	int CountingTilesOutOfPlace ();
+
+    // Tile Out Of Position
+    int  CalulateHeuristicOne	();
+    // How Far the Tile
+    int  CalulateHeuristicTwo	();
 private: 
+	const int MAX_MOVES = 100;
+
 	EightGame mCurrentBoard;
 };
