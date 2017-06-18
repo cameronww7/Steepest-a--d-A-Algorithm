@@ -88,8 +88,8 @@ int State::CalulateHeuristicTwo() {
 
 
 //===CalulateHeuristicThree==========================
-// Calculate Heuristic value base on the tile out of
-//	position in the board
+// Calculate Heuristic value base on each tile out of
+//	coloum + out of row
 //	Compare current to the winning state
 // Return: 	Heuristic Value:
 //	** this does not store the calculate value
