@@ -13,7 +13,7 @@
 
 
 #include "GameAi.h"
-enum DIRECTION {UP = 8, LEFT = 4, RIGHT = 6, DOWN = 2};
+enum DIRECTION {UP = 8, LEFT = 4, RIGHT = 6, DOWN = 2, EMPTYSLOT = 'x'};
 
 GameAi::GameAi() {}
 
@@ -28,6 +28,7 @@ bool GameAi::SetGameBoard(EightGame xSetItem)
 //===CalulateHeuristicOne==========================
 // Calculate Heuristic value base on the tile out of
 //	position in the board
+//      AKA: Misplaced Tiles - Admissible 
 //	Compare current to the winning state
 // Return: 	Heuristic Value:
 //	** this does not store the calculate value
@@ -35,15 +36,14 @@ bool GameAi::SetGameBoard(EightGame xSetItem)
 int GameAi::CalulateHeuristicOne() {
 	int count = 0;
 
-	if (mCurrentBoard.GetBoard()[0] != mCurrentBoard.GetWinBoard()[0]) count++;
-	if (mCurrentBoard.GetBoard()[1] != mCurrentBoard.GetWinBoard()[1]) count++;
-	if (mCurrentBoard.GetBoard()[2] != mCurrentBoard.GetWinBoard()[2]) count++;
-	if (mCurrentBoard.GetBoard()[3] != mCurrentBoard.GetWinBoard()[3]) count++;
-	if (mCurrentBoard.GetBoard()[4] != mCurrentBoard.GetWinBoard()[4]) count++;
-	if (mCurrentBoard.GetBoard()[5] != mCurrentBoard.GetWinBoard()[5]) count++;
-	if (mCurrentBoard.GetBoard()[6] != mCurrentBoard.GetWinBoard()[6]) count++;
-	if (mCurrentBoard.GetBoard()[7] != mCurrentBoard.GetWinBoard()[7]) count++;
-	if (mCurrentBoard.GetBoard()[8] != mCurrentBoard.GetWinBoard()[8]) count++;
+    for (int index = 0; index < 9; index++ ){
+        //cout << mCurrentBoard.GetBoard()[index] << endl;
+        if(mCurrentBoard.GetBoard()[index] != EMPTYSLOT){
+            if (mCurrentBoard.GetBoard()[index] != mCurrentBoard.GetWinBoard()[index]) {
+                count++;
+            }
+        }
+    }
 	return count;
 }
 
@@ -51,6 +51,7 @@ int GameAi::CalulateHeuristicOne() {
 //===CalulateHeuristicTwo==========================
 // Calculate Heuristic value base on how far the tile
 //	Is from the correct position
+//      AKA: Manhattan Distance - Admissible
 // Return: 	Heuristic Value:
 //	** this does not store the calculations value
 //==================================================
@@ -66,18 +67,50 @@ int GameAi::CalulateHeuristicTwo() {
 	int modWin;
 
 	for (int index = 0; index < 9; index++) {
-		boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
+        if(mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT){
+    		boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
 
-		divBoard = boardMain / 3;
-		modBoard = boardMain % 3;
+    		divBoard = boardMain / 3;
+    		modBoard = boardMain % 3;
 
-		divWin = index / 3;
-		modWin = index % 3;
+    		divWin = index / 3;
+    		modWin = index % 3;
 
-		count = count + (abs(divBoard-divWin) + abs(modBoard-modWin));
+    		count = count + (abs(divBoard-divWin) + abs(modBoard-modWin));
+        }
 	}
 	return count;
 }
+
+//===CalulateHeuristicThree==========================
+// Calculate Heuristic value base on the tile out of
+//  position in the board
+//      AKA: Tile out of row and colume
+//  Compare current to the winning state
+// Return:  Heuristic Value:
+//  ** this does not store the calculate value
+//==================================================
+int GameAi::CalulateHeuristicThree() {
+    int count = 0;
+
+    for (int index = 0; index < 9; index++) {
+        if(mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT){
+            int boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
+
+            if(boardMain / 3 != index / 3){
+                count++;
+            }
+
+            if(boardMain % 3 != index % 3){
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+
+
 
 void GameAi::playGameSteepHillClimb()
 {

@@ -28,6 +28,8 @@ public:
     int  CalulateHeuristicOne	();
     // How Far the Tile
     int  CalulateHeuristicTwo	();
+    // How Far the Tile
+    int  CalulateHeuristicThree	();
 	//Start here
 	void playGameSteepHillClimb();
 	// List of states
