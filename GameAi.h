@@ -12,9 +12,9 @@
  *****************************************************************/
 
 
-#include "EightGame.h"
-#include "StateGenerator.h"
+#include "State.h"
 #include <iostream>
+#include <list>
 using namespace std;
 
 class GameAi {
@@ -28,11 +28,22 @@ public:
     int  CalulateHeuristicOne	();
     // How Far the Tile
     int  CalulateHeuristicTwo	();
-
 	//Start here
 	void playGameSteepHillClimb();
+	// List of states
+	list <State> GenerateStateList();
+	// Sets the current state
+    void         setCurrentState(EightGame xCurrent);
+	// Print functions for lists
+    void         PrintList(list<State> xStateList);
+    void 		 PrintLocalList();
 private: 
 	const int MAX_STEPS = 100;
 	int numSteps;
+	// State object representing Current state
+	State mCurrentState;
+	// List containing the order of insertion 
+    list <State> mOrderOfInsertion;
+	// Eightgame object representing the current board 
 	EightGame mCurrentBoard;
 };

@@ -13,15 +13,12 @@
 
 
 #include "GameAi.h"
+enum DIRECTION {UP = 8, LEFT = 4, RIGHT = 6, DOWN = 2};
 
-GameAi::GameAi() 
-{
-	numSteps = 0;
-}
-
+GameAi::GameAi() {}
 
 //=======NEED TO BE CHANGE==================
-bool GameAi::SetGameBoard(EightGame  xSetItem)
+bool GameAi::SetGameBoard(EightGame xSetItem)
 {
 	mCurrentBoard = xSetItem;
 	return true;
@@ -90,8 +87,7 @@ void GameAi::playGameSteepHillClimb()
 		if (mCurrentBoard.CheckForWin()) return;
 
 		//else generate all possible states
-		StateGenerator stateGenerator;
-		list<State> stateList = stateGenerator.GenerateStateList();
+		list<State> stateList = GenerateStateList();
 
 		//Apply heuristics to all states
 		for (list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++)
@@ -112,3 +108,101 @@ void GameAi::playGameSteepHillClimb()
 		numSteps++;
 	}
 }
+
+/*
+ * Generates the state list of possible states. Doesn't work yet.
+ * Uses the member variable mCurrentState to generate the possible states from
+ */
+list <State> GameAi::GenerateStateList() {
+    list<State> pStateList;
+    State 		xNewState;
+    EightGame 	xCurrentBoard = mCurrentState.GetBoardState();
+
+    list<State>::iterator itr = pStateList.begin();
+
+    list<State>::iterator itr2 = mOrderOfInsertion.begin();
+
+    if (xCurrentBoard.IsMovable(UP)) {
+        cout << "Log: UP was called------------" << std::endl;
+        xNewState.SetBoard(xCurrentBoard);
+
+
+        //test =================
+        cout << "Log: SET was called" << std::endl;
+        xNewState.GetBoardState().DisplayBoard();
+
+        xNewState.GetBoardState().MoveDirection(UP);
+        //test =====================
+        cout << "Log: SET2 was called" << std::endl;
+        xNewState.GetBoardState().DisplayBoard();
+
+
+        //xNewState.GetBoardState().SwapSpace(UP);
+        cout << "Log current board: " << std::endl;
+        xCurrentBoard.DisplayBoard();
+        cout << "Log board after move: " << endl;
+        xNewState.GetBoardState().DisplayBoard();
+        pStateList.insert(itr,xNewState);
+
+        mOrderOfInsertion.insert(itr2,xNewState);
+    }
+    if (xCurrentBoard.IsMovable(DOWN)) {
+        cout << "Log: DOWN was called-------------" << std::endl;
+        xNewState.SetBoard(xCurrentBoard);
+
+        xNewState.GetBoardState().MoveDirection(DOWN);
+        //xNewState.GetBoardState().SwapSpace(DOWN);
+        pStateList.insert(itr,xNewState);
+
+        xNewState.GetBoardState().DisplayBoard();
+        mOrderOfInsertion.insert(itr2,xNewState);
+    }
+    if (xCurrentBoard.IsMovable(LEFT)) {
+        cout << "Log: LEFT was called ------------" << std::endl;
+        xNewState.SetBoard(xCurrentBoard);
+
+        xNewState.GetBoardState().MoveDirection(LEFT);
+        //xNewState.GetBoardState().SwapSpace(LEFT);
+        pStateList.insert(itr,xNewState);
+
+        xNewState.GetBoardState().DisplayBoard();
+        mOrderOfInsertion.insert(itr2,xNewState);
+    }
+    if (xCurrentBoard.IsMovable(RIGHT)) {
+        cout << "Log: RIGHT was called-------------" << std::endl;
+        xNewState.SetBoard(xCurrentBoard);
+
+        xNewState.GetBoardState().MoveDirection(RIGHT);
+        //xNewState.GetBoardState().SwapSpace(RIGHT);
+        pStateList.insert(itr,xNewState);
+
+        xNewState.GetBoardState().DisplayBoard();
+        mOrderOfInsertion.insert(itr2,xNewState);
+    }
+
+    return pStateList;
+}
+
+void GameAi::setCurrentState(EightGame xCurrent) {
+    mCurrentState.SetBoard(xCurrent);
+}
+
+//This is just for debugging
+void GameAi::PrintList(list <State> xStateList) {
+    int index = 0;
+    for (list<State>::iterator itr = xStateList.begin(); itr != xStateList.end(); itr++) {
+        cout << "State: " << index++ << std::endl;
+        itr->GetBoardState().DisplayBoard();
+    }
+}
+
+void GameAi::PrintLocalList() {
+    int index = 0;
+    //cout << "State222: " <<  mOrderOfInsertion.end() << std::endl;
+    for (list<State>::iterator itr =  mOrderOfInsertion.begin(); itr !=  mOrderOfInsertion.end(); itr++) {
+        cout << "State: " << index++ << std::endl;
+        itr->GetBoardState().DisplayBoard();
+    }
+}
+
+

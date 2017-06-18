@@ -18,10 +18,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
-//#include "State.h"
-#include "StateGenerator.h"
-//#include "GameAi.h"
-//#include "EightGame.h"
+#include "GameAi.h"
 using namespace std;
 
 const int BOARD_SIZE = 9;
@@ -41,7 +38,7 @@ int main() {
 	EightGame init;
 	EightGame item;
 	State current;
-	StateGenerator generator;
+	GameAi generator;
 	//GameAi mainAi;
 
 
