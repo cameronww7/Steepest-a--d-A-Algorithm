@@ -77,6 +77,9 @@ int State::CalulateHeuristicTwo(){
 
 	for(int index = 0; index < 9; index++)
 	{
+		// Using int division to calculate vertical different
+		// Using int mod to calcuate horizontal different
+		// vertical + horizontal = number of move 
 		WinMain = index;
 		BoardMain = mBoardState.FindCharInBoard(mBoardState.GetWinBoard()[index]);
 
