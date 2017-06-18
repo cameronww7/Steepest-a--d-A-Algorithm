@@ -40,14 +40,12 @@ list <State> StateGenerator::GenerateStateList() {
         //test =================
         cout << "Log: SET was called" << std::endl;
         xNewState.GetBoardState().DisplayBoard();
-        xNewState.DisplayState();
-
 
         xNewState.GetBoardState().MoveDirection(UP);
         //test =====================
         cout << "Log: SET2 was called" << std::endl;
         xNewState.GetBoardState().DisplayBoard();
-        xNewState.DisplayState();
+
 
         //xNewState.GetBoardState().SwapSpace(UP);
         cout << "Log current board: " << std::endl;
