@@ -13,6 +13,7 @@
 
 
 #include "EightGame.h"
+#include "StateGenerator.h"
 #include <iostream>
 using namespace std;
 
@@ -27,8 +28,11 @@ public:
     int  CalulateHeuristicOne	();
     // How Far the Tile
     int  CalulateHeuristicTwo	();
-private: 
-	const int MAX_MOVES = 100;
 
+	//Start here
+	void playGameSteepHillClimb();
+private: 
+	const int MAX_STEPS = 100;
+	int numSteps;
 	EightGame mCurrentBoard;
 };

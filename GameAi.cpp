@@ -14,7 +14,11 @@
 
 #include "GameAi.h"
 
-GameAi::GameAi() {}
+GameAi::GameAi() 
+{
+	numSteps = 0;
+}
+
 
 //=======NEED TO BE CHANGE==================
 bool GameAi::SetGameBoard(EightGame  xSetItem)
@@ -76,4 +80,28 @@ int GameAi::CalulateHeuristicTwo() {
 		count = count + (abs(divBoard-divWin) + abs(modBoard-modWin));
 	}
 	return count;
+}
+
+void GameAi::playGameSteepHillClimb()
+{
+	while (1)
+	{
+		//if current state is a solution RETURN
+		if (mCurrentBoard.CheckForWin()) return;
+
+		//else generate all possible states
+		StateGenerator stateGenerator;
+		list<State> stateList = stateGenerator.GenerateStateList();
+
+		//Apply heuristics to all states
+		for (list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++)
+		{
+			//Apply the heuristic here
+			
+			//if heuristic one is chosen
+			itr->CalulateHeuristicOne();
+		}
+
+		//Select the BEST state
+	}
 }
