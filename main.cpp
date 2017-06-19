@@ -44,7 +44,7 @@ int main() {
 	//Just testing stuff out here
 	cout << "Input Board:" << endl;
 	displayBoard(init.GetBoard());
-	cout << "Goal Board:" << endl;
+	cout << endl << "Goal Board:" << endl;
 	displayBoard(init.GetWinBoard());
 
 
@@ -55,14 +55,16 @@ int main() {
 	list<State> stateList = generator.GenerateStateList();
 	//generator.PrintList(stateList);
 	cout << endl;
-	cout << "Whole List:  " << std::endl;
+	cout << "Whole List of possible moves:  " << std::endl;
 	generator.PrintLocalList();
 
 
 	
 	cout << "------------------" << std::endl;
 
-	cout << "Board: " << init.GetBoard() << " End " << std::endl;
+	cout << "Board: " << endl;
+	displayBoard(init.GetBoard());
+	cout << " End " << std::endl << endl;
 
 	cout <<"H(n) 1 : "<< generator.CalulateHeuristicOne() << std::endl;
 	cout <<"H(n) 2 : "<< generator.CalulateHeuristicTwo() << std::endl;
