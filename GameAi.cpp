@@ -216,7 +216,17 @@ void GameAi::PlayBestFirstSearch() {
 
 void GameAi::GenerateAMove(EightGame & currentBoard, list<State> & pStateList, const int xDirection) {
     if (currentBoard.IsMovable(xDirection)) {
-        cout << "Log: DOWN was called" << std::endl;
+		switch (xDirection){
+			case 8: cout << "Log: UP was called" << std::endl;
+				break;
+			case 2: cout << "Log: DOWN was called" << std::endl;
+				break;
+			case 4: cout << "Log: LEFT was called" << std::endl;
+				break;
+			case 6: cout << "Log: RIGHT was caleld" << std::endl;
+			default: return;
+		}
+       
         EightGame newBoard = currentBoard;
         newBoard.MoveDirection(xDirection);
         //newBoard.DisplayBoard();
