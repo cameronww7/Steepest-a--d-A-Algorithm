@@ -13,8 +13,9 @@
 
 
 #include "State.h"
-#include <iostream>
-#include <list>
+#include <iostream>       // std::cin, std::cout
+#include <list>			  // std::list
+#include <queue>          // std::queue
 using namespace std;
 
 class GameAi {
