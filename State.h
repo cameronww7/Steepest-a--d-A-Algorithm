@@ -37,8 +37,8 @@ public:
     void DisplayState           ();
 
 	State operator=(const State& rhs);
-	bool operator==(const State& rhs) const;
-	bool operator>(const State& rhs) const;
+	bool operator==(State& rhs);
+	bool operator>(State& rhs);
 
     // Tile Out Of Position
     int  CalulateHeuristicOne	();
