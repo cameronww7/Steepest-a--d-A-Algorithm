@@ -77,9 +77,9 @@ int main() {
 	//Set current
 
 
-	cout <<"H(n) 1 : "<< current.CalulateHeuristicOne() << std::endl;
-	cout <<"H(n) 2 : "<< current.CalulateHeuristicTwo() << std::endl;
-	cout <<"H(n) 3 : "<< current.CalulateHeuristicTwo() << std::endl;
+	cout <<"H(n) 1 : "<< generator.CalulateHeuristicOne() << std::endl;
+	cout <<"H(n) 2 : "<< generator.CalulateHeuristicTwo() << std::endl;
+	cout <<"H(n) 3 : "<< generator.CalulateHeuristicThree() << std::endl;
 //  cout << "Is win:: " << Item.CheckForWin() << endl;
 //  cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
