@@ -57,22 +57,25 @@ int main() {
 	cout << "Generating state list: " << endl;
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	list<State> stateList = generator.GenerateStateList();
-	//generator.PrintList(stateList);
-	cout << endl;
-	cout << "Whole List of possible moves:  " << std::endl;
-	generator.PrintLocalList();
 
-	cout << "------------------" << std::endl;
+	generator.PlayGameSteepHillClimb();
 
-	cout << "Board: " << endl;
-	displayBoard(init.GetBoard());
-	cout << " End " << std::endl << endl;
+	//list<State> stateList = generator.GenerateStateList();
+	////generator.PrintList(stateList);
+	//cout << endl;
+	//cout << "Whole List of possible moves:  " << std::endl;
+	//generator.PrintLocalList();
+
+	//cout << "------------------" << std::endl;
+
+	//cout << "Board: " << endl;
+	//displayBoard(init.GetBoard());
+	//cout << " End " << std::endl << endl;
 
 
-	cout << "H(n) 1 : " << generator.CalulateHeuristicOne() << std::endl;
-	cout << "H(n) 2 : " << generator.CalulateHeuristicTwo() << std::endl;
-	cout << "H(n) 3 : " << generator.CalulateHeuristicThree() << std::endl;
+	//cout << "H(n) 1 : " << generator.CalulateHeuristicOne() << std::endl;
+	//cout << "H(n) 2 : " << generator.CalulateHeuristicTwo() << std::endl;
+	//cout << "H(n) 3 : " << generator.CalulateHeuristicThree() << std::endl;
 	//  cout << "Is win:: " << Item.CheckForWin() << endl;
 	//  cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
