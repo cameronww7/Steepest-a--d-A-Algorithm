@@ -21,7 +21,13 @@
 #include "GameAi.h"
 using namespace std;
 
+enum DIRECTION {UP        = 8,
+		        LEFT      = 4,
+			    RIGHT     = 6,
+			    DOWN      = 2,
+			    EMPTYSLOT = 'x'};
 const int BOARD_SIZE = 9;
+const int BOARD_ROW_SIZE = 3;
 
 void displayBoard (char * xCurrentBoard);
 
@@ -36,8 +42,8 @@ void readFromFile (string      xFileName,
 
 int main() {
 	EightGame init;
-	State current;
-	GameAi generator;
+	State     current;
+	GameAi    generator;
 	//GameAi mainAi;
 	readFromFile("input.txt", init);
 
@@ -46,7 +52,6 @@ int main() {
 	displayBoard(init.GetBoard());
 	cout << "Goal Board:" << endl;
 	displayBoard(init.GetWinBoard());
-
 
 	cout << "------------------" << std::endl;
 	cout << "Generating state list: " << endl;
@@ -58,10 +63,7 @@ int main() {
 	cout << "Whole List:  " << std::endl;
 	generator.PrintLocalList();
 
-
-	
 	cout << "------------------" << std::endl;
-
 	cout << "Board: " << init.GetBoard() << " End " << std::endl;
 
 	cout <<"H(n) 1 : "<< generator.CalulateHeuristicOne() << std::endl;
@@ -93,10 +95,10 @@ void testGameAndPlay (EightGame * xCurr) {
 		cout << "Enter Direction: ";
 		cin >> command; 
 
-		if (command != 8 &&
-			command != 4 &&
-			command != 6 &&
-			command != 2) {
+		if (command != UP &&
+			command != LEFT &&
+			command != RIGHT &&
+			command != DOWN) {
 			cout << "Invalid Move" << std::endl << std::endl;
 		} else {
 			if (xCurr->MoveDirection(command)) {
@@ -122,7 +124,7 @@ void testGameAndPlay (EightGame * xCurr) {
 //==================================================
 void displayBoard(char * xCurrentBoard) {
 	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
-		if ((currentPosition % 3) == 0  && currentPosition != 0) {
+		if ((currentPosition % BOARD_ROW_SIZE) == 0  && currentPosition != 0) {
 			cout << std::endl;
 		}
 		cout << xCurrentBoard[currentPosition] << " ";

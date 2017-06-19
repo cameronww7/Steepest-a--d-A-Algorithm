@@ -41,7 +41,7 @@ EightGame::EightGame() {
 //==================================================
 void EightGame::DisplayBoard() {
 	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
-		if ((currentPosition % 3) == 0  && currentPosition != 0) {
+		if ((currentPosition % BOARD_ROW_SIZE) == 0  && currentPosition != 0) {
 			cout << std::endl;
 		}
 		cout << mGameBoard[currentPosition] << " ";
@@ -54,15 +54,14 @@ void EightGame::DisplayBoard() {
 // xLevel[IN]  - Line level
 //==================================================
 void EightGame::DisplayBoardAtLine(int xLevel) {
-	for (int currentPosition = (xLevel * 3); currentPosition < ((xLevel * 3) + 3); currentPosition++) {
-		if ((currentPosition % 3) == 0  && currentPosition != 0) {
+	for (int currentPosition = (xLevel * BOARD_ROW_SIZE); currentPosition < ((xLevel * BOARD_ROW_SIZE) + BOARD_ROW_SIZE); currentPosition++) {
+		if ((currentPosition % BOARD_ROW_SIZE) == 0  && currentPosition != 0) {
 			//cout << std::endl;
 		}
 		cout << mGameBoard[currentPosition] << " ";
 	}
 	//cout << std::endl;
 }
-
 
 //===FindCharInBoard=====================
 //Search Value from Board
@@ -130,7 +129,6 @@ bool EightGame::CheckForWin () {
 	}
 	return checkForWin;
 }
-
 
 //===FindEmptySlot=====================
 //Search m_GameBoard for the empty slot
@@ -243,7 +241,6 @@ void EightGame::CreateBoard(int xRows, int xColumns, char xData[]) {
 	}
 	m2DGameboard = board;
 }
-
 
 void EightGame::PrintGameBoard(int xRows, int xColumns) {
 	for (int rows = 0; rows < xRows; rows++) {

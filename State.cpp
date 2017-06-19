@@ -52,7 +52,6 @@ int State::CalulateHeuristicOne() {
 	return count;
 }
 
-
 //===CalulateHeuristicTwo==========================
 // Calculate Heuristic value base on how far the tile
 //	Is from the correct position
@@ -70,21 +69,19 @@ int State::CalulateHeuristicTwo() {
 	int divWin;
 	int modWin;
 
-	for (int index = 0; index < 9; index++) {
+	for (int index = 0; index < BOARD_SIZE; index++) {
 		boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
 
-		divBoard = boardMain / 3;
-		modBoard = boardMain % 3;
+		divBoard = boardMain / BOARD_ROW_SIZE;
+		modBoard = boardMain % BOARD_ROW_SIZE;
 
-		divWin = index / 3;
-		modWin = index % 3;
+		divWin = index / BOARD_ROW_SIZE;
+		modWin = index % BOARD_ROW_SIZE;
 
 		count = count + (abs(divBoard-divWin) + abs(modBoard-modWin));
 	}
 	return count;
 }
-
-
 
 //===CalulateHeuristicThree==========================
 // Calculate Heuristic value base on each tile out of
@@ -96,40 +93,37 @@ int State::CalulateHeuristicTwo() {
 int State::CalulateHeuristicThree() {
 	int count = 0;
 
-	for (int index = 0; index < 9; index++) {
+	for (int index = 0; index < BOARD_SIZE; index++) {
 		int boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
 
-		if(boardMain / 3 != index / 3){
+		if(boardMain / BOARD_ROW_SIZE != index / BOARD_ROW_SIZE){
 			count++;
 		}
 
-		if(boardMain % 3 != index % 3){
+		if(boardMain % BOARD_ROW_SIZE != index % BOARD_ROW_SIZE){
 			count++;
 		}
 	}
 	return count;
 }
 
-void State::DisplayState(){
+void State::DisplayState() {
 	mCurrentBoard.DisplayBoard();
 }
 
-State State::operator=(const State& rhs)
-{
-	return rhs;
+State State::operator=(const State & xRHS) {
+	return xRHS;
 }
 
-bool State::operator==(State& rhs)
-{
-	if (this->GetHeuristicValue() == rhs.GetHeuristicValue()){
+bool State::operator==(State & xRHS) {
+	if (this->GetHeuristicValue() == xRHS.GetHeuristicValue()) {
 		return true;
 	}
 	return false;
 }
 
-bool State::operator>(State& rhs)
-{
-	if (this->GetHeuristicValue() > rhs.GetHeuristicValue()){
+bool State::operator>(State & xRHS) {
+	if (this->GetHeuristicValue() > xRHS.GetHeuristicValue()) {
 		return true;
 	}
 	return false;

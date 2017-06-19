@@ -29,28 +29,29 @@ public:
     State();
     State(EightGame);
 
-    EightGame GetBoardState		() { return  mCurrentBoard;};
-    void SetBoard             	(EightGame);
-    void SetHeuristicValue    	(int);
-    int  GetHeuristicValue		() {return  mHeuristicValue;};
-
-    void DisplayState           ();
-
-	State operator=(const State& rhs);
-	bool operator==(State& rhs);
-	bool operator>(State& rhs);
+    EightGame GetBoardState() { return  mCurrentBoard;};
+    void SetBoard(EightGame);
+    void DisplayState();
+    void SetHeuristicValue(int);
+    int  GetHeuristicValue() {return  mHeuristicValue;};
 
     // Tile Out Of Position
-    int  CalulateHeuristicOne	();
+    int  CalulateHeuristicOne();
     // How Far the Tile
-    int  CalulateHeuristicTwo	();
-    // Out of Colume and Row
-    int  CalulateHeuristicThree ();
+    int  CalulateHeuristicTwo();
+    // Out of Column and Row
+    int  CalulateHeuristicThree();
+
+    // Overloaders
+	State operator=(const State & xRHS);
+	bool operator==(State & xRHS);
+	bool operator>(State & xRHS);
 
 private:
+	const int BOARD_SIZE      = 9;
+	const int BOARD_ROW_SIZE  = 3;
+
     EightGame mCurrentBoard;
     int       mHeuristicValue;
 };
-
-
 #endif
