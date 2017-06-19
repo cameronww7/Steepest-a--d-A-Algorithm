@@ -113,3 +113,24 @@ int State::CalulateHeuristicThree() {
 void State::DisplayState(){
 	mCurrentBoard.DisplayBoard();
 }
+
+State State::operator=(const State& rhs)
+{
+	return rhs;
+}
+
+bool State::operator==(State& rhs)
+{
+	if (this->CalulateHeuristicOne() == rhs.CalulateHeuristicOne()){
+		return true;
+	}
+	return false;
+}
+
+bool State::operator>(State& rhs)
+{
+	if (this->CalulateHeuristicOne() > rhs.CalulateHeuristicOne()){
+		return true;
+	}
+	return false;
+}

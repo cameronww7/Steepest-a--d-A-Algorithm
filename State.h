@@ -36,6 +36,12 @@ public:
 
     void DisplayState           ();
 
+	State State::operator=(const State& rhs);
+
+	bool State::operator==(State& rhs);
+
+	bool State::operator>(State& rhs);
+
     // Tile Out Of Position
     int  CalulateHeuristicOne	();
     // How Far the Tile
