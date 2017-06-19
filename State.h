@@ -35,13 +35,6 @@ public:
     void SetHeuristicValue(int);
     int  GetHeuristicValue() {return  mHeuristicValue;};
 
-    // Tile Out Of Position
-    int  CalulateHeuristicOne();
-    // How Far the Tile
-    int  CalulateHeuristicTwo();
-    // Out of Column and Row
-    int  CalulateHeuristicThree();
-
     // Overloaders
 	State operator=(const State & xRHS);
 	bool operator==(State & xRHS);
