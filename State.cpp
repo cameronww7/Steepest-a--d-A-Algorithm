@@ -121,7 +121,7 @@ State State::operator=(const State& rhs)
 
 bool State::operator==(State& rhs)
 {
-	if (this->CalulateHeuristicOne() == rhs.CalulateHeuristicOne()){
+	if (this->GetHeuristicValue() == rhs.GetHeuristicValue()){
 		return true;
 	}
 	return false;
@@ -129,7 +129,7 @@ bool State::operator==(State& rhs)
 
 bool State::operator>(State& rhs)
 {
-	if (this->CalulateHeuristicOne() > rhs.CalulateHeuristicOne()){
+	if (this->GetHeuristicValue() > rhs.GetHeuristicValue()){
 		return true;
 	}
 	return false;
