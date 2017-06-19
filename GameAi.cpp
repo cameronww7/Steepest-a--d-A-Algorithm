@@ -194,7 +194,7 @@ void GameAi::PlayBestFirstSearch() {
 
 				if (stateIsNotOnOpenList != true &&
 						stateIsNotOnCloseList != true) {
-//					stateList.front().CalulateHeuristicOne();
+					//stateList.front().CalulateHeuristicOne();
 					openList.push_front(stateList.front());
 					stateList.pop_front(); // Move to next element
 				} else if (stateIsNotOnOpenList == true) {
@@ -223,7 +223,8 @@ void GameAi::GenerateAMove(EightGame & currentBoard, list<State> & pStateList, c
 				break;
 			case 4: cout << "Log: LEFT was called" << std::endl;
 				break;
-			case 6: cout << "Log: RIGHT was caleld" << std::endl;
+			case 6: cout << "Log: RIGHT was called" << std::endl;
+				break;
 			default: return;
 		}
        
