@@ -15,6 +15,21 @@
 #include "GameAi.h"
 enum DIRECTION {UP = 8, LEFT = 4, RIGHT = 6, DOWN = 2, EMPTYSLOT = 'x'};
 
+namespace {
+bool SearchListForCurrentState(std::list<State> stateList,
+		                       std::list<State> openList) {
+	bool foundStateInList = false; // Used to See if state is on a Queue
+	for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end() && foundStateInList == false; itr++) {
+		if (stateList.front() == openList.front()) {
+			foundStateInList = true; // Exit cause found state on queue
+		} else {
+			openList.pop_front(); // Move to next element
+		}
+	}
+	return foundStateInList;
+}
+} // Anonymous namespace
+
 GameAi::GameAi() {
 	numSteps = 0;
 }
@@ -158,41 +173,27 @@ void GameAi::PlayBestFirstSearch() {
 
 	while (!openList.empty()) {
 		x = openList.front();
-		if (1) { // x = a Win State
+		if (x.GetBoardState().GetBoard() == mCurrentBoard.GetWinBoard()) { // x = a Win State
 			return;
 		} else {
-			std::list<State> stateQueue = GenerateStateList();
-			for (int index = 0; index < stateQueue.size(); index++) {
-				bool stateIsNotOnOpenQueue  = false; // Used to See if state is on a Queue
-				bool stateIsNotOnCloseQueue = false; // Used to See if state is on a Queue
-				// Checking current generated state is no on openQueue
-				for (int index = 0; index < openList.size() && stateIsNotOnOpenQueue != false; index++) {
-					if (stateQueue.front() == openList.front()) {
-						stateIsNotOnOpenQueue = true; // Exit cause found state on queue
-					} else {
-						openList.pop_front(); // Move to next element
-					}
-				}
-				// Checking if current generated state is no on closeQueue
-				for (int index = 0; index < closeList.size() && stateIsNotOnCloseQueue != false; index++) {
-					if (stateQueue.front() == closeList.front()) {
-						stateIsNotOnCloseQueue = true; // Exit cause found state on queue
-					} else {
-						closeList.pop_front(); // Move to next element
-					}
-				}
-				if (stateIsNotOnOpenQueue != true &&
-					stateIsNotOnCloseQueue != true) {
-					stateQueue.front().CalulateHeuristicOne();
-					openList.push_front(stateQueue.front());
-					stateQueue.pop_front(); // Move to next element
-				} else if (stateIsNotOnOpenQueue == true) {
+			std::list<State> stateList = GenerateStateList();
+
+			for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
+				bool stateIsNotOnOpenList  = SearchListForCurrentState(stateList, openList);
+				bool stateIsNotOnCloseList = SearchListForCurrentState(stateList, closeList);
+
+				if (stateIsNotOnOpenList != true &&
+						stateIsNotOnCloseList != true) {
+					stateList.front().CalulateHeuristicOne();
+					openList.push_front(stateList.front());
+					stateList.pop_front(); // Move to next element
+				} else if (stateIsNotOnOpenList == true) {
 					// If the child was reached by a shorter path
 					// Then give the state on open the shorter path??
-				} else if (stateIsNotOnCloseQueue == true) {
+				} else if (stateIsNotOnCloseList == true) {
 					// If child was reached by shorter path then
 
-					while(stateQueue.front() == closeList.front()) {
+					while(stateList.front() == closeList.front()) {
 						closeList.pop_front(); // Move to next element
 					}
 					//remove the element
@@ -202,6 +203,7 @@ void GameAi::PlayBestFirstSearch() {
 		}
 	}
 }
+
 
 
 /*
@@ -215,7 +217,7 @@ list <State> GameAi::GenerateStateList() {
     //cout << "Did this call correctly?" << endl;
     //currentBoard.DisplayBoard();
 
-    list<State>::iterator itr2 = mOrderOfInsertion.begin();
+//    list<State>::iterator itr2 = mOrderOfInsertion.begin();
 
     if (currentBoard.IsMovable(UP)) {
         cout << "Log: UP was called" << std::endl;
