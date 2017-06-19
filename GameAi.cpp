@@ -131,6 +131,13 @@ void GameAi::PlayGameSteepHillClimb() {
 		}
 
 		//Select the BEST state
+		State bestState = stateList.front();
+		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++) {
+			if (*itr > bestState){
+				bestState = *itr;
+			}
+		}
+		mCurrentBoard = bestState.GetBoardState();
 
 
 		//Print the BEST state to out.txt

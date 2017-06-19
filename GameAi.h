@@ -37,6 +37,9 @@ public:
 	void PlayGameSteepHillClimb();
 
 	void PlayBestFirstSearch ();
+
+
+	
 	// List of states
 	list <State> GenerateStateList();
 	// Sets the current state
