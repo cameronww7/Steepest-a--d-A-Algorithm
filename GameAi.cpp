@@ -123,25 +123,34 @@ int GameAi::CalulateHeuristicThree() {
 }
 
 void GameAi::PlayGameSteepHillClimb() {
+	cout << endl << "Play Steep-Hill Ascent Climb" << endl;
+
 	while (numSteps < MAX_STEPS) {
 		//if current state is a solution RETURN
 		if (mCurrentBoard.CheckForWin()) {
 			return;
 		}
 		//else generate all possible states
+		cout << endl << "Generating State List" << endl;
 		std::list<State> stateList = GenerateStateList();
+		PrintList(stateList);
 
 
 		//Apply heuristics to all states
+		cout << endl << "Applying Heuristics to all states" << endl;
 		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
 			//Apply the heuristic here
 			//if heuristic one is chosen
 			// ----  NOTE: Need to do this for every heuristic? 
 			// -----       Only doing one for now               
 			itr->SetHeuristicValue(CalulateHeuristicOne());
+
+			cout << CalulateHeuristicOne() << " ";
 		}
+		cout << endl;
 
 		//Select the BEST state
+		cout << endl << "Selecting the BEST state" << endl;
 		State bestState = stateList.front();
 		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++) {
 			if (*itr > bestState){
@@ -149,13 +158,19 @@ void GameAi::PlayGameSteepHillClimb() {
 			}
 		}
 		mCurrentBoard = bestState.GetBoardState();
+		cout << "The best state is " << endl;
+		mCurrentBoard.DisplayBoard();
+		cout << endl;
 
 		//Print the BEST state to out.txt
 
 		//Update the number of steps
+		cout << endl << "Updating number of Steps" << endl;
 		numSteps++;
+		cout << endl << "Number of steps: " << GetNumSteps() << endl;
 	}
 }
+
 
 void GameAi::PlayBestFirstSearch() {
 	std::cout << "\nPlay Best-First Search\n";
