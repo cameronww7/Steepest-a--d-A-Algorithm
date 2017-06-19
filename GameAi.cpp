@@ -145,13 +145,55 @@ void GameAi::PlayBestFirstSearch() {
 
 	std::queue<State> openQueue;
 	std::queue<State> closeQueue;
+	State x;
 
-	openQueue.push(mCurrentState);
+	openQueue.push(mCurrentState); // Pushing Root Node Current State
 
 	while (!openQueue.empty()) {
+		x = openQueue.front();
+		if (x == mCurrentBoard.GetWinBoard()) {
+			return;
+		} else {
+			std::queue<State> stateQueue = GenerateStateList();
+			for (int index = 0; index < stateQueue.size(); index++) {
+				bool stateIsNotOnOpenQueue  = false; // Used to See if state is on a Queue
+				bool stateIsNotOnCloseQueue = false; // Used to See if state is on a Queue
+				// Checking current generated state is no on openQueue
+				for (int index = 0; index < openQueue.size() && stateIsNotOnOpenQueue != false; index++) {
+					if (stateQueue.front() == openQueue.front()) {
+						stateIsNotOnOpenQueue = true; // Exit cause found state on queue
+					} else {
+						openQueue.pop(); // Move to next element
+					}
+				}
+				// Checking if current generated state is no on closeQueue
+				for (int index = 0; index < closeQueue.size() && stateIsNotOnCloseQueue != false; index++) {
+					if (stateQueue.front() == closeQueue.front()) {
+						stateIsNotOnCloseQueue = true; // Exit cause found state on queue
+					} else {
+						closeQueue.pop(); // Move to next element
+					}
+				}
+				if (stateIsNotOnOpenQueue != true &&
+					stateIsNotOnCloseQueue != true) {
+					stateQueue.front().CalulateHeuristicOne();
+					openQueue.push(stateQueue.front());
+					stateQueue.pop(); // Move to next element
+				} else if (stateIsNotOnOpenQueue == true) {
+					// If the child was reached by a shorter path
+					// Then give the state on open the shorter path??
+				} else if (stateIsNotOnCloseQueue == true) {
+					// If child was reached by shorter path then
 
+					while(stateQueue.front() == closeQueue.front()) {
+						closeQueue.pop(); // Move to next element
+					}
+					//remove the element
+				}
+				closeQueue.push(x);
+			}
+		}
 	}
-
 }
 
 
