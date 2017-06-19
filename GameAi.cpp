@@ -199,7 +199,7 @@ void GameAi::PlayBestFirstSearch() {
 	}
 }
 
-void GameAi::GenerateAMove(EightGame currentBoard, list<State> pStateList, const int xDirection) {
+void GameAi::GenerateAMove(EightGame & currentBoard, list<State> & pStateList, const int xDirection) {
     if (currentBoard.IsMovable(xDirection)) {
         cout << "Log: DOWN was called" << std::endl;
         EightGame newBoard = currentBoard;

@@ -214,8 +214,7 @@ bool EightGame::IsMovable (int xDirection) {
 		//cannot move right
 		else if (empty % 3 == 2 && xDirection == RIGHT) {
 			ableMove = false;
-		}
-		else{
+		} else {
 			ableMove = true;
 		}
 	}
