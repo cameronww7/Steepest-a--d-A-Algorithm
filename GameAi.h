@@ -24,6 +24,8 @@ public:
 
 	bool SetGameBoard (EightGame xSetItem);
 
+	int GetNumSteps				(){return numSteps;};
+
     // Tile Out Of Position
     int  CalulateHeuristicOne	();
     // How Far the Tile
