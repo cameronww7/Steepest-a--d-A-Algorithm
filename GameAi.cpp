@@ -197,7 +197,7 @@ void GameAi::PlayBestFirstSearch() {
 
 				if (stateIsNotOnOpenList != true &&
 						stateIsNotOnCloseList != true) {
-//					stateList.front().CalulateHeuristicOne();
+					//stateList.front().CalulateHeuristicOne();
 					openList.push_front(stateList.front());
 					stateList.pop_front(); // Move to next element
 				} else if (stateIsNotOnOpenList == true) {
