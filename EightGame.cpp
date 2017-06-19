@@ -26,7 +26,6 @@ EightGame::EightGame() {
 	//initial win state
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		mWinBoard[index] = '\0';
-
 	}
 
 	m2DGameboard = new char*['\0'];
@@ -80,7 +79,6 @@ bool EightGame::SetBoard (char xArr[]) {
 	return true;
 }
 
-
 //===SetWinBoard=====================
 //Set the winning board
 // xArr [IN]		- array of board face value
@@ -133,7 +131,6 @@ int EightGame::FindEmptySlot () {
 	return -1;
 }
 
-
 //===SwapSpace=====================
 //Move the empty slot to the new slot 
 //	vase on the direction input
@@ -156,7 +153,6 @@ void EightGame::SwapSpace (int xDirection) {
 		default:
 			return;
 	}
-
 	char temp = mGameBoard[newPosition];
 	mGameBoard[newPosition] = mGameBoard[empty];
 	mGameBoard[empty] = temp;
@@ -194,8 +190,7 @@ bool EightGame::IsMovable (int xDirection) {
 		xDirection != LEFT &&
 		xDirection != RIGHT) {
 		ableMove = false;
-	} 
-	else {
+	} else {
 		//cannot move up
 		if (empty < 3 && xDirection == UP) {
 			ableMove = false;

@@ -47,7 +47,7 @@ int main() {
 	//Just testing stuff out here
 	cout << "Current board state:" << endl;
 	current.SetBoard(init);
-	generator.setCurrentState(current.GetBoardState());
+	generator.SetCurrentState(current.GetBoardState());
 	cout << "Generating state list: " << endl;
 	list<State> stateList = generator.GenerateStateList();
 	//generator.PrintList(stateList);
@@ -91,11 +91,9 @@ int main() {
 	return 0;
 }
 
-
 //====TEST====================================
 //This is use to test/play the game 
 void testGameAndPlay (EightGame * xCurr) {
-
 	int command;
 	char * board = xCurr->GetBoard();
 

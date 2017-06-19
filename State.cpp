@@ -40,7 +40,6 @@ void State::SetHeuristicValue(int xHValue) {
 //==================================================
 int State::CalulateHeuristicOne() {
 	int count = 0;
-
 	if (mCurrentBoard.GetBoard()[0] != mCurrentBoard.GetWinBoard()[0]) count++;
 	if (mCurrentBoard.GetBoard()[1] != mCurrentBoard.GetWinBoard()[1]) count++;
 	if (mCurrentBoard.GetBoard()[2] != mCurrentBoard.GetWinBoard()[2]) count++;

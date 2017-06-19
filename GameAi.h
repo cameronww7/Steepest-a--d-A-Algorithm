@@ -28,19 +28,22 @@ public:
     int  CalulateHeuristicOne	();
     // How Far the Tile
     int  CalulateHeuristicTwo	();
-    // tile out of col and row seperately
+    // tile out of column and row separately
     int  CalulateHeuristicThree	();
 	//Start here
-	void playGameSteepHillClimb();
+	void PlayGameSteepHillClimb();
+
+	void PlayBestFirstSearch ();
 	// List of states
 	list <State> GenerateStateList();
 	// Sets the current state
-    void         setCurrentState(EightGame xCurrent);
+    void         SetCurrentState(EightGame xCurrent);
 	//Return current board
-	EightGame	 getCurrentBoard() { return mCurrentBoard;};
+	EightGame	 GetCurrentBoard() { return mCurrentBoard;};
 	// Print functions for lists
     void         PrintList(list<State> xStateList);
     void 		 PrintLocalList();
+
 private: 
 	const int MAX_STEPS = 100;
 	int numSteps;

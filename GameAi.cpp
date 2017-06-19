@@ -15,7 +15,9 @@
 #include "GameAi.h"
 enum DIRECTION {UP = 8, LEFT = 4, RIGHT = 6, DOWN = 2, EMPTYSLOT = 'x'};
 
-GameAi::GameAi() {}
+GameAi::GameAi() {
+	numSteps = 0;
+}
 
 //=======NEED TO BE CHANGE==================
 bool GameAi::SetGameBoard(EightGame xSetItem)
@@ -109,22 +111,18 @@ int GameAi::CalulateHeuristicThree() {
     return count;
 }
 
-
-
-
-void GameAi::playGameSteepHillClimb()
-{
-	while (numSteps < MAX_STEPS)
-	{
+void GameAi::PlayGameSteepHillClimb() {
+	while (numSteps < MAX_STEPS) {
 		//if current state is a solution RETURN
-		if (mCurrentBoard.CheckForWin()) return;
+		if (mCurrentBoard.CheckForWin()) {
+			return;
+		}
 
 		//else generate all possible states
 		list<State> stateList = GenerateStateList();
 
 		//Apply heuristics to all states
-		for (list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++)
-		{
+		for (list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
 			//Apply the heuristic here
 			//if heuristic one is chosen
 			// ----  NOTE: Need to do this for every heuristic? 
@@ -142,63 +140,68 @@ void GameAi::playGameSteepHillClimb()
 	}
 }
 
+void GameAi::PlayBestFirstSearch() {
+
+}
+
+
 /*
  * Generates the state list of possible states. Doesn't work yet.
  * Uses the member variable mCurrentState to generate the possible states from
  */
 list <State> GameAi::GenerateStateList() {
     list<State> pStateList;
-    State 		xNewState;
-    EightGame 	xCurrentBoard = this->getCurrentBoard();
+    State 		newState;
+    EightGame 	currentBoard = this->GetCurrentBoard();
     cout << "Did this call correctly?" << endl;
-    xCurrentBoard.DisplayBoard();
+    currentBoard.DisplayBoard();
 
     list<State>::iterator itr2 = mOrderOfInsertion.begin();
 
-    if (xCurrentBoard.IsMovable(UP)) {
+    if (currentBoard.IsMovable(UP)) {
         cout << "Log: UP was called------------" << std::endl;
-        EightGame xNewBoard = xCurrentBoard;
-        xNewBoard.MoveDirection(UP);
-        xNewBoard.DisplayBoard();
+        EightGame newBoard = currentBoard;
+        newBoard.MoveDirection(UP);
+        newBoard.DisplayBoard();
         cout << " ------------------------------" << std::endl;
-        pStateList.emplace_back(State(xNewBoard));
+        pStateList.emplace_back(State(newBoard));
 
-        mOrderOfInsertion.emplace_back(State(xNewBoard));
+        mOrderOfInsertion.emplace_back(State(newBoard));
     }
-    if (xCurrentBoard.IsMovable(DOWN)) {
-        EightGame xNewBoard = xCurrentBoard;
-        xNewBoard.MoveDirection(DOWN);
-        xNewBoard.DisplayBoard();
+    if (currentBoard.IsMovable(DOWN)) {
+        EightGame newBoard = currentBoard;
+        newBoard.MoveDirection(DOWN);
+        newBoard.DisplayBoard();
         cout << " ------------------------------" << std::endl;
-        pStateList.emplace_back(State(xNewBoard));
+        pStateList.emplace_back(State(newBoard));
 
-        mOrderOfInsertion.emplace_back(State(xNewBoard));
+        mOrderOfInsertion.emplace_back(State(newBoard));
     }
-    if (xCurrentBoard.IsMovable(LEFT)) {
+    if (currentBoard.IsMovable(LEFT)) {
         cout << "Log: LEFT was called ------------" << std::endl;
-        EightGame xNewBoard = xCurrentBoard;
-        xNewBoard.MoveDirection(LEFT);
-        xNewBoard.DisplayBoard();
+        EightGame newBoard = currentBoard;
+        newBoard.MoveDirection(LEFT);
+        newBoard.DisplayBoard();
         cout << " ------------------------------" << std::endl;
-        pStateList.emplace_back(State(xNewBoard));
+        pStateList.emplace_back(State(newBoard));
 
-        mOrderOfInsertion.emplace_back(State(xNewBoard));
+        mOrderOfInsertion.emplace_back(State(newBoard));
     }
-    if (xCurrentBoard.IsMovable(RIGHT)) {
+    if (currentBoard.IsMovable(RIGHT)) {
         cout << "Log: RIGHT was called-------------" << std::endl;
-        EightGame xNewBoard = xCurrentBoard;
-        xNewBoard.MoveDirection(RIGHT);
-        xNewBoard.DisplayBoard();
+        EightGame newBoard = currentBoard;
+        newBoard.MoveDirection(RIGHT);
+        newBoard.DisplayBoard();
         cout << " ------------------------------" << std::endl;
-        pStateList.emplace_back(State(xNewBoard));
+        pStateList.emplace_back(State(newBoard));
 
-        mOrderOfInsertion.emplace_back(State(xNewBoard));
+        mOrderOfInsertion.emplace_back(State(newBoard));
     }
 
     return pStateList;
 }
 
-void GameAi::setCurrentState(EightGame xCurrent) {
+void GameAi::SetCurrentState(EightGame xCurrent) {
     mCurrentState.SetBoard(xCurrent);
     mCurrentBoard = xCurrent;
 }
