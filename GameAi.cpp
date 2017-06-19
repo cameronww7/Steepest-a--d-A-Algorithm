@@ -150,54 +150,54 @@ void GameAi::PlayGameSteepHillClimb() {
 void GameAi::PlayBestFirstSearch() {
 	std::cout << "\nPlay Best-First Search\n";
 
-	std::queue<State> openQueue;
-	std::queue<State> closeQueue;
+	std::list<State> openList;
+	std::list<State> closeList;
 	State x;
 
-	openQueue.push(mCurrentState); // Pushing Root Node Current State
+	openList.push_front(mCurrentState); // Pushing Root Node Current State
 
-	while (!openQueue.empty()) {
-		x = openQueue.front();
-		if (x == mCurrentBoard.GetWinBoard()) {
+	while (!openList.empty()) {
+		x = openList.front();
+		if (1) { // x = a Win State
 			return;
 		} else {
-			std::queue<State> stateQueue = GenerateStateList();
+			std::list<State> stateQueue = GenerateStateList();
 			for (int index = 0; index < stateQueue.size(); index++) {
 				bool stateIsNotOnOpenQueue  = false; // Used to See if state is on a Queue
 				bool stateIsNotOnCloseQueue = false; // Used to See if state is on a Queue
 				// Checking current generated state is no on openQueue
-				for (int index = 0; index < openQueue.size() && stateIsNotOnOpenQueue != false; index++) {
-					if (stateQueue.front() == openQueue.front()) {
+				for (int index = 0; index < openList.size() && stateIsNotOnOpenQueue != false; index++) {
+					if (stateQueue.front() == openList.front()) {
 						stateIsNotOnOpenQueue = true; // Exit cause found state on queue
 					} else {
-						openQueue.pop(); // Move to next element
+						openList.pop_front(); // Move to next element
 					}
 				}
 				// Checking if current generated state is no on closeQueue
-				for (int index = 0; index < closeQueue.size() && stateIsNotOnCloseQueue != false; index++) {
-					if (stateQueue.front() == closeQueue.front()) {
+				for (int index = 0; index < closeList.size() && stateIsNotOnCloseQueue != false; index++) {
+					if (stateQueue.front() == closeList.front()) {
 						stateIsNotOnCloseQueue = true; // Exit cause found state on queue
 					} else {
-						closeQueue.pop(); // Move to next element
+						closeList.pop_front(); // Move to next element
 					}
 				}
 				if (stateIsNotOnOpenQueue != true &&
 					stateIsNotOnCloseQueue != true) {
 					stateQueue.front().CalulateHeuristicOne();
-					openQueue.push(stateQueue.front());
-					stateQueue.pop(); // Move to next element
+					openList.push_front(stateQueue.front());
+					stateQueue.pop_front(); // Move to next element
 				} else if (stateIsNotOnOpenQueue == true) {
 					// If the child was reached by a shorter path
 					// Then give the state on open the shorter path??
 				} else if (stateIsNotOnCloseQueue == true) {
 					// If child was reached by shorter path then
 
-					while(stateQueue.front() == closeQueue.front()) {
-						closeQueue.pop(); // Move to next element
+					while(stateQueue.front() == closeList.front()) {
+						closeList.pop_front(); // Move to next element
 					}
 					//remove the element
 				}
-				closeQueue.push(x);
+				closeList.push_front(x);
 			}
 		}
 	}
