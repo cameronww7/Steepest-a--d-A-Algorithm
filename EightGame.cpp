@@ -27,11 +27,6 @@ EightGame::EightGame() {
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		mWinBoard[index] = '\0';
 	}
-
-	m2DGameboard = new char*['\0'];
-	for(int index = 0; index < BOARD_SIZE; index++) {
-	  m2DGameboard[index] = new char['\0'];
-	}
 }
 
 //==DisplayBoard=====================================
@@ -225,28 +220,4 @@ bool EightGame::IsMovable (int xDirection) {
 		}
 	}
 	return ableMove;
-}
-
-//Needs input from text file
-void EightGame::CreateBoard(int xRows, int xColumns, char xData[]) {
-	char** board = new char*[xRows];
-	int dataIt = 0;
-
-	for (int rows = 0; rows < xRows; rows++) {
-		board[rows] = new char[xColumns];
-		for (int columns = 0; columns < xColumns; columns++) {
-			board[rows][columns] = xData[dataIt];
-			dataIt++;
-		}
-	}
-	m2DGameboard = board;
-}
-
-void EightGame::PrintGameBoard(int xRows, int xColumns) {
-	for (int rows = 0; rows < xRows; rows++) {
-		for (int columns = 0; columns < xColumns; columns++) {
-			cout << m2DGameboard[rows][columns] << " ";
-		}
-		cout << std::endl;
-	}
 }

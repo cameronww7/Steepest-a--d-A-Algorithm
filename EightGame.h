@@ -33,13 +33,6 @@ public:
 
 	char * GetWinBoard() {return mWinBoard;};
 	bool   SetWinBoard(char xArr[]);
-	
-	//2D array version
-	void CreateBoard(int xRows,
-					 int xColumns,
-					 char xData[]);
-	void PrintGameBoard(int xRows,
-					    int xColumns);
 
 private:
     enum DIRECTION {UP          = 8,
@@ -52,7 +45,4 @@ private:
 
 	char mGameBoard[BOARD_SIZE];
 	char mWinBoard[BOARD_SIZE];
-
-	//2D Game board
-	char** m2DGameboard;
 };
