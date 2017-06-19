@@ -182,12 +182,15 @@ void GameAi::PlayBestFirstSearch() {
 	openList.push_front(mCurrentState); // Pushing Root Node Current State
 
 	while (!openList.empty()) {
+		// X represents the first state in the open queue
 		x = openList.front();
+		// If the current board is equal to the winning board, return
 		if (x.GetBoardState().GetBoard() == mCurrentBoard.GetWinBoard()) {
 			return;
 		} else {
+			// Generates a list of possible statess
 			std::list<State> stateList = GenerateStateList();
-
+			// Iterates through state list
 			for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
 				bool stateIsNotOnOpenList  = SearchListForCurrentState(stateList, openList);
 				bool stateIsNotOnCloseList = SearchListForCurrentState(stateList, closeList);
