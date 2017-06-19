@@ -49,6 +49,21 @@ void EightGame::DisplayBoard() {
 	cout << std::endl;
 }
 
+//==DisplayBoardAtLine==============================
+//Display the current game board in in specific line
+// xLevel[IN]  - Line level
+//==================================================
+void EightGame::DisplayBoardAtLine(int xLevel) {
+	for (int currentPosition = (xLevel * 3); currentPosition < ((xLevel * 3) + 3); currentPosition++) {
+		if ((currentPosition % 3) == 0  && currentPosition != 0) {
+			//cout << std::endl;
+		}
+		cout << mGameBoard[currentPosition] << " ";
+	}
+	//cout << std::endl;
+}
+
+
 //===FindCharInBoard=====================
 //Search Value from Board
 // input [IN] - char to find in the board
