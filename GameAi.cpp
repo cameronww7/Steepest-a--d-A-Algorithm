@@ -205,6 +205,20 @@ void GameAi::PlayBestFirstSearch() {
 }
 
 
+void GameAi::GenerateAMove(EightGame 	currentBoard,
+			               list<State>  pStateList,
+					       const int    xDirection) {
+    if (currentBoard.IsMovable(xDirection)) {
+        cout << "Log: DOWN was called" << std::endl;
+        EightGame newBoard = currentBoard;
+        newBoard.MoveDirection(xDirection);
+        //newBoard.DisplayBoard();
+        //cout << "------------------------------" << std::endl;
+        pStateList.emplace_back(State(newBoard));
+
+        mOrderOfInsertion.emplace_back(State(newBoard));
+    }
+}
 
 /*
  * Generates the state list of possible states. Doesn't work yet.
@@ -217,48 +231,10 @@ list <State> GameAi::GenerateStateList() {
     //cout << "Did this call correctly?" << endl;
     //currentBoard.DisplayBoard();
 
-//    list<State>::iterator itr2 = mOrderOfInsertion.begin();
-
-    if (currentBoard.IsMovable(UP)) {
-        cout << "Log: UP was called" << std::endl;
-        EightGame newBoard = currentBoard;
-        newBoard.MoveDirection(UP);
-        //newBoard.DisplayBoard();
-        //cout << "------------------------------" << std::endl;
-        pStateList.emplace_back(State(newBoard));
-
-        mOrderOfInsertion.emplace_back(State(newBoard));
-    }
-    if (currentBoard.IsMovable(DOWN)) {
-        cout << "Log: DOWN was called" << std::endl;
-        EightGame newBoard = currentBoard;
-        newBoard.MoveDirection(DOWN);
-        //newBoard.DisplayBoard();
-        //cout << "------------------------------" << std::endl;
-        pStateList.emplace_back(State(newBoard));
-
-        mOrderOfInsertion.emplace_back(State(newBoard));
-    }
-    if (currentBoard.IsMovable(LEFT)) {
-        cout << "Log: LEFT was called" << std::endl;
-        EightGame newBoard = currentBoard;
-        newBoard.MoveDirection(LEFT);
-        //newBoard.DisplayBoard();
-        //cout << "------------------------------" << std::endl;
-        pStateList.emplace_back(State(newBoard));
-
-        mOrderOfInsertion.emplace_back(State(newBoard));
-    }
-    if (currentBoard.IsMovable(RIGHT)) {
-        cout << "Log: RIGHT was called" << std::endl;
-        EightGame newBoard = currentBoard;
-        newBoard.MoveDirection(RIGHT);
-        //newBoard.DisplayBoard();
-        //cout << "------------------------------" << std::endl;
-        pStateList.emplace_back(State(newBoard));
-
-        mOrderOfInsertion.emplace_back(State(newBoard));
-    }
+    GenerateAMove(currentBoard, pStateList, UP);
+    GenerateAMove(currentBoard, pStateList, DOWN);
+    GenerateAMove(currentBoard, pStateList, LEFT);
+    GenerateAMove(currentBoard, pStateList, RIGHT);
 
     return pStateList;
 }

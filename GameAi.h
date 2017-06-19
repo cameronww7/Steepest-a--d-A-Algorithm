@@ -39,7 +39,9 @@ public:
 	void PlayBestFirstSearch ();
 
 
-	
+	void GameAi::GenerateAMove(EightGame 	currentBoard,
+				   	           list<State>  pStateList,
+						       const int    xDirection);
 	// List of states
 	list <State> GenerateStateList();
 	// Sets the current state
