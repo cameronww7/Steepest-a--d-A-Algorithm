@@ -23,23 +23,24 @@ public:
 
 	GameAi();
 
-	bool SetGameBoard (EightGame xSetItem);
+	bool SetGameBoard(EightGame xSetItem);
 
-	int GetNumSteps				(){return numSteps;};
+	int GetNumSteps() {return numSteps;};
 
     // Tile Out Of Position
-    int  CalulateHeuristicOne	();
+    int  CalulateHeuristicOne();
     // How Far the Tile
-    int  CalulateHeuristicTwo	();
+    int  CalulateHeuristicTwo();
     // tile out of column and row separately
-    int  CalulateHeuristicThree	();
+    int  CalulateHeuristicThree();
 	//Start here
 	void PlayGameSteepHillClimb();
 
-	void PlayBestFirstSearch ();
+	void PlayBestFirstSearch();
 
-
-	
+	void GenerateAMove(EightGame 	& currentBoard,
+				   	   list<State>  & pStateList,
+					   const int      xDirection);
 	// List of states
 	list <State> GenerateStateList();
 	// Sets the current state
@@ -51,7 +52,14 @@ public:
     void 		 PrintLocalList();
 
 private: 
-	const int MAX_STEPS = 100;
+    enum DIRECTION {UP        = 8,
+    		        LEFT      = 4,
+				    RIGHT     = 6,
+				    DOWN      = 2,
+				    EMPTYSLOT = 'x'};
+	const int MAX_STEPS       = 100;
+	const int BOARD_SIZE      = 9;
+	const int BOARD_ROW_SIZE  = 3;
 	int numSteps;
 	// State object representing Current state
 	State mCurrentState;

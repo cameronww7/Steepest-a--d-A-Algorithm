@@ -64,11 +64,15 @@ int main() {
 	generator.PrintLocalList();
 
 	cout << "------------------" << std::endl;
+<<<<<<< HEAD
 
 	cout << "Board: " << endl;
 	displayBoard(init.GetBoard());
 	cout << " End " << std::endl << endl;
 
+=======
+	cout << "Board: " << init.GetBoard() << " End " << std::endl;
+>>>>>>> master
 
 	cout << "H(n) 1 : " << generator.CalulateHeuristicOne() << std::endl;
 	cout << "H(n) 2 : " << generator.CalulateHeuristicTwo() << std::endl;

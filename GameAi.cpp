@@ -13,7 +13,6 @@
 
 
 #include "GameAi.h"
-enum DIRECTION {UP = 8, LEFT = 4, RIGHT = 6, DOWN = 2, EMPTYSLOT = 'x'};
 
 namespace {
 bool SearchListForCurrentState(std::list<State> stateList,
@@ -35,12 +34,10 @@ GameAi::GameAi() {
 }
 
 //=======NEED TO BE CHANGE==================
-bool GameAi::SetGameBoard(EightGame xSetItem)
-{
+bool GameAi::SetGameBoard(EightGame xSetItem) {
 	mCurrentBoard = xSetItem;
 	return true;
 }
-
 
 //===CalulateHeuristicOne==========================
 // Calculate Heuristic value base on the tile out of
@@ -53,7 +50,7 @@ bool GameAi::SetGameBoard(EightGame xSetItem)
 int GameAi::CalulateHeuristicOne() {
 	int count = 0;
 
-    for (int index = 0; index < 9; index++ ){
+    for (int index = 0; index < BOARD_SIZE; index++ ){
         //cout << mCurrentBoard.GetBoard()[index] << endl;
         if(mCurrentBoard.GetBoard()[index] != EMPTYSLOT){
             if (mCurrentBoard.GetBoard()[index] != mCurrentBoard.GetWinBoard()[index]) {
@@ -63,7 +60,6 @@ int GameAi::CalulateHeuristicOne() {
     }
 	return count;
 }
-
 
 //===CalulateHeuristicTwo==========================
 // Calculate Heuristic value base on how far the tile
@@ -83,15 +79,15 @@ int GameAi::CalulateHeuristicTwo() {
 	int divWin;
 	int modWin;
 
-	for (int index = 0; index < 9; index++) {
+	for (int index = 0; index < BOARD_SIZE; index++) {
         if(mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT){
     		boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
 
-    		divBoard = boardMain / 3;
-    		modBoard = boardMain % 3;
+    		divBoard = boardMain / BOARD_ROW_SIZE;
+    		modBoard = boardMain % BOARD_ROW_SIZE;
 
-    		divWin = index / 3;
-    		modWin = index % 3;
+    		divWin = index / BOARD_ROW_SIZE;
+    		modWin = index % BOARD_ROW_SIZE;
 
     		count = count + (abs(divBoard-divWin) + abs(modBoard-modWin));
         }
@@ -110,15 +106,15 @@ int GameAi::CalulateHeuristicTwo() {
 int GameAi::CalulateHeuristicThree() {
     int count = 0;
 
-    for (int index = 0; index < 9; index++) {
-        if(mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT){
+    for (int index = 0; index < BOARD_SIZE; index++) {
+        if (mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT) {
             int boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
 
-            if(boardMain / 3 != index / 3) {
+            if (boardMain / BOARD_ROW_SIZE != (index / BOARD_ROW_SIZE)) {
                 count++;
             }
 
-            if(boardMain % 3 != index % 3) {
+            if (boardMain % BOARD_ROW_SIZE != (index % BOARD_ROW_SIZE)) {
                 count++;
             }
         }
@@ -154,7 +150,6 @@ void GameAi::PlayGameSteepHillClimb() {
 		}
 		mCurrentBoard = bestState.GetBoardState();
 
-
 		//Print the BEST state to out.txt
 
 		//Update the number of steps
@@ -184,7 +179,7 @@ void GameAi::PlayBestFirstSearch() {
 
 				if (stateIsNotOnOpenList != true &&
 						stateIsNotOnCloseList != true) {
-					stateList.front().CalulateHeuristicOne();
+//					stateList.front().CalulateHeuristicOne();
 					openList.push_front(stateList.front());
 					stateList.pop_front(); // Move to next element
 				} else if (stateIsNotOnOpenList == true) {
@@ -204,7 +199,18 @@ void GameAi::PlayBestFirstSearch() {
 	}
 }
 
+void GameAi::GenerateAMove(EightGame & currentBoard, list<State> & pStateList, const int xDirection) {
+    if (currentBoard.IsMovable(xDirection)) {
+        cout << "Log: DOWN was called" << std::endl;
+        EightGame newBoard = currentBoard;
+        newBoard.MoveDirection(xDirection);
+        //newBoard.DisplayBoard();
+        //cout << "------------------------------" << std::endl;
+        pStateList.emplace_back(State(newBoard));
 
+        mOrderOfInsertion.emplace_back(State(newBoard));
+    }
+}
 
 /*
  * Generates the state list of possible states. Doesn't work yet.
@@ -217,48 +223,10 @@ list <State> GameAi::GenerateStateList() {
     //cout << "Did this call correctly?" << endl;
     //currentBoard.DisplayBoard();
 
-//    list<State>::iterator itr2 = mOrderOfInsertion.begin();
-
-    if (currentBoard.IsMovable(UP)) {
-        cout << "Log: UP was called" << std::endl;
-        EightGame newBoard = currentBoard;
-        newBoard.MoveDirection(UP);
-        //newBoard.DisplayBoard();
-        //cout << "------------------------------" << std::endl;
-        pStateList.emplace_back(State(newBoard));
-
-        mOrderOfInsertion.emplace_back(State(newBoard));
-    }
-    if (currentBoard.IsMovable(DOWN)) {
-        cout << "Log: DOWN was called" << std::endl;
-        EightGame newBoard = currentBoard;
-        newBoard.MoveDirection(DOWN);
-        //newBoard.DisplayBoard();
-        //cout << "------------------------------" << std::endl;
-        pStateList.emplace_back(State(newBoard));
-
-        mOrderOfInsertion.emplace_back(State(newBoard));
-    }
-    if (currentBoard.IsMovable(LEFT)) {
-        cout << "Log: LEFT was called" << std::endl;
-        EightGame newBoard = currentBoard;
-        newBoard.MoveDirection(LEFT);
-        //newBoard.DisplayBoard();
-        //cout << "------------------------------" << std::endl;
-        pStateList.emplace_back(State(newBoard));
-
-        mOrderOfInsertion.emplace_back(State(newBoard));
-    }
-    if (currentBoard.IsMovable(RIGHT)) {
-        cout << "Log: RIGHT was called" << std::endl;
-        EightGame newBoard = currentBoard;
-        newBoard.MoveDirection(RIGHT);
-        //newBoard.DisplayBoard();
-        //cout << "------------------------------" << std::endl;
-        pStateList.emplace_back(State(newBoard));
-
-        mOrderOfInsertion.emplace_back(State(newBoard));
-    }
+    GenerateAMove(currentBoard, pStateList, UP);
+    GenerateAMove(currentBoard, pStateList, DOWN);
+    GenerateAMove(currentBoard, pStateList, LEFT);
+    GenerateAMove(currentBoard, pStateList, RIGHT);
 
     return pStateList;
 }
@@ -279,18 +247,14 @@ void GameAi::PrintList(list <State> xStateList) {
 
 void GameAi::PrintLocalList() {
     //int index = 0;
-    for(int number = 0 ; number < 3; number++)
-    {
+    for (int number = 0 ; number < BOARD_ROW_SIZE; number++) {
     //cout << "State222: " <<  mOrderOfInsertion.end() << std::endl;
-        for (list<State>::iterator itr =  mOrderOfInsertion.begin(); 
-                itr !=  mOrderOfInsertion.end(); 
-                itr++) {
+        for (list<State>::iterator itr =  mOrderOfInsertion.begin(); itr !=  mOrderOfInsertion.end(); itr++) {
             //cout << "State: " << index++ << std::endl;
             itr->GetBoardState().DisplayBoardAtLine(number);
             cout << "   ";
         }
         cout << endl;
-
     }
 }
 
