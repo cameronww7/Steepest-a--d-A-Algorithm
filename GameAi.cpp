@@ -143,9 +143,9 @@ void GameAi::PlayGameSteepHillClimb() {
 			//if heuristic one is chosen
 			// ----  NOTE: Need to do this for every heuristic? 
 			// -----       Only doing one for now               
-			itr->SetHeuristicValue(CalulateHeuristicOne());
+			itr->SetHeuristicValue(CalulateHeuristicTwo());
 
-			cout << CalulateHeuristicOne() << " ";
+			cout << CalulateHeuristicTwo() << " ";
 		}
 		cout << endl;
 
@@ -226,7 +226,8 @@ void GameAi::GenerateAMove(EightGame & currentBoard, list<State> & pStateList, c
 				break;
 			case 4: cout << "Log: LEFT was called" << std::endl;
 				break;
-			case 6: cout << "Log: RIGHT was caleld" << std::endl;
+			case 6: cout << "Log: RIGHT was called" << std::endl;
+				break;
 			default: return;
 		}
        
