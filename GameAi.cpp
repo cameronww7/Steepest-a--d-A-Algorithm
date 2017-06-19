@@ -99,11 +99,11 @@ int GameAi::CalulateHeuristicThree() {
         if(mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT){
             int boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
 
-            if(boardMain / 3 != index / 3){
+            if(boardMain / 3 != index / 3) {
                 count++;
             }
 
-            if(boardMain % 3 != index % 3){
+            if(boardMain % 3 != index % 3) {
                 count++;
             }
         }
@@ -119,10 +119,10 @@ void GameAi::PlayGameSteepHillClimb() {
 		}
 
 		//else generate all possible states
-		list<State> stateList = GenerateStateList();
+		std::list<State> stateList = GenerateStateList();
 
 		//Apply heuristics to all states
-		for (list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
+		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
 			//Apply the heuristic here
 			//if heuristic one is chosen
 			// ----  NOTE: Need to do this for every heuristic? 
@@ -141,6 +141,16 @@ void GameAi::PlayGameSteepHillClimb() {
 }
 
 void GameAi::PlayBestFirstSearch() {
+	std::cout << "\nPlay Best-First Search\n";
+
+	std::queue<State> openQueue;
+	std::queue<State> closeQueue;
+
+	openQueue.push(mCurrentState);
+
+	while (!openQueue.empty()) {
+
+	}
 
 }
 
