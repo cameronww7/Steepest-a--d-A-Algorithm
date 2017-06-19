@@ -36,46 +36,33 @@ void readFromFile (string      xFileName,
 
 int main() {
 	EightGame init;
-	EightGame item;
 	State current;
 	GameAi generator;
 	//GameAi mainAi;
-
-
 	readFromFile("input.txt", init);
 
 	//Just testing stuff out here
-	cout << "Current board state:" << endl;
+	cout << "Input Board:" << endl;
+	displayBoard(init.GetBoard());
+	cout << "Goal Board:" << endl;
+	displayBoard(init.GetWinBoard());
+
+
+	cout << "------------------" << std::endl;
+	cout << "Generating state list: " << endl;
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	cout << "Generating state list: " << endl;
 	list<State> stateList = generator.GenerateStateList();
 	//generator.PrintList(stateList);
+	cout << endl;
+	cout << "Whole List:  " << std::endl;
 	generator.PrintLocalList();
 
 
+	
 	cout << "------------------" << std::endl;
-	cout << "------------------" << std::endl;
-
-	cout << "initial board from file: " << std::endl;
-	displayBoard(init.GetBoard());
-	cout << "Goal state from file: " << std::endl;
-	displayBoard(init.GetWinBoard());
-
-	//char test[] = {'1','2','3','6','x','4','8','7', '5', '\0'};
-
-	item.SetBoard(init.GetBoard());
-	item.SetWinBoard(init.GetWinBoard());
-
-	//mainAi.SetGameBoard(init);
 
 	cout << "Board: " << init.GetBoard() << " End " << std::endl;
-
-	char * board = item.GetBoard();
-	displayBoard(board);
-	//current.SetBoard(init);
-	//Set current
-
 
 	cout <<"H(n) 1 : "<< generator.CalulateHeuristicOne() << std::endl;
 	cout <<"H(n) 2 : "<< generator.CalulateHeuristicTwo() << std::endl;

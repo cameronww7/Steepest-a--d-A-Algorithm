@@ -21,6 +21,7 @@ public:
 	char * GetBoard        (){return mGameBoard;};     
 	bool   SetBoard        (char xArr[]);
 	void   DisplayBoard	    ();
+	void   DisplayBoardAtLine	(int xLevel);
 	bool   CheckForWin     ();
 
 	int    FindEmptySlot   ();
