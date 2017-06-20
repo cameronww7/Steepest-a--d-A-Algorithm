@@ -46,9 +46,9 @@ bool GameAi::SetGameBoard(EightGame xSetItem) {
 // Return: 	Heuristic Value:
 //	** this does not store the calculate value
 //==================================================
-int GameAi::CalulateHeuristicOne(State state) {
+int GameAi::CalulateHeuristicOne(State xState) {
 	int count = 0;
-	EightGame board = state.GetBoardState();
+	EightGame board = xState.GetBoardState();
 
     for (int index = 0; index < BOARD_SIZE; index++ ){
         //cout << mCurrentBoard.GetBoard()[index] << endl;
@@ -68,9 +68,9 @@ int GameAi::CalulateHeuristicOne(State state) {
 // Return: 	Heuristic Value:
 //	** this does not store the calculations value
 //==================================================
-int GameAi::CalulateHeuristicTwo(State state) {
+int GameAi::CalulateHeuristicTwo(State xState) {
 	int count = 0;
-	EightGame board = state.GetBoardState();
+	EightGame board = xState.GetBoardState();
 	int boardMain;
 
 	int divBoard;
@@ -103,9 +103,9 @@ int GameAi::CalulateHeuristicTwo(State state) {
 // Return:  Heuristic Value:
 //  ** this does not store the calculate value
 //==================================================
-int GameAi::CalulateHeuristicThree(State state) {
+int GameAi::CalulateHeuristicThree(State xState) {
     int count = 0;
-	EightGame board = state.GetBoardState();
+	EightGame board = xState.GetBoardState();
 
     for (int index = 0; index < BOARD_SIZE; index++) {
 		if (board.GetWinBoard()[index] != EMPTYSLOT) {
@@ -264,22 +264,21 @@ void GameAi::PlayBestFirstSearch() {
 		if (x.GetBoardState().GetBoard() == mCurrentBoard.GetWinBoard()) {
 			return;
 		} else {
-			// Generates a list of possible statess
+			// Generates a list of possible states
 			std::list<State> stateList = GenerateStateList();
 			// Iterates through state list
 			for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
-				bool stateIsNotOnOpenList  = SearchListForCurrentState(*itr1, openList);
-				bool stateIsNotOnCloseList = SearchListForCurrentState(*itr1, closeList);
+				bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
+				bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
 
-				if (stateIsNotOnOpenList  != true &&
-					stateIsNotOnCloseList != true) {
-					//stateList.front().CalulateHeuristicOne();
-					openList.push_front(stateList.front());
-					stateList.pop_front(); // Move to next element
-				} else if (stateIsNotOnOpenList == true) {
+				if (!stateIsOnOpenList  != true &&
+					!stateIsOnCloseList != true) {
+					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
+					openList.push_front(*itr1);
+				} else if (stateIsOnCloseList == true) {
 					// If the child was reached by a shorter path
 					// Then give the state on open the shorter path??
-				} else if (stateIsNotOnCloseList == true) {
+				} else if (stateIsOnCloseList == true) {
 					// If child was reached by shorter path then
 
 					while(stateList.front() == closeList.front()) {
@@ -293,8 +292,8 @@ void GameAi::PlayBestFirstSearch() {
 	}
 }
 
-void GameAi::GenerateAMove(EightGame & currentBoard, list<State> & pStateList, const int xDirection) {
-    if (currentBoard.IsMovable(xDirection)) {
+void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList, const int xDirection) {
+    if (xCurrentBoard.IsMovable(xDirection)) {
 		switch (xDirection){
 			case 8: cout << "Log: UP was called" << std::endl;
 				break;
@@ -310,8 +309,8 @@ void GameAi::GenerateAMove(EightGame & currentBoard, list<State> & pStateList, c
        	State newBoard;
        	EightGame newGame;
 
-       	newGame.SetBoard(currentBoard.GetBoard());
-       	newGame.SetWinBoard(currentBoard.GetWinBoard());
+       	newGame.SetBoard(xCurrentBoard.GetBoard());
+       	newGame.SetWinBoard(xCurrentBoard.GetWinBoard());
 
        	newGame.MoveDirection(xDirection);
 
@@ -321,7 +320,7 @@ void GameAi::GenerateAMove(EightGame & currentBoard, list<State> & pStateList, c
        	newBoard.SetOldMove(xDirection);
         //cout << newBoard.GetOldMove() << endl;
         //cout << "------------------------------" << std::endl;
-        pStateList.emplace_back(State(newBoard));
+        xPStateList.emplace_back(State(newBoard));
         mOrderOfInsertion.emplace_back(State(newBoard));
     }
 }
@@ -341,19 +340,16 @@ list <State> GameAi::GenerateStateList() {
     int old = mCurrentState.GetOldMove();
 
     //if to prevent to revers the move
-    if(old != DOWN){
+    if(old != DOWN) {
     	GenerateAMove(currentBoard, pStateList, UP);
     }
-    if(old != UP)
-    {
+    if(old != UP) {
     	GenerateAMove(currentBoard, pStateList, DOWN);
     }
-    if(old != RIGHT)
-    {
+    if(old != RIGHT) {
     	GenerateAMove(currentBoard, pStateList, LEFT);
     }
-    if(old != LEFT)
-    {
+    if(old != LEFT) {
     	GenerateAMove(currentBoard, pStateList, RIGHT);
     }
 

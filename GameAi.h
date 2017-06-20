@@ -41,8 +41,8 @@ public:
 
 	void PlayBestFirstSearch();
 
-	void GenerateAMove(EightGame 	& currentBoard,
-				   	   list<State>  & pStateList,
+	void GenerateAMove(EightGame 	& xCurrentBoard,
+				   	   list<State>  & xPStateList,
 					   const int      xDirection);
 	// List of states
 	list <State> GenerateStateList();
