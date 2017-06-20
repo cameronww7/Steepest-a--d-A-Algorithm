@@ -29,11 +29,13 @@ public:
 
     // Tile Out Of Position
     int  CalulateHeuristicOne(State state);
+
     // How Far the Tile
     int  CalulateHeuristicTwo(State state);
+
     // tile out of column and row separately
     int  CalulateHeuristicThree(State state);
-	//Start here
+
 	void PlayGameSteepHillClimb();
 
 	void PlayBestFirstSearch();
@@ -43,10 +45,13 @@ public:
 					   const int      xDirection);
 	// List of states
 	list <State> GenerateStateList();
+
 	// Sets the current state
     void         SetCurrentState(EightGame xCurrent);
+
 	//Return current board
 	EightGame	 GetCurrentBoard() { return mCurrentBoard;};
+
 	// Print functions for lists
     void         PrintList(list<State> xStateList);
     void 		 PrintLocalList();
