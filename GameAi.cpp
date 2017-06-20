@@ -130,15 +130,11 @@ void GameAi::PlayGameSteepHillClimb() {
 	numSteps = 0;
 	srand(time(NULL));
 
-	while (numSteps < MAX_STEPS) {
+	while (numSteps < MAX_STEPS && !mCurrentBoard.CheckForWin()) {
 
 		cout << endl << "********************CURRENT BOARD****************************" << endl;
 		GetCurrentBoard().DisplayBoard();
 
-		//if current state is a solution RETURN
-		if (mCurrentBoard.CheckForWin()) {
-			return;
-		}
 		//else generate all possible states
 		cout << endl << "+++GENERATING STATE LIST:" << endl;
 		std::list<State> stateList = GenerateStateList();
