@@ -20,11 +20,9 @@ bool SearchListForCurrentState(State            xState,
 		                       std::list<State> xList) {
 	bool foundStateInList = false; // Used to See if state is on a Queue
 	for (list<State>::iterator itr = xList.begin(); itr != xList.end() && foundStateInList == false; itr++) {
-		if (*itr == xList.front()) {
+		if (xState == *itr) {
 			foundStateInList = true; // Exit cause found state on queue
-		} else {
-			xList.pop_front(); // Move to next element
-		}
+		} 
 	}
 	return foundStateInList;
 }
