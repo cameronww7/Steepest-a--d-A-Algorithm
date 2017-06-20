@@ -23,17 +23,17 @@ class EightGame {
 public:
 	EightGame();
 	char * GetBoard();
+	char * GetWinBoard();
 	bool   SetBoard(char xArr[]);
+	bool   SetWinBoard(char xArr[]);
 	void   DisplayBoard();
 	void   DisplayBoardAtLine(int xLevel);
-	bool   CheckForWin();
 	int    FindEmptySlot();
 	int    FindCharInBoard(char xInput);
+	void   SwapSpace(int xDirection);
 	bool   MoveDirection(int xDirection);
 	bool   IsMovable(int xDirection);
-	void   SwapSpace(int xDirection);
-	char * GetWinBoard();
-	bool   SetWinBoard(char xArr[]);
+	bool   CheckForWin();
 
 	//Operator Overloaders 
 	//EightGame::EightGame(EightGame &obj);
