@@ -37,19 +37,25 @@ GameAi::GameAi() {
 	numSteps = 0;
 }
 
-//=======NEED TO BE CHANGE==================
+//=================SetGameBoard=====================
+// Sets the game board based on the parameter board
+// passed into the function
+//-------------------------------------------------
+// In    : EightGame xSetItem
+// Return: True
+//==================================================
 bool GameAi::SetGameBoard(EightGame xSetItem) {
 	mCurrentBoard = xSetItem;
 	return true;
 }
 
-//===CalulateHeuristicOne==========================
+//=============CalulateHeuristicOne=================
 // Calculate Heuristic value base on the tile out of
 //	position in the board
 //      AKA: Misplaced Tiles - Admissible 
-//	Compare current to the winning state
-// Return: 	Heuristic Value:
-//	** this does not store the calculate value
+//-------------------------------------------------
+// In    : State xState
+// Return: Heuristic Value
 //==================================================
 int GameAi::CalulateHeuristicOne(State xState) {
 	int count = 0;
@@ -73,12 +79,13 @@ int GameAi::CalulateHeuristicOne(State xState) {
 	return count + temp;
 }
 
-//===CalulateHeuristicTwo==========================
-// Calculate Heuristic value base on how far the tile
-//	Is from the correct position
-//      AKA: Manhattan Distance - Admissible
-// Return: 	Heuristic Value:
-//	** this does not store the calculations value
+//=============CalulateHeuristicTwo=================
+// Calculate Heuristic value base on how far the 
+// tile is from the correct position
+//      AKA: Manhattan Distance - Admissible 
+//-------------------------------------------------
+// In    : State xState
+// Return: Heuristic Value
 //==================================================
 int GameAi::CalulateHeuristicTwo(State xState) {
 	EightGame board = xState.GetBoardState();
@@ -112,13 +119,13 @@ int GameAi::CalulateHeuristicTwo(State xState) {
 	return count + temp;
 }
 
-//===CalulateHeuristicThree==========================
-// Calculate Heuristic value base on each tile out of
-//  coloum + out of row
-//      AKA: Tile out of row and colume - Admissible
-//  Compare current to the winning state
-// Return:  Heuristic Value:
-//  ** this does not store the calculate value
+//=============CalulateHeuristicThree=================
+// Calculate Heuristic value base on the tile out of
+// column + out of row
+//      AKA: Tile out of row and column - Admissible
+//-------------------------------------------------
+// In    : State xState
+// Return: Heuristic Value
 //==================================================
 int GameAi::CalulateHeuristicThree(State xState) {
     int count = 0;
@@ -358,6 +365,13 @@ void GameAi::SetCurrentState(EightGame xCurrent) {
     mCurrentBoard = xCurrent;
 }
 
+
+void GameAi::CleanGameAi() {
+	mOrderOfInsertion.clear();
+	numSteps = 0;
+	mCurrentState.SetOldMove(0);
+}
+
 //This is just for debugging
 void GameAi::PrintList(list <State> xStateList) {
     int index = 0;
@@ -399,12 +413,3 @@ void GameAi::PrintLocalList() {
     	cout << endl;
     }
 }
-
-void GameAi::CleanGameAi() {
-	mOrderOfInsertion.clear();
-	numSteps = 0;
-	mCurrentState.SetOldMove(0);
-}
-
-
-
