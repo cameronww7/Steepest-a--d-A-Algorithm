@@ -265,7 +265,6 @@ int GameAi::PlayBestFirstSearch() {
 					// Update path counter
 					itr1->SetPathValue(pathCounter);
 					// Delete from close list
-<<<<<<<
 					for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
 						itr1->DisplayState();
 					}
@@ -273,7 +272,6 @@ int GameAi::PlayBestFirstSearch() {
 					PrintList(closeList);
 
 					cout << "Close List AFTER" << endl;
-=======
 					/*
 					for (list<State>::iterator itr1 = openList.begin(); 
 							itr1 != openList.end(); 
@@ -281,7 +279,6 @@ int GameAi::PlayBestFirstSearch() {
 						itr1->DisplayState();
 					}
 					*/
->>>>>>>
 					closeList.erase(itr1);
 					PrintList(closeList);
 
