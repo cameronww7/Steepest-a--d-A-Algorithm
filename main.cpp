@@ -29,6 +29,10 @@ enum DIRECTION {UP        = 8,
 			    EMPTYSLOT = 'x'};
 const int BOARD_SIZE = 9;
 const int BOARD_ROW_SIZE = 3;
+const int MAX_STEP_COUNT = 100;
+const int HEURISTIC_ONE = 1;
+const int HEURISTIC_TWO = 2;
+const int HEURISTIC_THREE = 3;
 
 void displayBoard (char * xCurrentBoard);
 
@@ -68,8 +72,8 @@ int main() {
 
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	out = generator.PlayGameSteepHillClimb(1);
-	if(out >= 100){
+	out = generator.PlayGameSteepHillClimb(HEURISTIC_ONE);
+	if(out >= MAX_STEP_COUNT){
 		cout << "No Solution Found" << endl;
 	}
 	else{
@@ -83,8 +87,8 @@ int main() {
 
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	out = generator.PlayGameSteepHillClimb(2);
-	if(out >= 100){
+	out = generator.PlayGameSteepHillClimb(HEURISTIC_TWO);
+	if(out >= MAX_STEP_COUNT){
 		cout << "No Solution Found" << endl;
 	}
 	else{
@@ -99,8 +103,8 @@ int main() {
 
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	out = generator.PlayGameSteepHillClimb(3);
-	if(out >= 100){
+	out = generator.PlayGameSteepHillClimb(HEURISTIC_THREE);
+	if(out >= MAX_STEP_COUNT){
 		cout << "No Solution Found" << endl;
 	}
 	else{
