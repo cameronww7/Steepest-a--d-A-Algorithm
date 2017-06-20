@@ -29,22 +29,6 @@ EightGame::EightGame() {
 	}
 }
 
-/*
-EightGame::EightGame(EightGame &obj){
-
-
-	for (int index = 0; index < BOARD_SIZE; index++) {
-		mGameBoard[index] = obj.GetBoard()[index];
-	}
-	mGameBoard[BOARD_SIZE - 1] = '\0';
-
-	for (int index = 0; index < BOARD_SIZE; index++) {
-		mWinBoard[index] = obj.GetWinBoard()[index];
-	}
-	mWinBoard[BOARD_SIZE - 1] = '\0';
-}
-*/
-
 char * EightGame::GetBoard(){
 	return mGameBoard;
 }
@@ -74,23 +58,9 @@ void EightGame::DisplayBoard() {
 //==================================================
 void EightGame::DisplayBoardAtLine(int xLevel) {
 	for (int currentPosition = (xLevel * BOARD_ROW_SIZE); currentPosition < ((xLevel * BOARD_ROW_SIZE) + BOARD_ROW_SIZE); currentPosition++) {
-		if ((currentPosition % BOARD_ROW_SIZE) == 0  && currentPosition != 0) {
-			//cout << std::endl;
-		}
 		cout << mGameBoard[currentPosition] << " ";
 	}
-	//cout << std::endl;
 }
-
-/*
-EightGame& EightGame::operator=(const EightGame& rhs){
-	//EightGame* Item = new EightGame;
-
-	//Item->SetBoard(rhs.GetBoard());
-	//Item->SetWinBoard(rhs.GetWinBoard());
-
-	return rhs;
-}*/
 
 //===FindCharInBoard=====================
 //Search Value from Board
@@ -211,7 +181,6 @@ bool EightGame::MoveDirection (int xDirection) {
 	if (IsMovable(xDirection)) {
 		SwapSpace(xDirection);
 		ableMove =  true;
-		//DisplayBoard();
 	}
 	return ableMove;
 }
@@ -254,3 +223,29 @@ bool EightGame::IsMovable (int xDirection) {
 	}
 	return ableMove;
 }
+
+/*
+EightGame::EightGame(EightGame &obj){
+
+
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		mGameBoard[index] = obj.GetBoard()[index];
+	}
+	mGameBoard[BOARD_SIZE - 1] = '\0';
+
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		mWinBoard[index] = obj.GetWinBoard()[index];
+	}
+	mWinBoard[BOARD_SIZE - 1] = '\0';
+}
+*/
+
+/*
+EightGame& EightGame::operator=(const EightGame& rhs){
+	//EightGame* Item = new EightGame;
+
+	//Item->SetBoard(rhs.GetBoard());
+	//Item->SetWinBoard(rhs.GetWinBoard());
+
+	return rhs;
+}*/

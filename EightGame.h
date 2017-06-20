@@ -17,9 +17,6 @@ using namespace std;
 class EightGame {
 public:
 	EightGame();
-	//EightGame(EightGame & obj);
-
-	//EightGame& operator=(const EightGame & rhs);
 
 	char * GetBoard();
 	bool   SetBoard(char xArr[]);
@@ -36,6 +33,9 @@ public:
 
 	char * GetWinBoard();
 	bool   SetWinBoard(char xArr[]);
+
+	//EightGame(EightGame & obj);
+	//EightGame& operator=(const EightGame & rhs);
 
 private:
     enum DIRECTION {UP          = 8,
