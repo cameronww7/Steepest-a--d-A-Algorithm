@@ -274,10 +274,10 @@ void GameAi::PlayBestFirstSearch() {
 				if (!stateIsOnOpenList && !stateIsOnCloseList) {
 					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 					openList.push_front(*itr1);
-				} else if (stateIsOnCloseList == true) {
+				} else if (stateIsOnCloseList) {
 					// If the child was reached by a shorter path
 					// Then give the state on open the shorter path??
-				} else if (stateIsOnCloseList == true) {
+				} else if (stateIsOnCloseList) {
 					// If child was reached by shorter path then
 
 					while(stateList.front() == closeList.front()) {
