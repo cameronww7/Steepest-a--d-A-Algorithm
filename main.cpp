@@ -65,9 +65,8 @@ int main() {
 
 	cout << "============ Main Function Start ============ " << endl << endl;
 	int out;
-
-	// Steepest-ascent hill-climbing
 	cout << "Algorithm: Steepest-Ascent Hill-Climbing" << endl;
+	// Steepest-ascent hill-climbing
 	cout << "Heuristic: Tile-Out-Of-Place" << endl;
 
 	//Setting the initial and win state to the boards taken from input.txt
@@ -114,7 +113,7 @@ int main() {
 	}
 	generator.CleanGameAi();
 	cout << endl << endl;
-
+	*/
 
 	//list<State> stateList = generator.GenerateStateList();
 	////generator.PrintList(stateList);
@@ -136,7 +135,8 @@ int main() {
 	//  cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
 	cout << "------------------" << std::endl;
-		cout << "Algorithm: Best-First Search" << endl;
+	cout << "Algorithm: Best-First Search" << endl;
+	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
 	out = generator.PlayBestFirstSearch();
 	if(out >= MAX_STEP_COUNT){
