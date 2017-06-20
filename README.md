@@ -22,8 +22,8 @@ How to complie using Linux:
 - Press Enter
 
 Run:
-- display on console $ ./outfile
-- output to textfile $ ./outfile > filename.txt
+- display on console $ ./hw1
+- output to textfile $ ./hw1 > filename.txt
 
 ---------------------------------------------------------------------------------------------------------------------
 

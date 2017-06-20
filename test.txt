@@ -1,0 +1,60 @@
+Input Board:
+1 x 3 
+5 2 6 
+4 7 8 
+
+Goal Board:
+1 2 3 
+4 5 6 
+7 8 x 
+============ Steepest-Ascent Hill-Climbing ============ 
+
+Algorithm: Steepest-Ascent Hill-Climbing
+
+Heuristic: Tile-Out-Of-Place
+Number of Steps: 5
+1 2 3    1 2 3    1 2 3    1 2 3    1 2 3    
+5 x 6    x 5 6    4 5 6    4 5 6    4 5 6    
+4 7 8    4 7 8    x 7 8    7 x 8    7 8 x    
+
+
+Heuristic: Number of Move to Correct Position
+Number of Steps: 5
+1 2 3    1 2 3    1 2 3    1 2 3    1 2 3    
+5 x 6    x 5 6    4 5 6    4 5 6    4 5 6    
+4 7 8    4 7 8    x 7 8    7 x 8    7 8 x    
+
+
+Heuristic: Tile out of Colume + Tile out of Row
+Number of Steps: 5
+1 2 3    1 2 3    1 2 3    1 2 3    1 2 3    
+5 x 6    x 5 6    4 5 6    4 5 6    4 5 6    
+4 7 8    4 7 8    x 7 8    7 x 8    7 8 x    
+
+
+
+============ Best-First Search ============ 
+
+Algorithm: Best-First Search
+Heuristic: Tile-Out-Of-Place
+Number of Steps: 5
+1 2 3    1 2 3    1 2 3    1 2 3    1 2 3    
+5 x 6    x 5 6    4 5 6    4 5 6    4 5 6    
+4 7 8    4 7 8    x 7 8    7 x 8    7 8 x    
+
+
+Heuristic: Number of Move to Correct Position
+Number of Steps: 5
+1 2 3    1 2 3    1 2 3    1 2 3    1 2 3    
+5 x 6    x 5 6    4 5 6    4 5 6    4 5 6    
+4 7 8    4 7 8    x 7 8    7 x 8    7 8 x    
+
+
+Heuristic: Tile out of Colume + Tile out of Row
+Number of Steps: 5
+1 2 3    1 2 3    1 2 3    1 2 3    1 2 3    
+5 x 6    x 5 6    4 5 6    4 5 6    4 5 6    
+4 7 8    4 7 8    x 7 8    7 x 8    7 8 x    
+
+
+
