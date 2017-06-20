@@ -37,9 +37,9 @@ public:
     // tile out of column and row separately
     int  CalulateHeuristicThree(State state);
 
-	int PlayGameSteepHillClimb(int xHeuristicNumber);
+	int PlayGameSteepHillClimb(const int xHeuristicNumber);
 
-	int PlayBestFirstSearch();
+	int PlayBestFirstSearch(const int xHeuristicNumber);
 
 	void GenerateAMove(EightGame 	& xCurrentBoard,
 				   	   list<State>  & xPStateList,
