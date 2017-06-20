@@ -245,6 +245,7 @@ void GameAi::PlayBestFirstSearch() {
 	State x;
 	// Counter for path value
 	int pathCounter = 0;
+	int currentPathValue = 0;
 
 	openList.push_front(mCurrentBoard); // Pushing Root Node Current State
 
@@ -262,7 +263,8 @@ void GameAi::PlayBestFirstSearch() {
 		for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
 			bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
 			bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
-
+			
+			// Visiting a node that we've never encountered before
 			if (!stateIsOnOpenList && !stateIsOnCloseList) {
 				cout << "Entering the first if" << endl;
 				itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
@@ -281,8 +283,9 @@ void GameAi::PlayBestFirstSearch() {
 				
 			} else if (stateIsOnCloseList) {
 				cout << "Entering the third if" << endl;
+				currentPathValue = itr1->GetPathValue();
 				// If the current path we took to this node is shorter than the old path
-				if(pathCounter < itr1->GetPathValue()) {
+				if(pathCounter < currentPathValue) {
 					cout << "Inside path counter part" << endl;
 					// Update path counter
 					itr1->SetPathValue(pathCounter);
@@ -299,6 +302,11 @@ void GameAi::PlayBestFirstSearch() {
 			openList.sort(CompareStateHeuristicValues);
 			// Update the current board
 			mCurrentBoard = openList.front().GetBoardState();
+			
+			// Print for debugging
+			cout << "Displaying the board: " << endl;
+			mCurrentBoard.DisplayBoard();
+			cout << endl;
 		}
 	}
 }
