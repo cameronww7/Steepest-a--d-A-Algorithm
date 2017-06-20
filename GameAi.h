@@ -28,7 +28,7 @@ public:
 	int GetNumSteps() {return numSteps;};
 
     // Tile Out Of Position
-    int  CalulateHeuristicOne();
+    int  CalulateHeuristicOne(State state);
     // How Far the Tile
     int  CalulateHeuristicTwo();
     // tile out of column and row separately

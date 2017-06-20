@@ -47,13 +47,14 @@ bool GameAi::SetGameBoard(EightGame xSetItem) {
 // Return: 	Heuristic Value:
 //	** this does not store the calculate value
 //==================================================
-int GameAi::CalulateHeuristicOne() {
+int GameAi::CalulateHeuristicOne(State state) {
 	int count = 0;
+	EightGame board = state.GetBoardState();
 
     for (int index = 0; index < BOARD_SIZE; index++ ){
         //cout << mCurrentBoard.GetBoard()[index] << endl;
-        if(mCurrentBoard.GetBoard()[index] != EMPTYSLOT){
-            if (mCurrentBoard.GetBoard()[index] != mCurrentBoard.GetWinBoard()[index]) {
+		if (board.GetBoard()[index] != EMPTYSLOT){
+			if (board.GetBoard()[index] != board.GetWinBoard()[index]) {
                 count++;
             }
         }
@@ -138,16 +139,16 @@ void GameAi::PlayGameSteepHillClimb() {
 		cout << endl << "+++GENERATING STATE LIST:" << endl;
 		std::list<State> stateList = GenerateStateList();
 		cout << endl;
-		PrintList(stateList);
+		//PrintList(stateList);
 
 
 		//Apply heuristics to all states
-		cout << endl << "+++APPLYING HEURISTICS:" << endl;
+		cout << endl << "+++APPLYING HEURISTICS:" << endl << endl;
 		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {        
-			itr->SetHeuristicValue(CalulateHeuristicThree());
+			itr->SetHeuristicValue(CalulateHeuristicOne(*itr));
 			itr->DisplayState();
 
-			cout << "Heuristic: " << itr->GetHeuristicValue() << " " << endl;
+			cout << "Heuristic: " << itr->GetHeuristicValue() << " " << endl << endl;
 		}
 		cout << endl;
 
