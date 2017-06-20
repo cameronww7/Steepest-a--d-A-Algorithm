@@ -248,66 +248,65 @@ void GameAi::PlayBestFirstSearch() {
 
 	openList.push_front(mCurrentState); // Pushing Root Node Current State
 
-	while (!openList.empty()) {
-		// X represents the first state in the open queue
+	while (!openList.empty() && !mCurrentBoard.CheckForWin()) {
+		// Assign the first value from open list into X and remove it from the open list
 		x = openList.front();
-		// If the current board is equal to the winning board, return
-		if (x.GetBoardState().GetBoard() == mCurrentBoard.GetWinBoard()) {
-			return;
-		} else {
-			// Generates a list of possible states
-			std::list<State> stateList = GenerateStateList();
-			pathCounter++;
-			// Iterates through state list
-			for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
-				bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
-				bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
+		openList.pop_front();
+		// Generates a list of possible states
+		std::list<State> stateList = GenerateStateList();
+		pathCounter++;
+		// Iterates through state list
+		for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
+			bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
+			bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
 
-				if (!stateIsOnOpenList && !stateIsOnCloseList) {
-					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
-					// assigns the path value to the current state
+			if (!stateIsOnOpenList && !stateIsOnCloseList) {
+				itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
+				// assigns the path value to the current state
+				itr1->SetPathValue(pathCounter);
+				openList.push_front(*itr1);
+			} else if (stateIsOnOpenList) {
+				//This is where we are supposed to sort the list
+				// If the current path we took to this node is shorter than the old path
+				if(pathCounter < itr1->GetPathValue()) {
+					// Update path counter
 					itr1->SetPathValue(pathCounter);
-					openList.push_front(*itr1);
-				} else if (stateIsOnOpenList) {
-					//This is where we are supposed to sort the list
-					// If the current path we took to this node is shorter than the old path
-					if(pathCounter < itr1->GetPathValue()) {
-						// Update path counter
-						itr1->SetPathValue(pathCounter);
-					}
-					
-				} else if (stateIsOnCloseList) {
-					// If the current path we took to this node is shorter than the old path
-					if(pathCounter < itr1->GetPathValue()) {
-						// Update path counter
-						itr1->SetPathValue(pathCounter);
-						// Delete from close list
-						closeList.erase(itr1);
-						// Add to open list
-						openList.push_front(*itr1);
-					}
 				}
-				closeList.push_front(x);
-				// Sort the open list
-				openList.sort(CompareStateHeuristicValues);
+				
+			} else if (stateIsOnCloseList) {
+				// If the current path we took to this node is shorter than the old path
+				if(pathCounter < itr1->GetPathValue()) {
+					// Update path counter
+					itr1->SetPathValue(pathCounter);
+					// Delete from close list
+					closeList.erase(itr1);
+					// Add to open list
+					openList.push_front(*itr1);
+				}
 			}
+			// Push the element to the closed list
+			closeList.push_front(x);
+			// Sort the open list
+			openList.sort(CompareStateHeuristicValues);
+			// Update the current board
+			mCurrentBoard = openList.front();
 		}
 	}
 }
 
 void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList, const int xDirection) {
     if (xCurrentBoard.IsMovable(xDirection)) {
-		switch (xDirection){
-			case 8: cout << "Log: UP was called" << std::endl;
-				break;
-			case 2: cout << "Log: DOWN was called" << std::endl;
-				break;
-			case 4: cout << "Log: LEFT was called" << std::endl;
-				break;
-			case 6: cout << "Log: RIGHT was called" << std::endl;
-				break;
-			default: return;
-		}
+//		switch (xDirection){
+//			case 8: cout << "Log: UP was called" << std::endl;
+//				break;
+//			case 2: cout << "Log: DOWN was called" << std::endl;
+//				break;
+//			case 4: cout << "Log: LEFT was called" << std::endl;
+//				break;
+//			case 6: cout << "Log: RIGHT was called" << std::endl;
+//				break;
+//			default: return;
+//		}
        
        	State newBoard;
        	EightGame newGame;

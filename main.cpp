@@ -131,7 +131,8 @@ int main() {
 	//  cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
 	cout << "------------------" << std::endl;
-	//generator.PlayBestFirstSearch();
+	generator.SetCurrentState(current.GetBoardState());
+	generator.PlayBestFirstSearch();
 
 	cout << std::endl;
 	system("PAUSE");
