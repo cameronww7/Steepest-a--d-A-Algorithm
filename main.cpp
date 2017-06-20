@@ -18,6 +18,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <time.h>
 #include "GameAi.h"
 using namespace std;
 

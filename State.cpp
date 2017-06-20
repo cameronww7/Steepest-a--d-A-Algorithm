@@ -24,7 +24,8 @@ State::State(EightGame xEGBoard) {
 }
 
 void State::SetBoard(EightGame xEGBoard) {
-    mCurrentBoard = xEGBoard;
+    mCurrentBoard.SetBoard(xEGBoard.GetBoard());
+    mCurrentBoard.SetWinBoard(xEGBoard.GetWinBoard());
 }
 
 void State::SetHeuristicValue(int xHValue) {

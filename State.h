@@ -40,9 +40,14 @@ public:
 	bool operator==(State & xRHS);
 	bool operator>(State & xRHS);
 
+    void SetOldMove(int xDirection){oldMove = xDirection;};
+    int GetOldMove(){return oldMove;};
+
 private:
 	const int BOARD_SIZE      = 9;
 	const int BOARD_ROW_SIZE  = 3;
+
+    int oldMove;
 
     EightGame mCurrentBoard;
     int       mHeuristicValue;
