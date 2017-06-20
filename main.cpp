@@ -64,7 +64,6 @@ int main() {
 	int out;
 	
 	cout << "Algorithm: Steepest-Ascent Hill-Climbing" << endl << endl;
-	
 
 	//Heuristic One - SAHC
 	current.SetBoard(init);
@@ -100,7 +99,7 @@ int main() {
 	//Heuristic Three - SAHC
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	cout << "Heuristic: Tile out of Colume + Tile out of Row" << endl;
+	cout << "Heuristic: Tile out of Column + Tile out of Row" << endl;
 	out = generator.PlayGameSteepHillClimb(HEURISTIC_THREE);
 	if(out >= MAX_STEP_COUNT){
 		cout << "No Solution Found" << endl;
@@ -150,7 +149,7 @@ int main() {
 	//Heuristic Three - BFS
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	cout << "Heuristic: Tile out of Colume + Tile out of Row" << endl;
+	cout << "Heuristic: Tile out of Column + Tile out of Row" << endl;
 	out = generator.PlayBestFirstSearch(HEURISTIC_TWO);
 	if(out >= MAX_STEP_COUNT){
 		cout << "No Solution Found" << endl;

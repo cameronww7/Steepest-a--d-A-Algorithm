@@ -1,6 +1,5 @@
 hw1: main.o EightGame.o GameAi.o State.o
 	g++ -std=c++11 -Wall EightGame.o main.o GameAi.o State.o -o hw1
-	rm *.o
 
 main.o: main.cpp EightGame.h GameAi.h State.h
 	g++ -std=c++11 -Wall -c main.cpp
