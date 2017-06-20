@@ -15,7 +15,7 @@
 using namespace std;
 
 /****************************************************************
-*  Goal of Class
+*  							EightGame
 *  ------------------------------------------------------------
 *  A playable 8 Game with an initial state and a win state.
 ***************************************************************/
@@ -51,7 +51,7 @@ private:
 						DOWN        = 2,
 						EMPTYSLOT   = 'x'};
 
-	static const int	BOARD_SIZE = 10; //To accommodate the escape character
+	static const int	BOARD_SIZE = 10; // 10 and not 9 to accommodate the escape character
 	static const int	BOARD_ROW_SIZE  = 3;
 
 	char				mGameBoard[BOARD_SIZE];

@@ -14,10 +14,6 @@
 
 #include "EightGame.h"
 
-//===EightGame====================================
-// Initialize both array with null so it will
-// not have any overflow
-//==========================================
 EightGame::EightGame() {
 	//initial current board
 	for (int index = 0; index < BOARD_SIZE; index++) {
@@ -28,7 +24,6 @@ EightGame::EightGame() {
 		mWinBoard[index] = '\0';
 	}
 }
-
 
 //==================GetBoard========================
 // Returns the Game board.
