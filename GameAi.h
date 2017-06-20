@@ -39,7 +39,7 @@ public:
 
 	int PlayGameSteepHillClimb(int xHeuristicNumber);
 
-	void PlayBestFirstSearch();
+	int PlayBestFirstSearch();
 
 	void GenerateAMove(EightGame 	& xCurrentBoard,
 				   	   list<State>  & xPStateList,
