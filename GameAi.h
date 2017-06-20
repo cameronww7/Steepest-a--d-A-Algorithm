@@ -17,8 +17,9 @@
 #include <queue>          // std::queue
 #include <ctime>
 using namespace std;
+
  /****************************************************************
- *  GameAi
+ *  						GameAi
  *  ------------------------------------------------------------
  *  Represents the GameAi that applies heuristic functions and 
  *  algorithms to the 8-puzzle problem
@@ -26,22 +27,29 @@ using namespace std;
 class GameAi {
 public:
 	GameAi();
+
 	EightGame GetCurrentBoard() { return mCurrentBoard;};
-	int       GetNumSteps() {return numSteps;};
+	int       GetNumSteps() {return mNumSteps;};
+
 	bool      SetGameBoard(EightGame xSetItem);
 	void      SetCurrentState(EightGame xCurrent);
+
 	void      PrintList(list<State> xStateList);
     void      PrintLocalList();
-	int       CalulateHeuristicOne(State state);
-	int       CalulateHeuristicTwo(State state);
-	int       CalulateHeuristicThree(State state);
+
+	int       CalulateHeuristicOne(State xState);
+	int       CalulateHeuristicTwo(State xState);
+	int       CalulateHeuristicThree(State xState);
+
 	int       PlayGameSteepHillClimb(const int xHeuristicNumber);
 	int       PlayBestFirstSearch(const int xHeuristicNumber);
-	void      GenerateAMove(EightGame 	& xCurrentBoard,
-							list<State>  & xPStateList,
-							const int      xDirection);
-	void      CleanGameAi();
+
+	void      GenerateAMove(EightGame   & xCurrentBoard,
+							list<State> & xPStateList,
+							const int     xDirection);
 	list <State> GenerateStateList();
+
+	void         CleanGameAi();
 
 private: 
     enum DIRECTION {UP        = 8,
@@ -55,11 +63,8 @@ private:
 	const int BOARD_SIZE      = 9;
 	const int BOARD_ROW_SIZE  = 3;
 
-	int numSteps = 0;
-
-	State mCurrentState; 
-
+	State 		 mCurrentState;
 	list <State> mOrderOfInsertion;
-
-	EightGame mCurrentBoard;
+	EightGame 	 mCurrentBoard;
+	int          mNumSteps = 0;
 };
