@@ -27,18 +27,10 @@ bool SearchListForCurrentState(State            xState,
 	return foundStateInList;
 }
 
-State SearchListForAState(State            xState,
-		                       std::list<State> xList) {
-	State stateInList; // Used to See if state is on a Queue
-	for (list<State>::iterator itr = xList.begin(); itr != xList.end(); itr++) {
-		if (xState == *itr) {
-			stateInList = *itr; // Exit cause found state on queue
-		} 
-	}
-	return stateInList;
+bool CompareStateHeuristicValues(State& first, State& second)
+{
+    return (first.GetHeuristicValue() < second.GetHeuristicValue());
 }
-
-
 } // Anonymous namespace
 
 GameAi::GameAi() {
@@ -288,25 +280,31 @@ void GameAi::PlayBestFirstSearch() {
 				bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
 
 				if (!stateIsOnOpenList && !stateIsOnCloseList) {
-					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1
+					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 					// assigns the path value to the current state
 					itr1->SetPathValue(pathCounter);
 					openList.push_front(*itr1);
 				} else if (stateIsOnOpenList) {
 					// If the current path we took to this node is shorter than the old path
 					if(pathCounter < itr1->GetPathValue()) {
+						// Update path counter
 						itr1->SetPathValue(pathCounter);
 					}
 					
 				} else if (stateIsOnCloseList) {
 					// If the current path we took to this node is shorter than the old path
 					if(pathCounter < itr1->GetPathValue()) {
+						// Update path counter
 						itr1->SetPathValue(pathCounter);
-						
+						// Delete from close list
+						closeList.remove(*itr1);
+						// Add to open list
+						openList.push_front(*itr1);
 					}
-					//remove the element
 				}
 				closeList.push_front(x);
+				// Sort the open list
+				openList.sort(CompareStateHeuristicValues);
 			}
 		}
 	}
