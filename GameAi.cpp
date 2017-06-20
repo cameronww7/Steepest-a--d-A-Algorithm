@@ -274,7 +274,7 @@ void GameAi::PlayBestFirstSearch() {
 				if (!stateIsOnOpenList && !stateIsOnCloseList) {
 					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 					openList.push_front(*itr1);
-				} else if (stateIsOnCloseList) {
+				} else if (stateIsOnOpenList) {
 					//This is where we are supposed to sort the list
 					
 				} else if (stateIsOnCloseList) {
