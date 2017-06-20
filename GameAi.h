@@ -16,6 +16,7 @@
 #include <iostream>       // std::cin, std::cout
 #include <list>			  // std::list
 #include <queue>          // std::queue
+#include <ctime>
 using namespace std;
 
 class GameAi {
