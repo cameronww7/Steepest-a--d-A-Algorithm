@@ -14,7 +14,7 @@
 
 #include "EightGame.h"
 
-//===Ctor====================================
+//===EightGame====================================
 // Initialize both array with null so it will
 // not have any overflow
 //==========================================

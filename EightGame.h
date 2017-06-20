@@ -22,6 +22,7 @@ using namespace std;
 class EightGame {
 public:
 	EightGame();
+
 	char * GetBoard();
 	char * GetWinBoard();
 
@@ -33,6 +34,7 @@ public:
 
 	int    FindEmptySlot();
 	int    FindCharInBoard(char xInput);
+
 	void   SwapSpace(int xDirection);
 	bool   MoveDirection(int xDirection);
 	bool   IsMovable(int xDirection);
