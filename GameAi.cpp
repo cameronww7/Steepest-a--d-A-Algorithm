@@ -271,8 +271,7 @@ void GameAi::PlayBestFirstSearch() {
 				bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
 				bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
 
-				if (!stateIsOnOpenList  != true &&
-					!stateIsOnCloseList != true) {
+				if (!stateIsOnOpenList && !stateIsOnCloseList) {
 					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 					openList.push_front(*itr1);
 				} else if (stateIsOnCloseList == true) {
