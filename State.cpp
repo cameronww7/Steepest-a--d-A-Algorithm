@@ -49,9 +49,6 @@ bool State::operator==(State & xRHS) {
 			return false;
 		}
 	}
-	
-
-
 	//if (this->GetHeuristicValue() == xRHS.GetHeuristicValue()) {
 	//	return true;
 	//}

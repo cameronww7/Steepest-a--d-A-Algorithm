@@ -65,7 +65,18 @@ int GameAi::CalulateHeuristicOne(State xState) {
             }
         }
     }
-	return count + numSteps;
+    
+    int temp;
+	if(xState.GetPathValue() != 0){
+		temp = xState.GetPathValue();
+	}
+	else{
+		temp = numSteps;
+	}
+	
+	return count + temp;
+	
+	//return count + numSteps;
 }
 
 //===CalulateHeuristicTwo==========================
@@ -77,6 +88,7 @@ int GameAi::CalulateHeuristicOne(State xState) {
 //==================================================
 int GameAi::CalulateHeuristicTwo(State xState) {
 	int count = 0;
+	
 	EightGame board = xState.GetBoardState();
 	int boardMain;
 
@@ -99,7 +111,17 @@ int GameAi::CalulateHeuristicTwo(State xState) {
     		count = count + (abs(divBoard-divWin) + abs(modBoard-modWin));
         }
 	}
-	return count + numSteps;
+	
+	int temp;
+	if(xState.GetPathValue() != 0){
+		temp = xState.GetPathValue();
+	}
+	else{
+		temp = numSteps;
+	}
+	return count + temp;
+	
+	//return count + numSteps;
 }
 
 //===CalulateHeuristicThree==========================
@@ -127,7 +149,17 @@ int GameAi::CalulateHeuristicThree(State xState) {
             }
         }
     }
-    return count + numSteps;
+    
+    int temp;
+	if(xState.GetPathValue() != 0){
+		temp = xState.GetPathValue();
+	}
+	else{
+		temp = numSteps;
+	}
+	return count + temp;
+	
+    //return count + numSteps;
 }
 
 int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
@@ -231,7 +263,7 @@ int GameAi::PlayBestFirstSearch() {
 			bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
 			bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
 			//itr1->DisplayState();
-			
+			itr1->SetPathValue(pathCounter);
 			// Visiting a node that we've never encountered before
 			if (!stateIsOnOpenList && !stateIsOnCloseList) {
 				cout << "Entering the 111" << endl;
@@ -320,14 +352,14 @@ int GameAi::PlayBestFirstSearch() {
 		//mCurrentBoard.DisplayBoard();
 		/*
 		cout << "ddd" << endl;
-
+		*/
 		cout << "Open--------------------------" << endl;
 		for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
 			itr1->DisplayState();
 			cout << "State heuristic Open: " << itr1->GetHeuristicValue() << endl;
 		}
 		cout << "Open--------------------------" << endl << endl;
-		*/
+		
 		State bestState = openList.front();
 
 		bestState.DisplayState();
@@ -342,7 +374,7 @@ int GameAi::PlayBestFirstSearch() {
 
 void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList, const int xDirection) {
     if (xCurrentBoard.IsMovable(xDirection)) {
-    	
+    	/*
 		switch (xDirection){
 			case 8: cout << "Log: UP was called" << std::endl;
 				break;
@@ -354,6 +386,7 @@ void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList,
 				break;
 			default: return;
 		}
+		*/
 		
        
        	State newBoard;
