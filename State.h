@@ -18,7 +18,7 @@
 #include "EightGame.h"
 
 /****************************************************************
- *  Goal of Class
+ *  							State
  *  ------------------------------------------------------------
  *  Represents state of a board at a given time, along with their
  *  heuristic value, with the idea that they be used for the
@@ -33,10 +33,12 @@ public:
     int  	  GetHeuristicValue() {return  mHeuristicValue;};
     int  	  GetOldMove() {return mOldMove;};
 	int  	  GetPathValue() {return mPathValue;};
+
     void 	  SetBoard(EightGame xEGBoard);
     void 	  SetHeuristicValue(int xHValue);
     void 	  SetOldMove(int xDirection) {mOldMove = xDirection;};
 	void 	  SetPathValue(int xPathValue) {mPathValue = xPathValue;};
+
     void 	  DisplayState();
 
     // Overloaders
