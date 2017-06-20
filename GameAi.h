@@ -60,7 +60,8 @@ private:
 	const int MAX_STEPS       = 100;
 	const int BOARD_SIZE      = 9;
 	const int BOARD_ROW_SIZE  = 3;
-	int numSteps;
+
+	int numSteps = 0;
 	// State object representing Current state
 	State mCurrentState;
 	// List containing the order of insertion 
