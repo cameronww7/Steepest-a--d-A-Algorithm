@@ -174,7 +174,6 @@ void GameAi::PlayGameSteepHillClimb() {
 		}
 		cout << endl;
 
-		//Select the BEST state
 		cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
 		State bestState = stateList.front();
 		bestState.SetHeuristicValue(1000);
@@ -185,6 +184,9 @@ void GameAi::PlayGameSteepHillClimb() {
 				cout << "===" <<bestState.GetHeuristicValue() << endl;
 			}
 		}
+		//end oat test
+
+
 		mCurrentBoard = bestState.GetBoardState();
 		mCurrentBoard.DisplayBoard();
 		cout << endl;
