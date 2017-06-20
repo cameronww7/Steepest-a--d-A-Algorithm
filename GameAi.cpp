@@ -11,11 +11,21 @@
  * 				: the 8-puzzle problem.
  *****************************************************************/
 
-
 #include "GameAi.h"
 
-
+//=============Anonymous Namespace==================
+// This is an anonymous namespace that provides 
+// two functions that are only visible and usable
+// in this file (GameAi.cpp)
+//==================================================
 namespace {
+//=============SearchListForCurrentState============
+// Searches a list to check if a state exists in
+// that list based off of the parameters given
+//-------------------------------------------------
+// In    : State xState
+// Return: list<State> xList
+//==================================================
 bool SearchListForCurrentState(State            xState,
 		                       std::list<State> xList) {
 	bool foundStateInList = false; // Used to See if state is on a Queue
@@ -26,13 +36,26 @@ bool SearchListForCurrentState(State            xState,
 	}
 	return foundStateInList;
 }
-
+//=============CompareStateHeuristicValue===========
+// Compares the heuristic values from two different
+// states given by the parameters
+//-------------------------------------------------
+// In    : State& first, State& second
+// Return: Bool (first.GetHeuristicValue() 
+//               < second.GetHeuristicValue())
+//==================================================
 bool CompareStateHeuristicValues(State& first, State& second)
 {
     return (first.GetHeuristicValue() < second.GetHeuristicValue());
 }
-} // Anonymous namespace
-
+} // 
+//====================GameAi========================
+// Default Constructor for the GameAi class that 
+// sets the number of steps to zero
+//-------------------------------------------------
+// In    : Nothing
+// Return: Nothing
+//==================================================
 GameAi::GameAi() {
 	numSteps = 0;
 }
@@ -47,6 +70,70 @@ GameAi::GameAi() {
 bool GameAi::SetGameBoard(EightGame xSetItem) {
 	mCurrentBoard = xSetItem;
 	return true;
+}
+
+//================SetCurrentState===================
+// Sets the current state based on the current 
+// EightGame object passed into the function
+//-------------------------------------------------
+// In    : EightGame xCurrent
+// Return: Nothing
+//==================================================
+void GameAi::SetCurrentState(EightGame xCurrent) {
+    mCurrentState.SetBoard(xCurrent);
+    mCurrentBoard = xCurrent;
+}
+
+//===================PrintList======================
+// Prints a list of states given by parameter
+//-------------------------------------------------
+// In    : list <State> xStateList
+// Return: Nothing
+//==================================================
+void GameAi::PrintList(list <State> xStateList) {
+    int index = 0;
+    for (list<State>::iterator itr = xStateList.begin(); itr != xStateList.end(); itr++) {
+        cout << "State: " << ++index << std::endl;
+        itr->GetBoardState().DisplayBoard();
+    }
+}
+
+//=================PrintLocalList===================
+// Prints the list horizontally, using the board
+// from within the GameAi class, hence why there
+// is no parameter for this function
+//-------------------------------------------------
+// In    : Nothing
+// Return: Nothing
+//==================================================
+void GameAi::PrintLocalList() {
+	list<State> tempList;
+
+    for (list<State>::iterator itrCol = mOrderOfInsertion.begin();
+    		itrCol != mOrderOfInsertion.end();
+    		){
+
+    	//Create list of 5 element
+    	for(int index = 0; index < MAX_COL; index++)
+    	{
+    		tempList.emplace_back(*itrCol);
+    		itrCol++;
+    		if(itrCol == mOrderOfInsertion.end()){
+    			index = MAX_COL;
+    		}
+
+    	}
+
+		for (int number = 0 ; number < BOARD_ROW_SIZE; number++) {
+	        for (list<State>::iterator itr =  tempList.begin(); itr !=  tempList.end(); itr++) {
+	            itr->GetBoardState().DisplayBoardAtLine(number);
+	            cout << "   ";
+	        }
+	        cout << endl;
+    	}
+    	tempList.clear();
+    	cout << endl;
+    }
 }
 
 //=============CalulateHeuristicOne=================
@@ -118,8 +205,7 @@ int GameAi::CalulateHeuristicTwo(State xState) {
 	}
 	return count + temp;
 }
-
-//=============CalulateHeuristicThree=================
+//=============CalulateHeuristicThree===============
 // Calculate Heuristic value base on the tile out of
 // column + out of row
 //      AKA: Tile out of row and column - Admissible
@@ -153,6 +239,14 @@ int GameAi::CalulateHeuristicThree(State xState) {
 	return count + temp;
 }
 
+//=============PlayGameSteepHillClimb===============
+// Uses the heuristic algorithm steepest-ascent-
+// /descent hill-climbing that utilizes three
+// different heuristic functions
+//-------------------------------------------------
+// In    : int xHeuristicNumber
+// Return: int GetNumSteps()
+//==================================================
 int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 	numSteps = 0;
 	srand(time(NULL));
@@ -217,7 +311,14 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 	return GetNumSteps();
 }//End Function
 
-
+//=============PlayBestFirstSearch==================
+// Uses the heuristic algorithm steepest-ascent-
+// /descent hill-climbing that utilizes three
+// different heuristic functions
+//-------------------------------------------------
+// In    : int xHeuristicNumber
+// Return: int GetNumSteps()
+//==================================================
 int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 	std::cout << "\nPlay Best-First Search\n";
 
@@ -329,11 +430,28 @@ void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList,
     }
 }
 
-/*******************************************************************
- * Generates the state list of possible states. Doesn't work yet.
- * Uses the member variable mCurrentState to generate the possible
- * states from
- ******************************************************************/
+//==================CleanGameAi=====================
+// Cleans and resets the GameAi to be used for 
+// for another heuristic algorithm
+//-------------------------------------------------
+// In    : Nothing
+// Return: Nothing
+//==================================================
+void GameAi::CleanGameAi() {
+	mOrderOfInsertion.clear();
+	numSteps = 0;
+	mCurrentState.SetOldMove(0);
+}
+
+
+//===============GenerateStateList==================
+// Generatoes the state list of possible states.
+// Uses the member variable mCurrentState to 
+// generate the possible states
+//-------------------------------------------------
+// In    : Nothing
+// Return: list<State> pStateList
+//==================================================
 list <State> GameAi::GenerateStateList() {
     list<State> pStateList;
     State 		newState;
@@ -358,58 +476,4 @@ list <State> GameAi::GenerateStateList() {
     }
 
     return pStateList;
-}
-
-void GameAi::SetCurrentState(EightGame xCurrent) {
-    mCurrentState.SetBoard(xCurrent);
-    mCurrentBoard = xCurrent;
-}
-
-
-void GameAi::CleanGameAi() {
-	mOrderOfInsertion.clear();
-	numSteps = 0;
-	mCurrentState.SetOldMove(0);
-}
-
-//This is just for debugging
-void GameAi::PrintList(list <State> xStateList) {
-    int index = 0;
-    for (list<State>::iterator itr = xStateList.begin(); itr != xStateList.end(); itr++) {
-        cout << "State: " << ++index << std::endl;
-        itr->GetBoardState().DisplayBoard();
-    }
-}
-
-//====PrintLocalList===========================
-//Print the List horizontally
-//===========================================
-void GameAi::PrintLocalList() {
-	list<State> tempList;
-
-    for (list<State>::iterator itrCol = mOrderOfInsertion.begin();
-    		itrCol != mOrderOfInsertion.end();
-    		){
-
-    	//Create list of 5 element
-    	for(int index = 0; index < MAX_COL; index++)
-    	{
-    		tempList.emplace_back(*itrCol);
-    		itrCol++;
-    		if(itrCol == mOrderOfInsertion.end()){
-    			index = MAX_COL;
-    		}
-
-    	}
-
-		for (int number = 0 ; number < BOARD_ROW_SIZE; number++) {
-	        for (list<State>::iterator itr =  tempList.begin(); itr !=  tempList.end(); itr++) {
-	            itr->GetBoardState().DisplayBoardAtLine(number);
-	            cout << "   ";
-	        }
-	        cout << endl;
-    	}
-    	tempList.clear();
-    	cout << endl;
-    }
 }
