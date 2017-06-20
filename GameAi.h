@@ -30,9 +30,9 @@ public:
     // Tile Out Of Position
     int  CalulateHeuristicOne(State state);
     // How Far the Tile
-    int  CalulateHeuristicTwo();
+    int  CalulateHeuristicTwo(State state);
     // tile out of column and row separately
-    int  CalulateHeuristicThree();
+    int  CalulateHeuristicThree(State state);
 	//Start here
 	void PlayGameSteepHillClimb();
 
