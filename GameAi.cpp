@@ -129,16 +129,9 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 	srand(time(NULL));
 
 	while (numSteps < MAX_STEPS && !mCurrentBoard.CheckForWin()) {
-
-		//cout << endl << "********************CURRENT BOARD****************************" << endl;
-		//GetCurrentBoard().DisplayBoard();
-
-		//else generate all possible states
-		//cout << endl << "+++GENERATING STATE LIST:" << endl;
+		//GENERATING STATE LIST
 		std::list<State> stateList = GenerateStateList();
 		numSteps++;
-		//cout << endl;
-		//PrintList(stateList);
 
 
 		//Apply heuristics to all states
@@ -183,10 +176,7 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 			for (std::list<State>::iterator itr = stateList.begin(); 
 					itr != stateList.end(); 
 					itr++) {        
-				itr->SetHeuristicValue(CalulateHeuristicOne(*itr));
-				//itr->DisplayState();
-
-				//cout << "Heuristic1: " << CalulateHeuristicOne(*itr)<< " " << endl;
+				itr->SetHeuristicValue(CalulateHeuristicOne(*itr));;
 			}
 		}
 		else if (xHeuristicNumber == 2){
@@ -194,9 +184,6 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 					itr != stateList.end();
 					itr++) {      
 					itr->SetHeuristicValue(CalulateHeuristicTwo(*itr));
-					
-				//itr->DisplayState();
-				//cout << "Heuristic2: " << CalulateHeuristicTwo(*itr) << " " << endl;
 			}
 		}
 		else if (xHeuristicNumber == 3){
@@ -207,15 +194,7 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 			}
 		}
 
-		/*
-		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++){
-			cout << "Heuristic:   ALL  " << endl;
-			itr->DisplayState();
-			cout << itr->GetHeuristicValue() << endl << endl;
-		}
-		*/
-
-		//cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
+		//SELECTING THE BEST STATE
 		State bestState = stateList.front();
 		bestState.SetHeuristicValue(1000);
 		for (list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
@@ -224,8 +203,6 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 				bestState.SetHeuristicValue(itr->GetHeuristicValue());
 				bestState.SetBoard(itr->GetBoardState());
 				bestState.SetOldMove(itr->GetOldMove());
-
-				//cout << "===" <<bestState.GetHeuristicValue() << endl;
 			}
 
 			else if(bestState == *itr){
@@ -238,27 +215,16 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 				}
 
 			}
+		}//end for loop
 
-			//cout << "++++++++++++" << endl;
-			//cout << bestState.GetHeuristicValue() << endl;
-			//cout << itr->GetHeuristicValue() << endl;
-		}
-		//end oat test
-
-
+		//Update the current State
 		mCurrentBoard = bestState.GetBoardState();
 		mCurrentState.SetOldMove(bestState.GetOldMove());
 		mCurrentState.SetBoard(bestState.GetBoardState());
-		//mCurrentState.DisplayState();
-		//cout << endl;
 
+
+		//push into the list
 		mOrderOfInsertion.push_back(mCurrentState);
-
-		//Print the BEST state to out.txt
-
-		//Update the number of steps
-		//numSteps++;
-		//cout << "Number of steps: " << GetNumSteps() << endl;
 		
 	}//End While
 

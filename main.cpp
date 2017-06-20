@@ -62,6 +62,7 @@ int main() {
 	cout << "============ Main Function Start ============ " << endl << endl;
 	int out;
 
+	// Steepest-dscent hill-climbing
 	cout << "Algorithm: Steepest-dscent hill-climbing" << endl;
 	cout << "Heuristic: Tile-Out-Of-Place" << endl;
 
