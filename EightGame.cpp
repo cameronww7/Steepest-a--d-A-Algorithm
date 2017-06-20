@@ -19,7 +19,7 @@
 // not have any overflow
 //==========================================
 EightGame::EightGame() {
-	//initial cuurent board
+	//initial current board
 	for (int index = 0; index < BOARD_SIZE; index++) {
 		mGameBoard[index] = '\0';
 	}
@@ -130,7 +130,7 @@ bool EightGame::CheckForWin () {
 }
 
 //===FindEmptySlot=====================
-//Search m_GameBoard for the empty slot
+//Search mGameBoard for the empty slot
 //	return
 //		return an index where empty slot reside
 //====================================== 
