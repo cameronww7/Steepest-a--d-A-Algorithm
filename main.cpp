@@ -144,7 +144,7 @@ int main() {
 // IN    : array contain board face value
 // IN    : size of the array
 // Return: Nothing
-//==================================================
+//===================================================
 void displayBoard(char * xCurrentBoard) {
 	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
 		if ((currentPosition % BOARD_ROW_SIZE) == 0  && currentPosition != 0) {
@@ -197,7 +197,7 @@ void readFromFile(string xFileName, EightGame & xInit) {
 //--------------------------------------------------
 // IN    : xCurr [IN] - EightGame start board
 // Return: Nothing
-//=================================================
+//==================================================
 void testGameAndPlay (EightGame * xCurr) {
 	int    command;
 	char * board = xCurr->GetBoard();
@@ -242,7 +242,7 @@ void testGameAndPlay (EightGame * xCurr) {
 //--------------------------------------------------
 // xBoard [IN] - element we are looking for
 // return 		- number of tile out of place 
-//==================================================
+//===================================================
 int countingTilesOutOfPlace(char xBoard[]) {
 	int count = 0;
 	if (xBoard[0] != '1') count++;

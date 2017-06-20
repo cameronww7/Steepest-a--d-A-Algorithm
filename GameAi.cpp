@@ -311,7 +311,7 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 
 	openList.push_front(mCurrentBoard); // Pushing Root Node Current State
 
-	while (!openList.empty() && !mCurrentBoard.CheckForWin() && counter < MAX_STEPS) {
+	while (!openList.empty() && !mCurrentBoard.CheckForWin() && currentState.GetPathValue() < MAX_STEPS) {
 		// Assign the first value from open list into X and remove it from the open list
 		currentState.SetBoard(openList.front().GetBoardState());
 		openList.pop_front();
