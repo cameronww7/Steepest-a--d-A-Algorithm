@@ -64,7 +64,8 @@ private:
     		        LEFT      = 4,
 				    RIGHT     = 6,
 				    DOWN      = 2,
-				    EMPTYSLOT = 'x'};
+				    EMPTYSLOT = 'x',
+					MAX_COL	  = 5 };
 	const int MAX_STEPS       = 100;
 	const int BOARD_SIZE      = 9;
 	const int BOARD_ROW_SIZE  = 3;

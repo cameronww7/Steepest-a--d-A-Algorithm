@@ -309,6 +309,7 @@ int GameAi::PlayBestFirstSearch() {
 			}
 		}//End For
 	
+		/*
 		cout << "Open" << endl;
 		for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
 			itr1->DisplayState();
@@ -317,7 +318,9 @@ int GameAi::PlayBestFirstSearch() {
 		for (list<State>::iterator itr1 = closeList.begin(); itr1 != closeList.end(); itr1++) {
 			itr1->DisplayState();
 		}
-		cout << "End" << endl;
+		*/
+		cout << "Open: " << openList.size() << endl;
+		cout << "Close: " << openList.size() << endl;
 
 		// Push the element to the closed list
 		closeList.push_front(x);
@@ -425,6 +428,10 @@ void GameAi::PrintList(list <State> xStateList) {
     }
 }
 
+
+//====PrintLocalList===========================
+//Print the List horizontally
+//===========================================
 void GameAi::PrintLocalList() {
     //int index = 0;
 	list<State> tempList;
@@ -432,12 +439,14 @@ void GameAi::PrintLocalList() {
     for (list<State>::iterator itrCol = mOrderOfInsertion.begin();
     		itrCol != mOrderOfInsertion.end();
     		){
-    	for(int index = 0; index < 5; index++)
+
+    	//Create list of 5 element
+    	for(int index = 0; index < MAX_COL; index++)
     	{
     		tempList.emplace_back(*itrCol);
     		itrCol++;
     		if(itrCol == mOrderOfInsertion.end()){
-    			index = 5;
+    			index = MAX_COL;
     		}
 
     	}
