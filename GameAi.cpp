@@ -260,12 +260,16 @@ void GameAi::PlayBestFirstSearch() {
 			bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
 			bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
 
+			itr1->DisplayState();
+
 			if (!stateIsOnOpenList && !stateIsOnCloseList) {
+				cout << "C11" << endl;
 				itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 				// assigns the path value to the current state
 				itr1->SetPathValue(pathCounter);
 				openList.push_front(*itr1);
 			} else if (stateIsOnOpenList) {
+				cout << "C22" << endl;
 				//This is where we are supposed to sort the list
 				// If the current path we took to this node is shorter than the old path
 				if(pathCounter < itr1->GetPathValue()) {
@@ -274,6 +278,7 @@ void GameAi::PlayBestFirstSearch() {
 				}
 				
 			} else if (stateIsOnCloseList) {
+				cout << "C33" << endl;
 				// If the current path we took to this node is shorter than the old path
 				if(pathCounter < itr1->GetPathValue()) {
 					// Update path counter
@@ -296,17 +301,17 @@ void GameAi::PlayBestFirstSearch() {
 
 void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList, const int xDirection) {
     if (xCurrentBoard.IsMovable(xDirection)) {
-//		switch (xDirection){
-//			case 8: cout << "Log: UP was called" << std::endl;
-//				break;
-//			case 2: cout << "Log: DOWN was called" << std::endl;
-//				break;
-//			case 4: cout << "Log: LEFT was called" << std::endl;
-//				break;
-//			case 6: cout << "Log: RIGHT was called" << std::endl;
-//				break;
-//			default: return;
-//		}
+		switch (xDirection){
+			case 8: cout << "Log: UP was called" << std::endl;
+				break;
+			case 2: cout << "Log: DOWN was called" << std::endl;
+				break;
+			case 4: cout << "Log: LEFT was called" << std::endl;
+				break;
+			case 6: cout << "Log: RIGHT was called" << std::endl;
+				break;
+			default: return;
+		}
        
        	State newBoard;
        	EightGame newGame;
