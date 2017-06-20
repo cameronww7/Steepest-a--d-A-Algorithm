@@ -427,6 +427,41 @@ void GameAi::PrintList(list <State> xStateList) {
 
 void GameAi::PrintLocalList() {
     //int index = 0;
+	list<State> tempList;
+
+    for (list<State>::iterator itrCol = mOrderOfInsertion.begin();
+    		itrCol != mOrderOfInsertion.end();
+    		){
+    	for(int index = 0; index < 5; index++)
+    	{
+    		tempList.emplace_back(*itrCol);
+    		itrCol++;
+    		if(itrCol == mOrderOfInsertion.end()){
+    			index = 5;
+    		}
+
+    	}
+
+
+    	//list<State>::iterator itrMax = itrCol + 5;
+		for (int number = 0 ; number < BOARD_ROW_SIZE; number++) {
+	    //cout << "State222: " <<  mOrderOfInsertion.end() << std::endl;
+	        for (list<State>::iterator itr =  tempList.begin(); 
+	        		itr !=  tempList.end(); 
+	        		itr++) {
+	            //cout << "State: " << index++ << std::endl;
+	            itr->GetBoardState().DisplayBoardAtLine(number);
+	            cout << "   ";
+	        }
+	        cout << endl;
+    	}
+    	tempList.clear();
+
+    	cout << endl;
+    }
+
+
+    /*
     for (int number = 0 ; number < BOARD_ROW_SIZE; number++) {
     //cout << "State222: " <<  mOrderOfInsertion.end() << std::endl;
         for (list<State>::iterator itr =  mOrderOfInsertion.begin(); itr !=  mOrderOfInsertion.end(); itr++) {
@@ -436,6 +471,7 @@ void GameAi::PrintLocalList() {
         }
         cout << endl;
     }
+    */
 }
 
 void GameAi::CleanGameAi(){
