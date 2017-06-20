@@ -301,10 +301,10 @@ int GameAi::PlayBestFirstSearch() {
 		for (list<State>::iterator itr1 = closeList.begin(); itr1 != closeList.end(); itr1++) {
 			itr1->DisplayState();
 		}
-		
+		*/
 		cout << "Open: " << openList.size() << endl;
 		cout << "Close: " << closeList.size() << endl;
-		*/
+		
 
 		// Push the element to the closed list
 		closeList.push_front(x);
@@ -318,6 +318,7 @@ int GameAi::PlayBestFirstSearch() {
 		// Print for debugging
 		//cout << "Displaying the board: " << endl;
 		//mCurrentBoard.DisplayBoard();
+		/*
 		cout << "ddd" << endl;
 
 		cout << "Open--------------------------" << endl;
@@ -326,7 +327,7 @@ int GameAi::PlayBestFirstSearch() {
 			cout << "State heuristic Open: " << itr1->GetHeuristicValue() << endl;
 		}
 		cout << "Open--------------------------" << endl << endl;
-
+		*/
 		State bestState = openList.front();
 
 		bestState.DisplayState();
