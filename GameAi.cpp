@@ -215,7 +215,7 @@ int GameAi::PlayBestFirstSearch() {
 
 	openList.push_front(mCurrentBoard); // Pushing Root Node Current State
 
-	while (!openList.empty() && !mCurrentBoard.CheckForWin()) {
+	while (!openList.empty() && !mCurrentBoard.CheckForWin() && counter < MAX_STEPS) {
 		// Assign the first value from open list into X and remove it from the open list
 		x.SetBoard(openList.front().GetBoardState());
 		openList.pop_front();
@@ -230,7 +230,7 @@ int GameAi::PlayBestFirstSearch() {
 		for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
 			bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
 			bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
-			itr1->DisplayState();
+			//itr1->DisplayState();
 			
 			// Visiting a node that we've never encountered before
 			if (!stateIsOnOpenList && !stateIsOnCloseList) {
@@ -238,7 +238,7 @@ int GameAi::PlayBestFirstSearch() {
 
 				itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 
-				cout << "State heuristic: " << itr1->GetHeuristicValue() << endl;
+				//cout << "State heuristic: " << itr1->GetHeuristicValue() << endl;
 
 				// assigns the path value to the current state
 				itr1->SetPathValue(pathCounter);
@@ -266,11 +266,13 @@ int GameAi::PlayBestFirstSearch() {
 					// Update path counter
 					itr1->SetPathValue(pathCounter);
 					// Delete from close list
+					/*
 					for (list<State>::iterator itr1 = openList.begin(); 
 							itr1 != openList.end(); 
 							itr1++) {
 						itr1->DisplayState();
 					}
+					*/
 					closeList.erase(itr1);
 					// Add to open list
 					openList.push_front(*itr1);
@@ -278,20 +280,21 @@ int GameAi::PlayBestFirstSearch() {
 			}
 		}//End For
 	
-		
+		/*
 		cout << "Open---" << endl;
 		for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
 			itr1->DisplayState();
 			cout << "State heuristic Open: " << itr1->GetHeuristicValue() << endl;
 		}
-		/*
+		
 		cout << "closee" << endl;
 		for (list<State>::iterator itr1 = closeList.begin(); itr1 != closeList.end(); itr1++) {
 			itr1->DisplayState();
 		}
-		*/
+		
 		cout << "Open: " << openList.size() << endl;
 		cout << "Close: " << closeList.size() << endl;
+		*/
 
 		// Push the element to the closed list
 		closeList.push_front(x);
@@ -306,6 +309,13 @@ int GameAi::PlayBestFirstSearch() {
 		//cout << "Displaying the board: " << endl;
 		//mCurrentBoard.DisplayBoard();
 		cout << "ddd" << endl;
+
+		cout << "Open--------------------------" << endl;
+		for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
+			itr1->DisplayState();
+			cout << "State heuristic Open: " << itr1->GetHeuristicValue() << endl;
+		}
+		cout << "Open--------------------------" << endl << endl;
 
 		State bestState = openList.front();
 
