@@ -219,7 +219,7 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 
 
 int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
-	std::cout << "\nPlay Best-First Search\n";
+	//std::cout << "\nPlay Best-First Search\n";
 
 	std::list<State> openList;
 	std::list<State> closeList;
@@ -236,7 +236,7 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 		x.SetBoard(openList.front().GetBoardState());
 		openList.pop_front();
 		// Generates a list of possible states
-		cout << "Generating a list of all possible states" << endl;
+		//cout << "Generating a list of all possible states" << endl;
 		std::list<State> stateList = GenerateStateList();
 		counter++;
 
@@ -276,9 +276,11 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 					// Update path counter
 					itr1->SetPathValue(pathCounter);
 					// Delete from close list
+					/*
 					for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
 						itr1->DisplayState();
 					}
+					*/
 					closeList.erase(itr1);
 					// Add to open list
 					openList.push_front(*itr1);
@@ -290,10 +292,10 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 		// Sort the open list
 		openList.sort(CompareStateHeuristicValues);
 		// Update the current board
-		openList.front().DisplayState();
+		//openList.front().DisplayState();
 		mCurrentBoard.SetBoard(openList.front().GetBoardState().GetBoard());
 		State bestState = openList.front();
-		bestState.DisplayState();
+		//bestState.DisplayState();
 		mCurrentState.SetOldMove(bestState.GetOldMove());
 		mCurrentState.SetBoard(bestState.GetBoardState());
 		mOrderOfInsertion.push_back(mCurrentState);

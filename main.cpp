@@ -79,7 +79,7 @@ int main() {
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl << endl;
+	cout << endl;
 
 	
 	//Heuristic Twp - SAHC
@@ -95,7 +95,7 @@ int main() {
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl << endl;
+	cout << endl;
 
 	//Heuristic Three - SAHC
 	current.SetBoard(init);
@@ -130,7 +130,7 @@ int main() {
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl << endl;
+	cout << endl;
 
 	//Heuristic Two - BFS
 	current.SetBoard(init);
@@ -145,7 +145,7 @@ int main() {
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl << endl;
+	cout << endl;
 
 	//Heuristic Three - BFS
 	current.SetBoard(init);
@@ -160,7 +160,7 @@ int main() {
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl << endl;
+	cout << endl;
 
 	cout << std::endl;
 	//system("PAUSE");
