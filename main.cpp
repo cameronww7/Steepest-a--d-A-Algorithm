@@ -138,10 +138,12 @@ int main() {
 	return 0;
 }
 
-//==DisplayBoard=====================================
+//==================DisplayBoard=====================
 //Display the current game board in 3 X 3 format
-// currentBoard [IN]  - array contain board face value
-// size [IN]		  - size of the array
+//--------------------------------------------------
+// IN    : array contain board face value
+// IN    : size of the array
+// Return: Nothing
 //==================================================
 void displayBoard(char * xCurrentBoard) {
 	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
@@ -153,11 +155,12 @@ void displayBoard(char * xCurrentBoard) {
 	std::cout << std::endl;
 }
 
-//====readFormFile=====================================
+//===============readFormFile==========================
 //Read a file and put it into an EightGame element
-// xFilename [IN] - filename that would be open
-// xInit [IN/OUT] - Eight game that will be a 
-//					container for what coming in
+//--------------------------------------------------
+// IN    : xFilename - filename that would be open
+// IN    : Eight game that will be a container
+// Return: returning Eight game container
 //=====================================================
 void readFromFile(string xFileName, EightGame & xInit) {
 	char     board[BOARD_SIZE];
@@ -186,12 +189,15 @@ void readFromFile(string xFileName, EightGame & xInit) {
 	}
 }
 
-//====testGameAndPlay==========================
+//==============testGameAndPlay=====================
 //This is use to test/play the game 
-//this class can be use to play the actuall game
+//this class can be use to play the actual game
+//--------------------------------------------------
 // This are just for testing purpose
-// xCurr [IN] - EightGame start board
-//============================================
+//--------------------------------------------------
+// IN    : xCurr [IN] - EightGame start board
+// Return: Nothing
+//=================================================
 void testGameAndPlay (EightGame * xCurr) {
 	int    command;
 	char * board = xCurr->GetBoard();
@@ -228,10 +234,12 @@ void testGameAndPlay (EightGame * xCurr) {
 	std::cout << "Exit Game" << std::endl;
 }
 
-
-//==DisplayBoard=====================================
+//===============DisplayBoard========================
 //Count tile out of place . This function are used by
-// the testGameAndPlay() for testing purpose
+// the testGameAndPlay()
+//--------------------------------------------------
+// This is for testing purpose
+//--------------------------------------------------
 // xBoard [IN] - element we are looking for
 // return 		- number of tile out of place 
 //==================================================
