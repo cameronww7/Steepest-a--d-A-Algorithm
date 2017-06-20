@@ -16,14 +16,14 @@
 
 
 namespace {
-bool SearchListForCurrentState(std::list<State> stateList,
-		                       std::list<State> openList) {
+bool SearchListForCurrentState(State            xState,
+		                       std::list<State> xList) {
 	bool foundStateInList = false; // Used to See if state is on a Queue
-	for (list<State>::iterator itr = stateList.begin(); itr != stateList.end() && foundStateInList == false; itr++) {
-		if (stateList.front() == openList.front()) {
+	for (list<State>::iterator itr = xList.begin(); itr != xList.end() && foundStateInList == false; itr++) {
+		if (xState == xList.front()) {
 			foundStateInList = true; // Exit cause found state on queue
 		} else {
-			openList.pop_front(); // Move to next element
+			xList.pop_front(); // Move to next element
 		}
 	}
 	return foundStateInList;
@@ -270,8 +270,8 @@ void GameAi::PlayBestFirstSearch() {
 			std::list<State> stateList = GenerateStateList();
 			// Iterates through state list
 			for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
-				bool stateIsNotOnOpenList  = SearchListForCurrentState(stateList, openList);
-				bool stateIsNotOnCloseList = SearchListForCurrentState(stateList, closeList);
+				bool stateIsNotOnOpenList  = SearchListForCurrentState(stateList.front(), openList);
+				bool stateIsNotOnCloseList = SearchListForCurrentState(stateList.front(), closeList);
 
 				if (stateIsNotOnOpenList != true &&
 						stateIsNotOnCloseList != true) {
