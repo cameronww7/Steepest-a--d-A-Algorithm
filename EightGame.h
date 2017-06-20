@@ -46,7 +46,7 @@ private:
 						DOWN        = 2,
 						EMPTYSLOT   = 'x'};
 
-	static const int	BOARD_SIZE = 9;
+	static const int	BOARD_SIZE = 10; //To accomodate the escape character
 	static const int	BOARD_ROW_SIZE  = 3;
 
 	char				mGameBoard[BOARD_SIZE];
