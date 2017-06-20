@@ -20,7 +20,7 @@ bool SearchListForCurrentState(State            xState,
 		                       std::list<State> xList) {
 	bool foundStateInList = false; // Used to See if state is on a Queue
 	for (list<State>::iterator itr = xList.begin(); itr != xList.end() && foundStateInList == false; itr++) {
-		if (xState == xList.front()) {
+		if (*itr == xList.front()) {
 			foundStateInList = true; // Exit cause found state on queue
 		} else {
 			xList.pop_front(); // Move to next element
@@ -270,11 +270,11 @@ void GameAi::PlayBestFirstSearch() {
 			std::list<State> stateList = GenerateStateList();
 			// Iterates through state list
 			for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
-				bool stateIsNotOnOpenList  = SearchListForCurrentState(stateList.front(), openList);
-				bool stateIsNotOnCloseList = SearchListForCurrentState(stateList.front(), closeList);
+				bool stateIsNotOnOpenList  = SearchListForCurrentState(*itr1, openList);
+				bool stateIsNotOnCloseList = SearchListForCurrentState(*itr1, closeList);
 
-				if (stateIsNotOnOpenList != true &&
-						stateIsNotOnCloseList != true) {
+				if (stateIsNotOnOpenList  != true &&
+					stateIsNotOnCloseList != true) {
 					//stateList.front().CalulateHeuristicOne();
 					openList.push_front(stateList.front());
 					stateList.pop_front(); // Move to next element
