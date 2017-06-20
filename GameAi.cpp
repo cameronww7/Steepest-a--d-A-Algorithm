@@ -202,7 +202,8 @@ void GameAi::PlayGameSteepHillClimb() {
 
 		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++){
 			cout << "Heuristic:   ALL  " << endl;
-			cout << itr->GetHeuristicValue() << endl;
+			itr->DisplayState();
+			cout << itr->GetHeuristicValue() << endl << endl;
 		}
 
 		cout << endl;
@@ -210,11 +211,8 @@ void GameAi::PlayGameSteepHillClimb() {
 		cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
 		State bestState = stateList.front();
 		bestState.SetHeuristicValue(1000);
-		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++) {
+		for (list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
 			
-			
-
-
 			if (bestState > *itr){
 				bestState.SetHeuristicValue(itr->GetHeuristicValue());
 				bestState.SetBoard(itr->GetBoardState());
