@@ -23,7 +23,7 @@ How to complie using Linux:
 
 Run:
 - display on console $ ./outfile
-- output to textfile $ ./outfile > <filename>
+- output to textfile $ ./outfile > filename.txt
 
 ---------------------------------------------------------------------------------------------------------------------
 
