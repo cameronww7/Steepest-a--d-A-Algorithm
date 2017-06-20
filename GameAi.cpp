@@ -239,7 +239,7 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 }//End Function
 
 
-void GameAi::PlayBestFirstSearch() {
+int GameAi::PlayBestFirstSearch() {
 	std::cout << "\nPlay Best-First Search\n";
 
 	std::list<State> openList;
@@ -248,6 +248,7 @@ void GameAi::PlayBestFirstSearch() {
 	// Counter for path value
 	int pathCounter = 0;
 	int currentPathValue = 0;
+	int counter = 0;
 
 	openList.push_front(mCurrentBoard); // Pushing Root Node Current State
 
@@ -258,6 +259,7 @@ void GameAi::PlayBestFirstSearch() {
 		// Generates a list of possible states
 		cout << "Generating a list of all possible states" << endl;
 		std::list<State> stateList = GenerateStateList();
+		counter++;
 		//PrintList(stateList);
 
 		pathCounter++;
@@ -322,20 +324,30 @@ void GameAi::PlayBestFirstSearch() {
 		// Sort the open list
 		openList.sort(CompareStateHeuristicValues);
 		// Update the current board
-		cout << "Displaying the --------------: " << endl;
+		//cout << "Displaying the --------------: " << endl;
 		openList.front().DisplayState();
 		mCurrentBoard.SetBoard(openList.front().GetBoardState().GetBoard());
 			
 		// Print for debugging
-		cout << "Displaying the board: " << endl;
-		mCurrentBoard.DisplayBoard();
-		cout << endl;
+		//cout << "Displaying the board: " << endl;
+		//mCurrentBoard.DisplayBoard();
+		cout << "ddd" << endl;
+
+		State bestState = openList.front();
+
+		bestState.DisplayState();
+		mCurrentState.SetOldMove(bestState.GetOldMove());
+		mCurrentState.SetBoard(bestState.GetBoardState());
+		mOrderOfInsertion.push_back(mCurrentState);
 
 	}//End  While
+
+	return counter;
 }
 
 void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList, const int xDirection) {
     if (xCurrentBoard.IsMovable(xDirection)) {
+    	/*
 		switch (xDirection){
 			case 8: cout << "Log: UP was called" << std::endl;
 				break;
@@ -347,6 +359,7 @@ void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList,
 				break;
 			default: return;
 		}
+		*/
        
        	State newBoard;
        	EightGame newGame;
