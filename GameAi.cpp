@@ -145,6 +145,27 @@ void GameAi::PlayGameSteepHillClimb() {
 
 		//Apply heuristics to all states
 		cout << endl << "+++APPLYING HEURISTICS:" << endl << endl;
+		/* for Kenny code
+		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {        
+			itr->SetHeuristicValue(CalulateHeuristicOne(*itr));
+			itr->DisplayState();
+
+			cout << "Heuristic: " << itr->GetHeuristicValue() << " " << endl << endl;
+		}
+
+
+		cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
+		State bestState = stateList.front();
+		//bestState.SetHeuristicValue(1000);
+		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++) {
+			if (*itr > bestState){
+				bestState = *itr;
+				//cout << "===" <<bestState.GetHeuristicValue() << endl;
+			}
+		}
+		*/
+
+		//Testing oat
 		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {        
 			itr->SetHeuristicValue(CalulateHeuristicOne(*itr));
 			itr->DisplayState();
@@ -153,14 +174,19 @@ void GameAi::PlayGameSteepHillClimb() {
 		}
 		cout << endl;
 
-		//Select the BEST state
 		cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
 		State bestState = stateList.front();
+		bestState.SetHeuristicValue(1000);
 		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++) {
-			if (*itr > bestState){
-				bestState = *itr;
+			if (bestState > *itr){
+				bestState.SetHeuristicValue(itr->GetHeuristicValue());
+				bestState.SetBoard(itr->GetBoardState());
+				cout << "===" <<bestState.GetHeuristicValue() << endl;
 			}
 		}
+		//end oat test
+
+
 		mCurrentBoard = bestState.GetBoardState();
 		mCurrentBoard.DisplayBoard();
 		cout << endl;

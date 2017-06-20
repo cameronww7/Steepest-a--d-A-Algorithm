@@ -17,8 +17,11 @@ using namespace std;
 class EightGame {
 public:
 	EightGame();
+	//EightGame(EightGame & obj);
 
-	char * GetBoard() {return mGameBoard;};
+	//EightGame& operator=(const EightGame & rhs);
+
+	char * GetBoard();
 	bool   SetBoard(char xArr[]);
 	void   DisplayBoard();
 	void   DisplayBoardAtLine(int xLevel);
@@ -31,7 +34,7 @@ public:
 	bool   IsMovable(int xDirection);
 	void   SwapSpace(int xDirection);
 
-	char * GetWinBoard() {return mWinBoard;};
+	char * GetWinBoard();
 	bool   SetWinBoard(char xArr[]);
 
 private:

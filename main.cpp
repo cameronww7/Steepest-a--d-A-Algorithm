@@ -80,7 +80,7 @@ int main() {
 	//  cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
 	cout << "------------------" << std::endl;
-	//testGameAndPlay(&item);
+	//generator.PlayBestFirstSearch();
 
 	cout << std::endl;
 	system("PAUSE");
