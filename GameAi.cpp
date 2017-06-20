@@ -126,31 +126,33 @@ void GameAi::PlayGameSteepHillClimb() {
 	cout << endl << "Play Steep-Hill Ascent Climb" << endl;
 
 	while (numSteps < MAX_STEPS) {
+
+		cout << endl << "********************CURRENT BOARD****************************" << endl;
+		GetCurrentBoard().DisplayBoard();
+
 		//if current state is a solution RETURN
 		if (mCurrentBoard.CheckForWin()) {
 			return;
 		}
 		//else generate all possible states
-		cout << endl << "Generating State List" << endl;
+		cout << endl << "+++GENERATING STATE LIST:" << endl;
 		std::list<State> stateList = GenerateStateList();
+		cout << endl;
 		PrintList(stateList);
 
 
 		//Apply heuristics to all states
-		cout << endl << "Applying Heuristics to all states" << endl;
-		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
-			//Apply the heuristic here
-			//if heuristic one is chosen
-			// ----  NOTE: Need to do this for every heuristic? 
-			// -----       Only doing one for now               
-			itr->SetHeuristicValue(CalulateHeuristicTwo());
+		cout << endl << "+++APPLYING HEURISTICS:" << endl;
+		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {        
+			itr->SetHeuristicValue(CalulateHeuristicThree());
+			itr->DisplayState();
 
-			cout << CalulateHeuristicTwo() << " ";
+			cout << "Heuristic: " << itr->GetHeuristicValue() << " " << endl;
 		}
 		cout << endl;
 
 		//Select the BEST state
-		cout << endl << "Selecting the BEST state" << endl;
+		cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
 		State bestState = stateList.front();
 		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++) {
 			if (*itr > bestState){
@@ -158,16 +160,14 @@ void GameAi::PlayGameSteepHillClimb() {
 			}
 		}
 		mCurrentBoard = bestState.GetBoardState();
-		cout << "The best state is " << endl;
 		mCurrentBoard.DisplayBoard();
 		cout << endl;
 
 		//Print the BEST state to out.txt
 
 		//Update the number of steps
-		cout << endl << "Updating number of Steps" << endl;
 		numSteps++;
-		cout << endl << "Number of steps: " << GetNumSteps() << endl;
+		cout << "Number of steps: " << GetNumSteps() << endl;
 	}
 }
 
@@ -269,7 +269,7 @@ void GameAi::SetCurrentState(EightGame xCurrent) {
 void GameAi::PrintList(list <State> xStateList) {
     int index = 0;
     for (list<State>::iterator itr = xStateList.begin(); itr != xStateList.end(); itr++) {
-        cout << "State: " << index++ << std::endl;
+        cout << "State: " << ++index << std::endl;
         itr->GetBoardState().DisplayBoard();
     }
 }
