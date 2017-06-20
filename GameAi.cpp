@@ -69,9 +69,9 @@ int GameAi::CalulateHeuristicOne(State state) {
 // Return: 	Heuristic Value:
 //	** this does not store the calculations value
 //==================================================
-int GameAi::CalulateHeuristicTwo() {
+int GameAi::CalulateHeuristicTwo(State state) {
 	int count = 0;
-
+	EightGame board = state.GetBoardState();
 	int boardMain;
 
 	int divBoard;
@@ -81,8 +81,8 @@ int GameAi::CalulateHeuristicTwo() {
 	int modWin;
 
 	for (int index = 0; index < BOARD_SIZE; index++) {
-        if(mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT){
-    		boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
+		if (board.GetWinBoard()[index] != EMPTYSLOT){
+			boardMain = board.FindCharInBoard(board.GetWinBoard()[index]);
 
     		divBoard = boardMain / BOARD_ROW_SIZE;
     		modBoard = boardMain % BOARD_ROW_SIZE;
@@ -104,12 +104,13 @@ int GameAi::CalulateHeuristicTwo() {
 // Return:  Heuristic Value:
 //  ** this does not store the calculate value
 //==================================================
-int GameAi::CalulateHeuristicThree() {
+int GameAi::CalulateHeuristicThree(State state) {
     int count = 0;
+	EightGame board = state.GetBoardState();
 
     for (int index = 0; index < BOARD_SIZE; index++) {
-        if (mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT) {
-            int boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
+		if (board.GetWinBoard()[index] != EMPTYSLOT) {
+			int boardMain = board.FindCharInBoard(board.GetWinBoard()[index]);
 
             if (boardMain / BOARD_ROW_SIZE != (index / BOARD_ROW_SIZE)) {
                 count++;
