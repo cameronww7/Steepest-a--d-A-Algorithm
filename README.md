@@ -16,6 +16,16 @@ Objectives: Implementing a steepest-ascent/-descent hill-climbing algorithm and 
 to solve the 8-puzzle problem.
 
 ---------------------------------------------------------------------------------------------------------------------
+How to complie using Linux:
+- Navigate through project folder
+- type make
+- Press Enter
+
+Run:
+- display on console $ ./outfile
+- output to textfile $ ./outfile > <filename>
+
+---------------------------------------------------------------------------------------------------------------------
 
 Required Tasks
 
