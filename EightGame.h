@@ -24,10 +24,13 @@ public:
 	EightGame();
 	char * GetBoard();
 	char * GetWinBoard();
+
 	bool   SetBoard(char xArr[]);
 	bool   SetWinBoard(char xArr[]);
+
 	void   DisplayBoard();
 	void   DisplayBoardAtLine(int xLevel);
+
 	int    FindEmptySlot();
 	int    FindCharInBoard(char xInput);
 	void   SwapSpace(int xDirection);
