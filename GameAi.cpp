@@ -19,7 +19,9 @@ namespace {
 bool SearchListForCurrentState(State            xState,
 		                       std::list<State> xList) {
 	bool foundStateInList = false; // Used to See if state is on a Queue
-	for (list<State>::iterator itr = xList.begin(); itr != xList.end() && foundStateInList == false; itr++) {
+	for (list<State>::iterator itr = xList.begin(); 
+			itr != xList.end() && foundStateInList == false; 
+			itr++) {
 		if (xState == *itr) {
 			foundStateInList = true; // Exit cause found state on queue
 		} 
@@ -245,43 +247,38 @@ void GameAi::PlayBestFirstSearch() {
 	State x;
 	// Counter for path value
 	int pathCounter = 0;
+	int currentPathValue = 0;
 
 	openList.push_front(mCurrentBoard); // Pushing Root Node Current State
 
 	while (!openList.empty() && !mCurrentBoard.CheckForWin()) {
 		// Assign the first value from open list into X and remove it from the open list
-		x = openList.front().GetBoardState();
+		x.SetBoard(openList.front().GetBoardState());
 		openList.pop_front();
 		// Generates a list of possible states
 		cout << "Generating a list of all possible states" << endl;
 		std::list<State> stateList = GenerateStateList();
-		PrintList(stateList);
+		//PrintList(stateList);
 
 		pathCounter++;
 		// Iterates through state list
 		for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
 			bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
 			bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
-
 			itr1->DisplayState();
-
+			
+			// Visiting a node that we've never encountered before
 			if (!stateIsOnOpenList && !stateIsOnCloseList) {
-<<<<<<< HEAD
-				cout << "C11" << endl;
-=======
 				cout << "Entering the first if" << endl;
->>>>>>> 97e325e06094e4f6ed866706d530ae9489f41d55
+
 				itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 				// assigns the path value to the current state
 				itr1->SetPathValue(pathCounter);
 				openList.push_front(*itr1);
 
 			} else if (stateIsOnOpenList) {
-<<<<<<< HEAD
-				cout << "C22" << endl;
-=======
 				cout << "Entering the second if" << endl;
->>>>>>> 97e325e06094e4f6ed866706d530ae9489f41d55
+
 				//This is where we are supposed to sort the list
 				// If the current path we took to this node is shorter than the old path
 				if(pathCounter < itr1->GetPathValue()) {
@@ -290,31 +287,51 @@ void GameAi::PlayBestFirstSearch() {
 				}
 				
 			} else if (stateIsOnCloseList) {
-<<<<<<< HEAD
-				cout << "C33" << endl;
-=======
 				cout << "Entering the third if" << endl;
->>>>>>> 97e325e06094e4f6ed866706d530ae9489f41d55
+
+				currentPathValue = itr1->GetPathValue();
+
 				// If the current path we took to this node is shorter than the old path
-				if(pathCounter < itr1->GetPathValue()) {
+				if(pathCounter < currentPathValue) {
 					cout << "Inside path counter part" << endl;
 					// Update path counter
 					itr1->SetPathValue(pathCounter);
 					// Delete from close list
-					cout << "About to erase" << endl;
+					for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
+			itr1->DisplayState();
+		}
 					closeList.erase(itr1);
 					// Add to open list
 					openList.push_front(*itr1);
 				}
 			}
-			// Push the element to the closed list
-			closeList.push_front(x);
-			// Sort the open list
-			openList.sort(CompareStateHeuristicValues);
-			// Update the current board
-			mCurrentBoard = openList.front().GetBoardState();
+		}//End For
+	
+		cout << "Open" << endl;
+		for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
+			itr1->DisplayState();
 		}
-	}
+		cout << "closee" << endl;
+		for (list<State>::iterator itr1 = closeList.begin(); itr1 != closeList.end(); itr1++) {
+			itr1->DisplayState();
+		}
+		cout << "End" << endl;
+
+		// Push the element to the closed list
+		closeList.push_front(x);
+		// Sort the open list
+		openList.sort(CompareStateHeuristicValues);
+		// Update the current board
+		cout << "Displaying the --------------: " << endl;
+		openList.front().DisplayState();
+		mCurrentBoard.SetBoard(openList.front().GetBoardState().GetBoard());
+			
+		// Print for debugging
+		cout << "Displaying the board: " << endl;
+		mCurrentBoard.DisplayBoard();
+		cout << endl;
+
+	}//End  While
 }
 
 void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList, const int xDirection) {

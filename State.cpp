@@ -41,10 +41,21 @@ State State::operator=(const State & xRHS) {
 }
 
 bool State::operator==(State & xRHS) {
-	if (this->GetHeuristicValue() == xRHS.GetHeuristicValue()) {
-		return true;
+	for(int index = 0; index < 9; index++)
+	{
+		if(this->GetBoardState().GetBoard()[index] 
+			!= xRHS.GetBoardState().GetBoard()[index])
+		{
+			return false;
+		}
 	}
-	return false;
+	
+
+
+	//if (this->GetHeuristicValue() == xRHS.GetHeuristicValue()) {
+	//	return true;
+	//}
+	return true;
 }
 
 bool State::operator>(State & xRHS) {
