@@ -88,7 +88,7 @@ void GameAi::SetCurrentState(EightGame xCurrent) {
 void GameAi::PrintList(list <State> xStateList) {
     int index = 0;
     for (list<State>::iterator itr = xStateList.begin(); itr != xStateList.end(); itr++) {
-        cout << "State: " << ++index << std::endl;
+    	std::cout << "State: " << ++index << std::endl;
         itr->GetBoardState().DisplayBoard();
     }
 }
@@ -118,12 +118,12 @@ void GameAi::PrintLocalList() {
 		for (int number = 0 ; number < BOARD_ROW_SIZE; number++) {
 	        for (list<State>::iterator itr =  tempList.begin(); itr != tempList.end(); itr++) {
 	        	itr->GetBoardState().DisplayBoardAtLine(number);
-	            cout << "   ";
+	        	std::cout << "   ";
 	        }
-	        cout << endl;
+	        std::cout << std::endl;
     	}
     	tempList.clear();
-    	cout << endl;
+    	std::cout << std::endl;
     }
 }
 
@@ -307,8 +307,8 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 	std::list<State> openList;
 	std::list<State> closeList;
-	State x;
-	// Counter for path value
+	State currentState;
+
 	int pathCounter      = 0;
 	int currentPathValue = 0;
 	int counter 		 = 0;
@@ -317,10 +317,9 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 
 	while (!openList.empty() && !mCurrentBoard.CheckForWin() && counter < MAX_STEPS) {
 		// Assign the first value from open list into X and remove it from the open list
-		x.SetBoard(openList.front().GetBoardState());
+		currentState.SetBoard(openList.front().GetBoardState());
 		openList.pop_front();
 		// Generates a list of possible states
-		//cout << "Generating a list of all possible states" << endl;
 		std::list<State> stateList = GenerateStateList();
 		counter++;
 
@@ -359,12 +358,7 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 				if(pathCounter < currentPathValue) {
 					// Update path counter
 					itr1->SetPathValue(pathCounter);
-					// Delete from close list
-					/*
-					for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
-						itr1->DisplayState();
-					}
-					*/
+
 					closeList.erase(itr1);
 					// Add to open list
 					openList.push_front(*itr1);
@@ -372,14 +366,13 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 			}
 		}
 		// Push the element to the closed list
-		closeList.push_front(x);
+		closeList.push_front(currentState);
 		// Sort the open list
 		openList.sort(CompareStateHeuristicValues);
 		// Update the current board
-		//openList.front().DisplayState();
 		mCurrentBoard.SetBoard(openList.front().GetBoardState().GetBoard());
 		State bestState = openList.front();
-		//bestState.DisplayState();
+
 		mCurrentState.SetOldMove(bestState.GetOldMove());
 		mCurrentState.SetBoard(bestState.GetBoardState());
 		mOrderOfInsertion.push_back(mCurrentState);
@@ -391,13 +384,13 @@ void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList,
     if (xCurrentBoard.IsMovable(xDirection)) {
     	/*
 		switch (xDirection){
-			case 8: cout << "Log: UP was called" << std::endl;
+			case 8: std::cout << "Log: UP was called" << std::endl;
 				break;
-			case 2: cout << "Log: DOWN was called" << std::endl;
+			case 2: std::cout << "Log: DOWN was called" << std::endl;
 				break;
-			case 4: cout << "Log: LEFT was called" << std::endl;
+			case 4: std::cout << "Log: LEFT was called" << std::endl;
 				break;
-			case 6: cout << "Log: RIGHT was called" << std::endl;
+			case 6: std::cout << "Log: RIGHT was called" << std::endl;
 				break;
 			default: return;
 		}

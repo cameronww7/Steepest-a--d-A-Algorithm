@@ -82,11 +82,11 @@ bool EightGame::SetWinBoard (char xArr[]) {
 void EightGame::DisplayBoard() {
 	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
 		if ((currentPosition % BOARD_ROW_SIZE) == 0  && currentPosition != 0) {
-			cout << std::endl;
+			std::cout << std::endl;
 		}
-		cout << mGameBoard[currentPosition] << " ";
+		std::cout << mGameBoard[currentPosition] << " ";
 	}
-	cout << std::endl;
+	std::cout << std::endl;
 }
 
 //==============DisplayBoardAtLine====================
@@ -97,7 +97,7 @@ void EightGame::DisplayBoard() {
 //==================================================
 void EightGame::DisplayBoardAtLine(int xLevel) {
 	for (int currentPosition = (xLevel * BOARD_ROW_SIZE); currentPosition < ((xLevel * BOARD_ROW_SIZE) + BOARD_ROW_SIZE); currentPosition++) {
-		cout << mGameBoard[currentPosition] << " ";
+		std::cout << mGameBoard[currentPosition] << " ";
 	}
 }
 

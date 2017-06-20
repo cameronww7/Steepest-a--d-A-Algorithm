@@ -27,21 +27,16 @@ enum DIRECTION {UP        = 8,
 			    RIGHT     = 6,
 			    DOWN      = 2,
 			    EMPTYSLOT = 'x'};
-const int BOARD_SIZE = 9;
-const int BOARD_ROW_SIZE = 3;
-const int MAX_STEP_COUNT = 100;
-const int HEURISTIC_ONE = 1;
-const int HEURISTIC_TWO = 2;
+const int BOARD_SIZE      = 9;
+const int BOARD_ROW_SIZE  = 3;
+const int MAX_STEP_COUNT  = 100;
+const int HEURISTIC_ONE   = 1;
+const int HEURISTIC_TWO   = 2;
 const int HEURISTIC_THREE = 3;
 
+int  countingTilesOutOfPlace (char xBoard[]);
 void displayBoard (char * xCurrentBoard);
-
-//This is use to test/play the game
 void testGameAndPlay (EightGame * xCurr);
-
-//Heuristic function: Counting tiles out of place
-int countingTilesOutOfPlace (char xBoard[]);
-
 void readFromFile (string      xFileName,
 				   EightGame & xInit);
 
@@ -49,120 +44,97 @@ int main() {
 	EightGame init;
 	State     current;
 	GameAi    generator;
-	//GameAi mainAi;
-	readFromFile("input.txt", init);
+	int 	  numberOfSteps;
 
-	//Just testing stuff out here
-	cout << "Input Board:" << endl;
+	readFromFile("input.txt", init);
+	std::cout << "Input Board:" << std::endl;
 	displayBoard(init.GetBoard());
-	cout << endl << "Goal Board:" << endl;
+	std::cout << std::endl << "Goal Board:" << std::endl;
 	displayBoard(init.GetWinBoard());
 	
+	std::cout << "============ Steepest-Ascent Hill-Climbing ============ " << std::endl << std::endl;
+	std::cout << "Algorithm: Steepest-Ascent Hill-Climbing" << std::endl << std::endl;
 
-	//Start on Steepest-Ascent Hill-Climbin
-	cout << "============ Steepest-Ascent Hill-Climbing ============ " << endl << endl;
-	int out;
-	
-	cout << "Algorithm: Steepest-Ascent Hill-Climbing" << endl << endl;
-
-	//Heuristic One - SAHC
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	cout << "Heuristic: Tile-Out-Of-Place" << endl;
-	out = generator.PlayGameSteepHillClimb(HEURISTIC_ONE);
-	if(out >= MAX_STEP_COUNT){
-		cout << "No Solution Found" << endl;
-	}
-	else{
-		cout << "Number of Steps: " <<  out << endl;
+	std::cout << "Heuristic: Tile-Out-Of-Place" << std::endl;
+	numberOfSteps = generator.PlayGameSteepHillClimb(HEURISTIC_ONE);
+	if (numberOfSteps >= MAX_STEP_COUNT) {
+		std::cout << "No Solution Found" << std::endl;
+	} else {
+		std::cout << "Number of Steps: " <<  numberOfSteps << std::endl;
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl;
+	std::cout << std::endl;
 
-	
-	//Heuristic Twp - SAHC
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	cout << "Heuristic: Number of Move to Correct Position" << endl;
-	out = generator.PlayGameSteepHillClimb(HEURISTIC_TWO);
-	if(out >= MAX_STEP_COUNT){
-		cout << "No Solution Found" << endl;
-	}
-	else{
-		cout << "Number of Steps: " <<  out << endl;
+	std::cout << "Heuristic: Number of Move to Correct Position" << endl;
+	numberOfSteps = generator.PlayGameSteepHillClimb(HEURISTIC_TWO);
+	if (numberOfSteps >= MAX_STEP_COUNT) {
+		std::cout << "No Solution Found" << std::endl;
+	} else {
+		std::cout << "Number of Steps: " <<  numberOfSteps << std::endl;
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl;
+	std::cout << std::endl;
 
-	//Heuristic Three - SAHC
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	cout << "Heuristic: Tile out of Column + Tile out of Row" << endl;
-	out = generator.PlayGameSteepHillClimb(HEURISTIC_THREE);
-	if(out >= MAX_STEP_COUNT){
-		cout << "No Solution Found" << endl;
-	}
-	else{
-		cout << "Number of Steps: " << out << endl;
+	std::cout << "Heuristic: Tile out of Column + Tile out of Row" << std::endl;
+	numberOfSteps = generator.PlayGameSteepHillClimb(HEURISTIC_THREE);
+	if (numberOfSteps >= MAX_STEP_COUNT) {
+		std::cout << "No Solution Found" << std::endl;
+	} else {
+		std::cout << "Number of Steps: " << numberOfSteps << std::endl;
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl << endl;
+	std::cout << std::endl << std::endl;
 
-	//Start Best-First Search
-	cout << "============ Best-First Search ============ " << endl << endl;
+	std::cout << "============ Best-First Search ============ " << std::endl << std::endl;
+	std::cout << "Algorithm: Best-First Search" << std::endl;
 
-	cout << "Algorithm: Best-First Search" << endl;
-
-	//Heuristic One - BFS
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	cout << "Heuristic: Tile-Out-Of-Place" << endl;
-	out = generator.PlayBestFirstSearch(HEURISTIC_ONE);
-	if(out >= MAX_STEP_COUNT){
-		cout << "No Solution Found" << endl;
-	}
-	else{
-		cout << "Number of Steps: " << out << endl;
+	std::cout << "Heuristic: Tile-Out-Of-Place" << std::endl;
+	numberOfSteps = generator.PlayBestFirstSearch(HEURISTIC_ONE);
+	if (numberOfSteps >= MAX_STEP_COUNT) {
+		std::cout << "No Solution Found" << std::endl;
+	} else {
+		std::cout << "Number of Steps: " << numberOfSteps << std::endl;
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl;
+	std::cout << std::endl;
 
-	//Heuristic Two - BFS
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	cout << "Heuristic: Number of Move to Correct Position" << endl;
-	out = generator.PlayBestFirstSearch(HEURISTIC_TWO);
-	if(out >= MAX_STEP_COUNT){
-		cout << "No Solution Found" << endl;
-	}
-	else{
-		cout << "Number of Steps: " << out << endl;
+	std::cout << "Heuristic: Number of Move to Correct Position" << std::endl;
+	numberOfSteps = generator.PlayBestFirstSearch(HEURISTIC_TWO);
+	if (numberOfSteps >= MAX_STEP_COUNT) {
+		std::cout << "No Solution Found" << std::endl;
+	} else {
+		std::cout << "Number of Steps: " << numberOfSteps << std::endl;
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl;
+	std::cout << std::endl;
 
-	//Heuristic Three - BFS
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	cout << "Heuristic: Tile out of Column + Tile out of Row" << endl;
-	out = generator.PlayBestFirstSearch(HEURISTIC_TWO);
-	if(out >= MAX_STEP_COUNT){
-		cout << "No Solution Found" << endl;
-	}
-	else{
-		cout << "Number of Steps: " << out << endl;
+	std::cout << "Heuristic: Tile out of Column + Tile out of Row" << std::endl;
+	numberOfSteps = generator.PlayBestFirstSearch(HEURISTIC_TWO);
+	if (numberOfSteps >= MAX_STEP_COUNT) {
+		std::cout << "No Solution Found" << std::endl;
+	} else {
+		std::cout << "Number of Steps: " << numberOfSteps << std::endl;
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
-	cout << endl;
-
-	cout << std::endl;
-	//system("PAUSE");
+	std::cout << std::endl << std::endl;
 	return 0;
 }
 
@@ -174,11 +146,11 @@ int main() {
 void displayBoard(char * xCurrentBoard) {
 	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
 		if ((currentPosition % BOARD_ROW_SIZE) == 0  && currentPosition != 0) {
-			cout << std::endl;
+			std::cout << std::endl;
 		}
-		cout << xCurrentBoard[currentPosition] << " ";
+		std::cout << xCurrentBoard[currentPosition] << " ";
 	}
-	cout << std::endl;
+	std::cout << std::endl;
 }
 
 //====readFormFile=====================================
@@ -210,7 +182,7 @@ void readFromFile(string xFileName, EightGame & xInit) {
 		xInit.SetWinBoard(board);
 		myfile.close();
 	} else {
-		cout << "Unable to open file";
+		std::cout << "Unable to open file";
 	}
 }
 
@@ -221,38 +193,39 @@ void readFromFile(string xFileName, EightGame & xInit) {
 // xCurr [IN] - EightGame start board
 //============================================
 void testGameAndPlay (EightGame * xCurr) {
-	int command;
+	int    command;
 	char * board = xCurr->GetBoard();
 
 	while (1) { // XX Why is this while(1)? while True?
 		displayBoard(board);
 
-		cout << "Counting tiles out of place: " 
-			<< countingTilesOutOfPlace(xCurr->GetBoard()) << std::endl << std::endl;
+		std::cout << "Counting tiles out of place: "
+			      << countingTilesOutOfPlace(xCurr->GetBoard())
+				  << std::endl << std::endl;
 
-		cout << "Enter Direction: ";
+		std::cout << "Enter Direction: ";
 		cin >> command; 
 
 		if (command != UP &&
 			command != LEFT &&
 			command != RIGHT &&
 			command != DOWN) {
-			cout << "Invalid Move" << std::endl << std::endl;
+			std::cout << "Invalid Move" << std::endl << std::endl;
 		} else {
 			if (xCurr->MoveDirection(command)) {
-				cout << "good Move" << std::endl;
+				std::cout << "good Move" << std::endl;
 			} else {
-				cout << "Invalid Move" << std::endl;
+				std::cout << "Invalid Move" << std::endl;
 			}
 
 			if (xCurr->CheckForWin()) {
-				cout << "!!--WINNER--!!" << std::endl;
+				std::cout << "!!--WINNER--!!" << std::endl;
 				displayBoard(board);
 				break;
 			}
 		}
 	}
-	cout << "Exit Game" << std::endl;
+	std::cout << "Exit Game" << std::endl;
 }
 
 
