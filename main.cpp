@@ -66,10 +66,11 @@ int main() {
 	cout << "============ Main Function Start ============ " << endl << endl;
 	int out;
 
-	// Steepest-dscent hill-climbing
-	cout << "Algorithm: Steepest-dscent hill-climbing" << endl;
+	// Steepest-ascent hill-climbing
+	cout << "Algorithm: Steepest-Ascent Hill-Climbing" << endl;
 	cout << "Heuristic: Tile-Out-Of-Place" << endl;
 
+	//Setting the initial and win state to the boards taken from input.txt
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
 	out = generator.PlayGameSteepHillClimb(HEURISTIC_ONE);

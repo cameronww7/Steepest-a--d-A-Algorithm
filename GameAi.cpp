@@ -246,8 +246,6 @@ int GameAi::PlayBestFirstSearch() {
 
 			} else if (stateIsOnOpenList) {
 				cout << "Entering the second if" << endl;
-
-				//This is where we are supposed to sort the list
 				// If the current path we took to this node is shorter than the old path
 				if(pathCounter < itr1->GetPathValue()) {
 					// Update path counter
@@ -267,11 +265,19 @@ int GameAi::PlayBestFirstSearch() {
 					itr1->SetPathValue(pathCounter);
 					// Delete from close list
 					for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
-			itr1->DisplayState();
-		}
+						itr1->DisplayState();
+					}
+					cout << "Close List BEFORE: " << endl;
+					PrintList(closeList);
+
+					cout << "Close List AFTER" << endl;
 					closeList.erase(itr1);
+					PrintList(closeList);
+
 					// Add to open list
+					cout << "Open List BEFORE:" << endl;
 					openList.push_front(*itr1);
+					cout << "Open List AFTER: " << endl;
 				}
 			}
 		}//End For
