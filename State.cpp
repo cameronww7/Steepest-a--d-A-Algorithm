@@ -16,11 +16,13 @@
 
 State::State() {
     mHeuristicValue = 0;
+    mOldMove 	    = 0;
 }
 
 State::State(EightGame xEGBoard) {
+    mCurrentBoard 	= xEGBoard;
     mHeuristicValue = 0;
-    mCurrentBoard = xEGBoard;
+    mOldMove 		= 0;
 }
 
 void State::SetBoard(EightGame xEGBoard) {
@@ -41,23 +43,20 @@ State State::operator=(const State & xRHS) {
 }
 
 bool State::operator==(State & xRHS) {
-	for(int index = 0; index < 9; index++)
-	{
+	bool returnBool = true;
+	for(int index = 0; index < BOARD_SIZE; index++) {
 		if(this->GetBoardState().GetBoard()[index] 
-			!= xRHS.GetBoardState().GetBoard()[index])
-		{
-			return false;
+			!= xRHS.GetBoardState().GetBoard()[index]) {
+			returnBool = false;
 		}
 	}
-	//if (this->GetHeuristicValue() == xRHS.GetHeuristicValue()) {
-	//	return true;
-	//}
-	return true;
+	return returnBool;
 }
 
 bool State::operator>(State & xRHS) {
+	bool returnBool = false;
 	if (this->GetHeuristicValue() > xRHS.GetHeuristicValue()) {
-		return true;
+		returnBool = true;
 	}
-	return false;
+	return returnBool;
 }

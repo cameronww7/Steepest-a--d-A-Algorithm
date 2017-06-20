@@ -30,29 +30,27 @@ public:
     State(EightGame);
 
     EightGame GetBoardState() { return  mCurrentBoard;};
-    void SetBoard(EightGame);
-    void DisplayState();
-    void SetHeuristicValue(int);
-    int  GetHeuristicValue() {return  mHeuristicValue;};
+    int  	  GetHeuristicValue() {return  mHeuristicValue;};
+    int  	  GetOldMove() {return mOldMove;};
+	int  	  GetPathValue() {return mPathValue;};
+    void 	  SetBoard(EightGame xEGBoard);
+    void 	  SetHeuristicValue(int xHValue);
+    void 	  SetOldMove(int xDirection) {mOldMove = xDirection;};
+	void 	  SetPathValue(int xPathValue) {mPathValue = xPathValue;};
+    void 	  DisplayState();
 
     // Overloaders
 	State operator=(const State & xRHS);
-	bool operator==(State & xRHS);
-	bool operator>(State & xRHS);
-
-    void SetOldMove(int xDirection){oldMove = xDirection;};
-    int GetOldMove(){return oldMove;};
-	int GetPathValue(){return mPathValue;};
-	void SetPathValue(int xPathValue){mPathValue = xPathValue;};
+	bool  operator==(State & xRHS);
+	bool  operator>(State & xRHS);
 
 private:
 	const int BOARD_SIZE      = 9;
 	const int BOARD_ROW_SIZE  = 3;
 
-    int oldMove;
-
     EightGame mCurrentBoard;
     int       mHeuristicValue;
-	int mPathValue = 0;
+	int 	  mPathValue = 0;
+    int 	  mOldMove;
 };
 #endif
