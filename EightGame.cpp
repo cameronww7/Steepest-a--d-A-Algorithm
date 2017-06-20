@@ -29,6 +29,30 @@ EightGame::EightGame() {
 	}
 }
 
+/*
+EightGame::EightGame(EightGame &obj){
+
+
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		mGameBoard[index] = obj.GetBoard()[index];
+	}
+	mGameBoard[BOARD_SIZE - 1] = '\0';
+
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		mWinBoard[index] = obj.GetWinBoard()[index];
+	}
+	mWinBoard[BOARD_SIZE - 1] = '\0';
+}
+*/
+
+char * EightGame::GetBoard(){
+	return mGameBoard;
+}
+
+char * EightGame::GetWinBoard(){
+	return mWinBoard;
+}
+
 //==DisplayBoard=====================================
 //Display the current game board in 3 X 3 format
 // currentBoard [IN]  - array contain board face value
@@ -57,6 +81,16 @@ void EightGame::DisplayBoardAtLine(int xLevel) {
 	}
 	//cout << std::endl;
 }
+
+/*
+EightGame& EightGame::operator=(const EightGame& rhs){
+	//EightGame* Item = new EightGame;
+
+	//Item->SetBoard(rhs.GetBoard());
+	//Item->SetWinBoard(rhs.GetWinBoard());
+
+	return rhs;
+}*/
 
 //===FindCharInBoard=====================
 //Search Value from Board
