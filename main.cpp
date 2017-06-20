@@ -57,22 +57,19 @@ int main() {
 	displayBoard(init.GetBoard());
 	cout << endl << "Goal Board:" << endl;
 	displayBoard(init.GetWinBoard());
-
-	cout << "------------------" << std::endl;
-	cout << "Generating state list: " << endl;
 	
 
-
-	cout << "============ Main Function Start ============ " << endl << endl;
+	//Start on Steepest-Ascent Hill-Climbin
+	cout << "============ Steepest-Ascent Hill-Climbing ============ " << endl << endl;
 	int out;
 	
-	cout << "Algorithm: Steepest-Ascent Hill-Climbing" << endl;
-	// Steepest-ascent hill-climbing
-	cout << "Heuristic: Tile-Out-Of-Place" << endl;
+	cout << "Algorithm: Steepest-Ascent Hill-Climbing" << endl << endl;
+	
 
-	//Setting the initial and win state to the boards taken from input.txt
+	//Heuristic One - SAHC
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
+	cout << "Heuristic: Tile-Out-Of-Place" << endl;
 	out = generator.PlayGameSteepHillClimb(HEURISTIC_ONE);
 	if(out >= MAX_STEP_COUNT){
 		cout << "No Solution Found" << endl;
@@ -84,10 +81,11 @@ int main() {
 	generator.CleanGameAi();
 	cout << endl << endl;
 
-	cout << "Heuristic: Number of Move to Correct Position" << endl;
-
+	
+	//Heuristic Twp - SAHC
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
+	cout << "Heuristic: Number of Move to Correct Position" << endl;
 	out = generator.PlayGameSteepHillClimb(HEURISTIC_TWO);
 	if(out >= MAX_STEP_COUNT){
 		cout << "No Solution Found" << endl;
@@ -99,11 +97,10 @@ int main() {
 	generator.CleanGameAi();
 	cout << endl << endl;
 
-
-	cout << "Heuristic: Tile out of Colume + Tile out of Row" << endl;
-
+	//Heuristic Three - SAHC
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
+	cout << "Heuristic: Tile out of Colume + Tile out of Row" << endl;
 	out = generator.PlayGameSteepHillClimb(HEURISTIC_THREE);
 	if(out >= MAX_STEP_COUNT){
 		cout << "No Solution Found" << endl;
@@ -114,32 +111,17 @@ int main() {
 	}
 	generator.CleanGameAi();
 	cout << endl << endl;
-	
 
-	//list<State> stateList = generator.GenerateStateList();
-	////generator.PrintList(stateList);
-	//cout << endl;
-	//cout << "Whole List of possible moves:  " << std::endl;
-	//generator.PrintLocalList();
+	//Start Best-First Search
+	cout << "============ Best-First Search ============ " << endl << endl;
 
-	//cout << "------------------" << std::endl;
-
-	//cout << "Board: " << endl;
-	//displayBoard(init.GetBoard());
-	//cout << " End " << std::endl << endl;
-
-
-	//cout << "H(n) 1 : " << generator.CalulateHeuristicOne() << std::endl;
-	//cout << "H(n) 2 : " << generator.CalulateHeuristicTwo() << std::endl;
-	//cout << "H(n) 3 : " << generator.CalulateHeuristicThree() << std::endl;
-	//  cout << "Is win:: " << Item.CheckForWin() << endl;
-	//  cout << "Where is _:: " << Item.FindEmptySlot() << endl;
-
-	cout << "------------------" << std::endl;
 	cout << "Algorithm: Best-First Search" << endl;
+
+	//Heuristic One - BFS
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
-	out = generator.PlayBestFirstSearch();
+	cout << "Heuristic: Tile-Out-Of-Place" << endl;
+	out = generator.PlayBestFirstSearch(HEURISTIC_ONE);
 	if(out >= MAX_STEP_COUNT){
 		cout << "No Solution Found" << endl;
 	}
@@ -148,14 +130,97 @@ int main() {
 		generator.PrintLocalList();
 	}
 	generator.CleanGameAi();
+	cout << endl << endl;
+
+	//Heuristic Two - BFS
+	current.SetBoard(init);
+	generator.SetCurrentState(current.GetBoardState());
+	cout << "Heuristic: Number of Move to Correct Position" << endl;
+	out = generator.PlayBestFirstSearch(HEURISTIC_TWO);
+	if(out >= MAX_STEP_COUNT){
+		cout << "No Solution Found" << endl;
+	}
+	else{
+		cout << "Number of Steps: " << out << endl;
+		generator.PrintLocalList();
+	}
+	generator.CleanGameAi();
+	cout << endl << endl;
+
+	//Heuristic Three - BFS
+	current.SetBoard(init);
+	generator.SetCurrentState(current.GetBoardState());
+	cout << "Heuristic: Tile out of Colume + Tile out of Row" << endl;
+	out = generator.PlayBestFirstSearch(HEURISTIC_TWO);
+	if(out >= MAX_STEP_COUNT){
+		cout << "No Solution Found" << endl;
+	}
+	else{
+		cout << "Number of Steps: " << out << endl;
+		generator.PrintLocalList();
+	}
+	generator.CleanGameAi();
+	cout << endl << endl;
 
 	cout << std::endl;
-	system("PAUSE");
+	//system("PAUSE");
 	return 0;
 }
 
-//====TEST====================================
+//==DisplayBoard=====================================
+//Display the current game board in 3 X 3 format
+// currentBoard [IN]  - array contain board face value
+// size [IN]		  - size of the array
+//==================================================
+void displayBoard(char * xCurrentBoard) {
+	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
+		if ((currentPosition % BOARD_ROW_SIZE) == 0  && currentPosition != 0) {
+			cout << std::endl;
+		}
+		cout << xCurrentBoard[currentPosition] << " ";
+	}
+	cout << std::endl;
+}
+
+//====readFormFile=====================================
+//Read a file and put it into an EightGame element
+// xFilename [IN] - filename that would be open
+// xInit [IN/OUT] - Eight game that will be a 
+//					container for what coming in
+//=====================================================
+void readFromFile(string xFileName, EightGame & xInit) {
+	char     board[BOARD_SIZE];
+	string   line;
+	ifstream myfile(xFileName);
+
+	if (myfile.is_open()) {
+
+		for (int index = 0; index < BOARD_SIZE; index++) {
+			board[index] = myfile.get();
+			myfile.get();
+		}
+
+		myfile.ignore(1,'\n');
+		xInit.SetBoard(board);
+
+		for (int index = 0; index < BOARD_SIZE; index++) {
+			board[index] = myfile.get();
+			myfile.get();
+		}
+
+		xInit.SetWinBoard(board);
+		myfile.close();
+	} else {
+		cout << "Unable to open file";
+	}
+}
+
+//====testGameAndPlay==========================
 //This is use to test/play the game 
+//this class can be use to play the actuall game
+// This are just for testing purpose
+// xCurr [IN] - EightGame start board
+//============================================
 void testGameAndPlay (EightGame * xCurr) {
 	int command;
 	char * board = xCurr->GetBoard();
@@ -191,24 +256,12 @@ void testGameAndPlay (EightGame * xCurr) {
 	cout << "Exit Game" << std::endl;
 }
 
-//==DisplayBoard=====================================
-//Display the current game board in 3 X 3 format
-// currentBoard [IN]  - array contain board face value
-// size [IN]		  - size of the array
-//==================================================
-void displayBoard(char * xCurrentBoard) {
-	for (int currentPosition = 0; currentPosition < BOARD_SIZE; currentPosition++) {
-		if ((currentPosition % BOARD_ROW_SIZE) == 0  && currentPosition != 0) {
-			cout << std::endl;
-		}
-		cout << xCurrentBoard[currentPosition] << " ";
-	}
-	cout << std::endl;
-}
 
 //==DisplayBoard=====================================
-//Count tile out of place
-// size [IN]		  - 
+//Count tile out of place . This function are used by
+// the testGameAndPlay() for testing purpose
+// xBoard [IN] - element we are looking for
+// return 		- number of tile out of place 
 //==================================================
 int countingTilesOutOfPlace(char xBoard[]) {
 	int count = 0;
@@ -223,32 +276,3 @@ int countingTilesOutOfPlace(char xBoard[]) {
 	if (xBoard[8] != '5') count++;
 	return count;
 }
-
-void readFromFile(string xFileName, EightGame & xInit) {
-	char     board[BOARD_SIZE];
-	string   line;
-	ifstream myfile(xFileName);
-
-	if (myfile.is_open()) {
-
-		for (int index = 0; index < BOARD_SIZE; index++) {
-			board[index] = myfile.get();
-			myfile.get();
-		}
-
-		myfile.ignore(1,'\n');
-		xInit.SetBoard(board);
-
-		for (int index = 0; index < BOARD_SIZE; index++) {
-			board[index] = myfile.get();
-			myfile.get();
-		}
-
-		xInit.SetWinBoard(board);
-		myfile.close();
-	} else {
-		cout << "Unable to open file";
-	}
-}
-
-
