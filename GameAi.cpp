@@ -47,13 +47,14 @@ bool GameAi::SetGameBoard(EightGame xSetItem) {
 // Return: 	Heuristic Value:
 //	** this does not store the calculate value
 //==================================================
-int GameAi::CalulateHeuristicOne() {
+int GameAi::CalulateHeuristicOne(State state) {
 	int count = 0;
+	EightGame board = state.GetBoardState();
 
     for (int index = 0; index < BOARD_SIZE; index++ ){
         //cout << mCurrentBoard.GetBoard()[index] << endl;
-        if(mCurrentBoard.GetBoard()[index] != EMPTYSLOT){
-            if (mCurrentBoard.GetBoard()[index] != mCurrentBoard.GetWinBoard()[index]) {
+		if (board.GetBoard()[index] != EMPTYSLOT){
+			if (board.GetBoard()[index] != board.GetWinBoard()[index]) {
                 count++;
             }
         }
@@ -68,9 +69,9 @@ int GameAi::CalulateHeuristicOne() {
 // Return: 	Heuristic Value:
 //	** this does not store the calculations value
 //==================================================
-int GameAi::CalulateHeuristicTwo() {
+int GameAi::CalulateHeuristicTwo(State state) {
 	int count = 0;
-
+	EightGame board = state.GetBoardState();
 	int boardMain;
 
 	int divBoard;
@@ -80,8 +81,8 @@ int GameAi::CalulateHeuristicTwo() {
 	int modWin;
 
 	for (int index = 0; index < BOARD_SIZE; index++) {
-        if(mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT){
-    		boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
+		if (board.GetWinBoard()[index] != EMPTYSLOT){
+			boardMain = board.FindCharInBoard(board.GetWinBoard()[index]);
 
     		divBoard = boardMain / BOARD_ROW_SIZE;
     		modBoard = boardMain % BOARD_ROW_SIZE;
@@ -103,12 +104,13 @@ int GameAi::CalulateHeuristicTwo() {
 // Return:  Heuristic Value:
 //  ** this does not store the calculate value
 //==================================================
-int GameAi::CalulateHeuristicThree() {
+int GameAi::CalulateHeuristicThree(State state) {
     int count = 0;
+	EightGame board = state.GetBoardState();
 
     for (int index = 0; index < BOARD_SIZE; index++) {
-        if (mCurrentBoard.GetWinBoard()[index] != EMPTYSLOT) {
-            int boardMain = mCurrentBoard.FindCharInBoard(mCurrentBoard.GetWinBoard()[index]);
+		if (board.GetWinBoard()[index] != EMPTYSLOT) {
+			int boardMain = board.FindCharInBoard(board.GetWinBoard()[index]);
 
             if (boardMain / BOARD_ROW_SIZE != (index / BOARD_ROW_SIZE)) {
                 count++;
@@ -126,31 +128,33 @@ void GameAi::PlayGameSteepHillClimb() {
 	cout << endl << "Play Steep-Hill Ascent Climb" << endl;
 
 	while (numSteps < MAX_STEPS) {
+
+		cout << endl << "********************CURRENT BOARD****************************" << endl;
+		GetCurrentBoard().DisplayBoard();
+
 		//if current state is a solution RETURN
 		if (mCurrentBoard.CheckForWin()) {
 			return;
 		}
 		//else generate all possible states
-		cout << endl << "Generating State List" << endl;
+		cout << endl << "+++GENERATING STATE LIST:" << endl;
 		std::list<State> stateList = GenerateStateList();
-		PrintList(stateList);
+		cout << endl;
+		//PrintList(stateList);
 
 
 		//Apply heuristics to all states
-		cout << endl << "Applying Heuristics to all states" << endl;
-		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
-			//Apply the heuristic here
-			//if heuristic one is chosen
-			// ----  NOTE: Need to do this for every heuristic? 
-			// -----       Only doing one for now               
-			itr->SetHeuristicValue(CalulateHeuristicTwo());
+		cout << endl << "+++APPLYING HEURISTICS:" << endl << endl;
+		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {        
+			itr->SetHeuristicValue(CalulateHeuristicOne(*itr));
+			itr->DisplayState();
 
-			cout << CalulateHeuristicTwo() << " ";
+			cout << "Heuristic: " << itr->GetHeuristicValue() << " " << endl << endl;
 		}
 		cout << endl;
 
 		//Select the BEST state
-		cout << endl << "Selecting the BEST state" << endl;
+		cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
 		State bestState = stateList.front();
 		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++) {
 			if (*itr > bestState){
@@ -158,16 +162,14 @@ void GameAi::PlayGameSteepHillClimb() {
 			}
 		}
 		mCurrentBoard = bestState.GetBoardState();
-		cout << "The best state is " << endl;
 		mCurrentBoard.DisplayBoard();
 		cout << endl;
 
 		//Print the BEST state to out.txt
 
 		//Update the number of steps
-		cout << endl << "Updating number of Steps" << endl;
 		numSteps++;
-		cout << endl << "Number of steps: " << GetNumSteps() << endl;
+		cout << "Number of steps: " << GetNumSteps() << endl;
 	}
 }
 
@@ -269,7 +271,7 @@ void GameAi::SetCurrentState(EightGame xCurrent) {
 void GameAi::PrintList(list <State> xStateList) {
     int index = 0;
     for (list<State>::iterator itr = xStateList.begin(); itr != xStateList.end(); itr++) {
-        cout << "State: " << index++ << std::endl;
+        cout << "State: " << ++index << std::endl;
         itr->GetBoardState().DisplayBoard();
     }
 }
