@@ -246,11 +246,11 @@ void GameAi::PlayBestFirstSearch() {
 	// Counter for path value
 	int pathCounter = 0;
 
-	openList.push_front(mCurrentState); // Pushing Root Node Current State
+	openList.push_front(mCurrentBoard); // Pushing Root Node Current State
 
 	while (!openList.empty() && !mCurrentBoard.CheckForWin()) {
 		// Assign the first value from open list into X and remove it from the open list
-		x = openList.front();
+		x = openList.front().GetBoardState();
 		openList.pop_front();
 		// Generates a list of possible states
 		cout << "Generating a list of all possible states" << endl;
