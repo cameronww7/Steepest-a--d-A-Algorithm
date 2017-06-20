@@ -135,7 +135,8 @@ int main() {
 	//  cout << "Where is _:: " << Item.FindEmptySlot() << endl;
 
 	cout << "------------------" << std::endl;
-		cout << "Algorithm: Best-First Search" << endl;
+	cout << "Algorithm: Best-First Search" << endl;
+	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
 	out = generator.PlayBestFirstSearch();
 	if(out >= MAX_STEP_COUNT){

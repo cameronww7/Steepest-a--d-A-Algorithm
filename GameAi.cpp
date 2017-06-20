@@ -234,7 +234,7 @@ int GameAi::PlayBestFirstSearch() {
 			
 			// Visiting a node that we've never encountered before
 			if (!stateIsOnOpenList && !stateIsOnCloseList) {
-				cout << "Entering the first if" << endl;
+				cout << "Entering the 111" << endl;
 
 				itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 
@@ -245,7 +245,7 @@ int GameAi::PlayBestFirstSearch() {
 				openList.push_front(*itr1);
 
 			} else if (stateIsOnOpenList) {
-				cout << "Entering the second if" << endl;
+				cout << "Entering the 222" << endl;
 
 				//This is where we are supposed to sort the list
 				// If the current path we took to this node is shorter than the old path
@@ -255,7 +255,7 @@ int GameAi::PlayBestFirstSearch() {
 				}
 				
 			} else if (stateIsOnCloseList) {
-				cout << "Entering the third if" << endl;
+				cout << "Entering the 333" << endl;
 
 				currentPathValue = itr1->GetPathValue();
 
@@ -266,9 +266,11 @@ int GameAi::PlayBestFirstSearch() {
 					// Update path counter
 					itr1->SetPathValue(pathCounter);
 					// Delete from close list
-					for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
-			itr1->DisplayState();
-		}
+					for (list<State>::iterator itr1 = openList.begin(); 
+							itr1 != openList.end(); 
+							itr1++) {
+						itr1->DisplayState();
+					}
 					closeList.erase(itr1);
 					// Add to open list
 					openList.push_front(*itr1);
@@ -276,18 +278,20 @@ int GameAi::PlayBestFirstSearch() {
 			}
 		}//End For
 	
-		/*
-		cout << "Open" << endl;
+		
+		cout << "Open---" << endl;
 		for (list<State>::iterator itr1 = openList.begin(); itr1 != openList.end(); itr1++) {
 			itr1->DisplayState();
+			cout << "State heuristic Open: " << itr1->GetHeuristicValue() << endl;
 		}
+		/*
 		cout << "closee" << endl;
 		for (list<State>::iterator itr1 = closeList.begin(); itr1 != closeList.end(); itr1++) {
 			itr1->DisplayState();
 		}
 		*/
 		cout << "Open: " << openList.size() << endl;
-		cout << "Close: " << openList.size() << endl;
+		cout << "Close: " << closeList.size() << endl;
 
 		// Push the element to the closed list
 		closeList.push_front(x);
@@ -317,7 +321,7 @@ int GameAi::PlayBestFirstSearch() {
 
 void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList, const int xDirection) {
     if (xCurrentBoard.IsMovable(xDirection)) {
-    	/*
+    	
 		switch (xDirection){
 			case 8: cout << "Log: UP was called" << std::endl;
 				break;
@@ -329,7 +333,7 @@ void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList,
 				break;
 			default: return;
 		}
-		*/
+		
        
        	State newBoard;
        	EightGame newGame;
@@ -453,6 +457,7 @@ void GameAi::PrintLocalList() {
 void GameAi::CleanGameAi(){
 	mOrderOfInsertion.clear();
 	numSteps = 0;
+	mCurrentState.SetOldMove(0);
 }
 
 
