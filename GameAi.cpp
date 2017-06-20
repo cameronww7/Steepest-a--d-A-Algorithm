@@ -297,7 +297,7 @@ void GameAi::PlayBestFirstSearch() {
 						// Update path counter
 						itr1->SetPathValue(pathCounter);
 						// Delete from close list
-						closeList.remove(*itr1);
+						closeList.erase(itr1);
 						// Add to open list
 						openList.push_front(*itr1);
 					}
