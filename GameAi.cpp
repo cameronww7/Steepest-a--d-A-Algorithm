@@ -253,7 +253,10 @@ void GameAi::PlayBestFirstSearch() {
 		x = openList.front().GetBoardState();
 		openList.pop_front();
 		// Generates a list of possible states
+		cout << "Generating a list of all possible states" << endl;
 		std::list<State> stateList = GenerateStateList();
+		PrintList(stateList);
+
 		pathCounter++;
 		// Iterates through state list
 		for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
@@ -263,13 +266,22 @@ void GameAi::PlayBestFirstSearch() {
 			itr1->DisplayState();
 
 			if (!stateIsOnOpenList && !stateIsOnCloseList) {
+<<<<<<< HEAD
 				cout << "C11" << endl;
+=======
+				cout << "Entering the first if" << endl;
+>>>>>>> 97e325e06094e4f6ed866706d530ae9489f41d55
 				itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 				// assigns the path value to the current state
 				itr1->SetPathValue(pathCounter);
 				openList.push_front(*itr1);
+
 			} else if (stateIsOnOpenList) {
+<<<<<<< HEAD
 				cout << "C22" << endl;
+=======
+				cout << "Entering the second if" << endl;
+>>>>>>> 97e325e06094e4f6ed866706d530ae9489f41d55
 				//This is where we are supposed to sort the list
 				// If the current path we took to this node is shorter than the old path
 				if(pathCounter < itr1->GetPathValue()) {
@@ -278,12 +290,18 @@ void GameAi::PlayBestFirstSearch() {
 				}
 				
 			} else if (stateIsOnCloseList) {
+<<<<<<< HEAD
 				cout << "C33" << endl;
+=======
+				cout << "Entering the third if" << endl;
+>>>>>>> 97e325e06094e4f6ed866706d530ae9489f41d55
 				// If the current path we took to this node is shorter than the old path
 				if(pathCounter < itr1->GetPathValue()) {
+					cout << "Inside path counter part" << endl;
 					// Update path counter
 					itr1->SetPathValue(pathCounter);
 					// Delete from close list
+					cout << "About to erase" << endl;
 					closeList.erase(itr1);
 					// Add to open list
 					openList.push_front(*itr1);
