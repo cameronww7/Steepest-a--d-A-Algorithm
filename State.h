@@ -42,6 +42,8 @@ public:
 
     void SetOldMove(int xDirection){oldMove = xDirection;};
     int GetOldMove(){return oldMove;};
+	int GetPathValue(){return mPathValue;};
+	void SetPathValue(int xPathValue){mPathValue = xPathValue;};
 
 private:
 	const int BOARD_SIZE      = 9;
@@ -51,5 +53,6 @@ private:
 
     EightGame mCurrentBoard;
     int       mHeuristicValue;
+	int mPathValue = 0;
 };
 #endif

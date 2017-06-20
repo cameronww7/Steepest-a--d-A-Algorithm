@@ -26,6 +26,19 @@ bool SearchListForCurrentState(State            xState,
 	}
 	return foundStateInList;
 }
+
+State SearchListForAState(State            xState,
+		                       std::list<State> xList) {
+	State stateInList; // Used to See if state is on a Queue
+	for (list<State>::iterator itr = xList.begin(); itr != xList.end(); itr++) {
+		if (xState == *itr) {
+			stateInList = *itr; // Exit cause found state on queue
+		} 
+	}
+	return stateInList;
+}
+
+
 } // Anonymous namespace
 
 GameAi::GameAi() {
@@ -254,6 +267,8 @@ void GameAi::PlayBestFirstSearch() {
 	std::list<State> openList;
 	std::list<State> closeList;
 	State x;
+	// Counter for path value
+	int pathCounter = 0;
 
 	openList.push_front(mCurrentState); // Pushing Root Node Current State
 
@@ -266,23 +281,28 @@ void GameAi::PlayBestFirstSearch() {
 		} else {
 			// Generates a list of possible states
 			std::list<State> stateList = GenerateStateList();
+			pathCounter++;
 			// Iterates through state list
 			for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
 				bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
 				bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
 
 				if (!stateIsOnOpenList && !stateIsOnCloseList) {
-					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
+					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1
+					// assigns the path value to the current state
+					itr1->SetPathValue(pathCounter);
 					openList.push_front(*itr1);
 				} else if (stateIsOnOpenList) {
-
-					//This is where we are supposed to sort the list
+					// If the current path we took to this node is shorter than the old path
+					if(pathCounter < itr1->GetPathValue()) {
+						itr1->SetPathValue(pathCounter);
+					}
 					
 				} else if (stateIsOnCloseList) {
-					// If child was reached by shorter path then
-
-					while(stateList.front() == closeList.front()) {
-						closeList.pop_front(); // Move to next element
+					// If the current path we took to this node is shorter than the old path
+					if(pathCounter < itr1->GetPathValue()) {
+						itr1->SetPathValue(pathCounter);
+						
 					}
 					//remove the element
 				}
