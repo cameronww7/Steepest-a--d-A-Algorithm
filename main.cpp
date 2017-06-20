@@ -56,10 +56,59 @@ int main() {
 
 	cout << "------------------" << std::endl;
 	cout << "Generating state list: " << endl;
+	
+
+
+	cout << "============ Main Function Start ============ " << endl << endl;
+	int out;
+
+	cout << "Algorithm: Steepest-dscent hill-climbing" << endl;
+	cout << "Heuristic: Tile-Out-Of-Place" << endl;
+
 	current.SetBoard(init);
 	generator.SetCurrentState(current.GetBoardState());
+	out = generator.PlayGameSteepHillClimb(1);
+	if(out >= 100){
+		cout << "No Solution Found" << endl;
+	}
+	else{
+		cout << "Number of Steps: " <<  out << endl;
+		generator.PrintLocalList();
+	}
+	generator.CleanGameAi();
+	cout << endl << endl;
 
-	generator.PlayGameSteepHillClimb();
+	cout << "Heuristic: Number of Move to Correct Position" << endl;
+
+	current.SetBoard(init);
+	generator.SetCurrentState(current.GetBoardState());
+	out = generator.PlayGameSteepHillClimb(2);
+	if(out >= 100){
+		cout << "No Solution Found" << endl;
+	}
+	else{
+		cout << "Number of Steps: " <<  out << endl;
+		generator.PrintLocalList();
+	}
+	generator.CleanGameAi();
+	cout << endl << endl;
+
+
+	cout << "Heuristic: Tile out of Colume + Tile out of Row" << endl;
+
+	current.SetBoard(init);
+	generator.SetCurrentState(current.GetBoardState());
+	out = generator.PlayGameSteepHillClimb(3);
+	if(out >= 100){
+		cout << "No Solution Found" << endl;
+	}
+	else{
+		cout << "Number of Steps: " << out << endl;
+		generator.PrintLocalList();
+	}
+	generator.CleanGameAi();
+	cout << endl << endl;
+
 
 	//list<State> stateList = generator.GenerateStateList();
 	////generator.PrintList(stateList);

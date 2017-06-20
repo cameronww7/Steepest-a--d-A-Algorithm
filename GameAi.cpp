@@ -123,26 +123,26 @@ int GameAi::CalulateHeuristicThree(State xState) {
     return count + numSteps;
 }
 
-void GameAi::PlayGameSteepHillClimb() {
-	cout << endl << "Play Steep-Hill Ascent Climb" << endl;
+int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
+	//cout << endl << "Play Steep-Hill Ascent Climb" << endl;
 	numSteps = 0;
 	srand(time(NULL));
 
 	while (numSteps < MAX_STEPS && !mCurrentBoard.CheckForWin()) {
 
-		cout << endl << "********************CURRENT BOARD****************************" << endl;
-		GetCurrentBoard().DisplayBoard();
+		//cout << endl << "********************CURRENT BOARD****************************" << endl;
+		//GetCurrentBoard().DisplayBoard();
 
 		//else generate all possible states
-		cout << endl << "+++GENERATING STATE LIST:" << endl;
+		//cout << endl << "+++GENERATING STATE LIST:" << endl;
 		std::list<State> stateList = GenerateStateList();
 		numSteps++;
-		cout << endl;
+		//cout << endl;
 		//PrintList(stateList);
 
 
 		//Apply heuristics to all states
-		cout << endl << "+++APPLYING HEURISTICS:" << endl << endl;
+		//cout << endl << "+++APPLYING HEURISTICS:" << endl << endl;
 		/* for Kenny code
 		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {        
 			itr->SetHeuristicValue(CalulateHeuristicOne(*itr));
@@ -161,48 +161,61 @@ void GameAi::PlayGameSteepHillClimb() {
 				//cout << "===" <<bestState.GetHeuristicValue() << endl;
 			}
 		}
+
+
+
+		else if (xHeuristicNumber == 2){
+			for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {      
+				
+				if(itr->GetHeuristicValue() > CalulateHeuristicTwo(*itr))
+				{
+					itr->SetHeuristicValue(CalulateHeuristicTwo(*itr));
+					
+				}
+				//itr->DisplayState();
+				//cout << "Heuristic2: " << CalulateHeuristicTwo(*itr) << " " << endl;
+			}
+		}
 		*/
 
 		//Testing oat
-		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {        
-			itr->SetHeuristicValue(CalulateHeuristicOne(*itr));
-			//itr->DisplayState();
+		if(xHeuristicNumber == 1){
+			for (std::list<State>::iterator itr = stateList.begin(); 
+					itr != stateList.end(); 
+					itr++) {        
+				itr->SetHeuristicValue(CalulateHeuristicOne(*itr));
+				//itr->DisplayState();
 
-			cout << "Heuristic1: " << CalulateHeuristicOne(*itr)<< " " << endl;
-		}
-
-		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {      
-			
-			if(itr->GetHeuristicValue() > CalulateHeuristicTwo(*itr))
-			{
-				itr->SetHeuristicValue(CalulateHeuristicTwo(*itr));
-				
+				//cout << "Heuristic1: " << CalulateHeuristicOne(*itr)<< " " << endl;
 			}
-			//itr->DisplayState();
-			cout << "Heuristic2: " << CalulateHeuristicTwo(*itr) << " " << endl;
 		}
-
-		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {        
-			
-			if(itr->GetHeuristicValue() > CalulateHeuristicThree(*itr))
-			{
-				itr->SetHeuristicValue(CalulateHeuristicThree(*itr));
-				
+		else if (xHeuristicNumber == 2){
+			for (std::list<State>::iterator itr = stateList.begin(); 
+					itr != stateList.end();
+					itr++) {      
+					itr->SetHeuristicValue(CalulateHeuristicTwo(*itr));
+					
+				//itr->DisplayState();
+				//cout << "Heuristic2: " << CalulateHeuristicTwo(*itr) << " " << endl;
 			}
-			//itr->DisplayState();
-			cout << "Heuristic3: " << CalulateHeuristicThree(*itr) << " " << endl;
+		}
+		else if (xHeuristicNumber == 3){
+			for (std::list<State>::iterator itr = stateList.begin(); 
+					itr != stateList.end(); 	
+					itr++) {      
+					itr->SetHeuristicValue(CalulateHeuristicThree(*itr));
+			}
 		}
 
-
+		/*
 		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++){
 			cout << "Heuristic:   ALL  " << endl;
 			itr->DisplayState();
 			cout << itr->GetHeuristicValue() << endl << endl;
 		}
+		*/
 
-		cout << endl;
-
-		cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
+		//cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
 		State bestState = stateList.front();
 		bestState.SetHeuristicValue(1000);
 		for (list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
@@ -212,7 +225,7 @@ void GameAi::PlayGameSteepHillClimb() {
 				bestState.SetBoard(itr->GetBoardState());
 				bestState.SetOldMove(itr->GetOldMove());
 
-				cout << "===" <<bestState.GetHeuristicValue() << endl;
+				//cout << "===" <<bestState.GetHeuristicValue() << endl;
 			}
 
 			else if(bestState == *itr){
@@ -221,14 +234,14 @@ void GameAi::PlayGameSteepHillClimb() {
 					bestState.SetBoard(itr->GetBoardState());
 					bestState.SetOldMove(itr->GetOldMove());
 
-					cout << "rand=" <<bestState.GetHeuristicValue() << endl;
+					//cout << "rand=" <<bestState.GetHeuristicValue() << endl;
 				}
 
 			}
 
-			cout << "++++++++++++" << endl;
-			cout << bestState.GetHeuristicValue() << endl;
-			cout << itr->GetHeuristicValue() << endl;
+			//cout << "++++++++++++" << endl;
+			//cout << bestState.GetHeuristicValue() << endl;
+			//cout << itr->GetHeuristicValue() << endl;
 		}
 		//end oat test
 
@@ -236,16 +249,21 @@ void GameAi::PlayGameSteepHillClimb() {
 		mCurrentBoard = bestState.GetBoardState();
 		mCurrentState.SetOldMove(bestState.GetOldMove());
 		mCurrentState.SetBoard(bestState.GetBoardState());
-		mCurrentState.DisplayState();
-		cout << endl;
+		//mCurrentState.DisplayState();
+		//cout << endl;
+
+		mOrderOfInsertion.push_back(mCurrentState);
 
 		//Print the BEST state to out.txt
 
 		//Update the number of steps
 		//numSteps++;
-		cout << "Number of steps: " << GetNumSteps() << endl;
-	}
-}
+		//cout << "Number of steps: " << GetNumSteps() << endl;
+		
+	}//End While
+
+	return GetNumSteps();
+}//End Function
 
 
 void GameAi::PlayBestFirstSearch() {
@@ -275,7 +293,6 @@ void GameAi::PlayBestFirstSearch() {
 					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
 					openList.push_front(*itr1);
 				} else if (stateIsOnOpenList) {
-
 					//This is where we are supposed to sort the list
 					
 				} else if (stateIsOnCloseList) {
@@ -321,7 +338,7 @@ void GameAi::GenerateAMove(EightGame & xCurrentBoard, list<State> & xPStateList,
         //cout << newBoard.GetOldMove() << endl;
         //cout << "------------------------------" << std::endl;
         xPStateList.emplace_back(State(newBoard));
-        mOrderOfInsertion.emplace_back(State(newBoard));
+        //mOrderOfInsertion.emplace_back(State(newBoard));
     }
 }
 
@@ -381,6 +398,11 @@ void GameAi::PrintLocalList() {
         }
         cout << endl;
     }
+}
+
+void GameAi::CleanGameAi(){
+	mOrderOfInsertion.clear();
+	numSteps = 0;
 }
 
 

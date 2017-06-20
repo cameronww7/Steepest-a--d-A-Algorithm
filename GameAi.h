@@ -37,7 +37,7 @@ public:
     // tile out of column and row separately
     int  CalulateHeuristicThree(State state);
 
-	void PlayGameSteepHillClimb();
+	int PlayGameSteepHillClimb(int xHeuristicNumber);
 
 	void PlayBestFirstSearch();
 
@@ -56,6 +56,8 @@ public:
 	// Print functions for lists
     void         PrintList(list<State> xStateList);
     void 		 PrintLocalList();
+
+    void 		 CleanGameAi();
 
 private: 
     enum DIRECTION {UP        = 8,
