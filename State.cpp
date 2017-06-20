@@ -79,8 +79,8 @@ State State::operator=(const State & xRHS) {
 //==================================================
 bool State::operator==(State & xRHS) {
 	bool returnBool = true;
-	for(int index = 0; index < BOARD_SIZE; index++) {
-		if(this->GetBoardState().GetBoard()[index] != xRHS.GetBoardState().GetBoard()[index]) {
+	for (int index = 0; index < BOARD_SIZE; index++) {
+		if (this->GetBoardState().GetBoard()[index] != xRHS.GetBoardState().GetBoard()[index]) {
 			returnBool = false;
 		}
 	}

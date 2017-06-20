@@ -106,10 +106,10 @@ void GameAi::PrintLocalList() {
 
     for (list<State>::iterator itrCol = mOrderOfInsertion.begin(); itrCol != mOrderOfInsertion.end();) {
     	//Create list of 5 element
-    	for(int index = 0; index < MAX_COL; index++) {
+    	for (int index = 0; index < MAX_COL; index++) {
     		tempList.emplace_back(*itrCol);
     		itrCol++;
-    		if(itrCol == mOrderOfInsertion.end()){
+    		if (itrCol == mOrderOfInsertion.end()) {
     			index = MAX_COL;
     		}
 
@@ -137,6 +137,7 @@ void GameAi::PrintLocalList() {
 //==================================================
 int GameAi::CalulateHeuristicOne(State xState) {
 	int count = 0;
+    int temp;
 	EightGame board = xState.GetBoardState();
 
     for (int index = 0; index < BOARD_SIZE; index++ ) {
@@ -147,8 +148,7 @@ int GameAi::CalulateHeuristicOne(State xState) {
             }
         }
     }
-    
-    int temp;
+
 	if (xState.GetPathValue() != 0) {
 		temp = xState.GetPathValue();
 	} else {
@@ -172,6 +172,7 @@ int GameAi::CalulateHeuristicTwo(State xState) {
 	int modBoard;
 	int divWin;
 	int modWin;
+	int temp;
 	int count = 0;
 
 	for (int index = 0; index < BOARD_SIZE; index++) {
@@ -188,7 +189,6 @@ int GameAi::CalulateHeuristicTwo(State xState) {
         }
 	}
 	
-	int temp;
 	if (xState.GetPathValue() != 0) {
 		temp = xState.GetPathValue();
 	} else {
@@ -206,6 +206,7 @@ int GameAi::CalulateHeuristicTwo(State xState) {
 //==================================================
 int GameAi::CalulateHeuristicThree(State xState) {
     int count = 0;
+    int temp;
 	EightGame board = xState.GetBoardState();
 
     for (int index = 0; index < BOARD_SIZE; index++) {
@@ -220,8 +221,7 @@ int GameAi::CalulateHeuristicThree(State xState) {
             }
         }
     }
-    
-    int temp;
+
 	if (xState.GetPathValue() != 0) {
 		temp = xState.GetPathValue();
 	} else {
@@ -248,16 +248,12 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 		mNumSteps++;
 
 		//Apply heuristics to all states
-		if(xHeuristicNumber == 1) {
-			for (std::list<State>::iterator itr = stateList.begin(); 
-					itr != stateList.end(); 
-					itr++) {        
+		if (xHeuristicNumber == 1) {
+			for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
 				itr->SetHeuristicValue(CalulateHeuristicOne(*itr));;
 			}
 		} else if (xHeuristicNumber == 2) {
-			for (std::list<State>::iterator itr = stateList.begin(); 
-					itr != stateList.end();
-					itr++) {      
+			for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {
 					itr->SetHeuristicValue(CalulateHeuristicTwo(*itr));
 			}
 		} else if (xHeuristicNumber == 3) {
@@ -333,7 +329,7 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 			if (!stateIsOnOpenList && !stateIsOnCloseList) {
 
 				//Apply heuristics to all states
-				if(xHeuristicNumber == 1) {
+				if (xHeuristicNumber == 1) {
 					itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));;
 				} else if (xHeuristicNumber == 2) {
 					itr1->SetHeuristicValue(CalulateHeuristicTwo(*itr1));
@@ -355,7 +351,7 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 			} else if (stateIsOnCloseList) {
 				currentPathValue = itr1->GetPathValue();
 				// If the current path we took to this node is shorter than the old path
-				if(pathCounter < currentPathValue) {
+				if (pathCounter < currentPathValue) {
 					// Update path counter
 					itr1->SetPathValue(pathCounter);
 
@@ -426,16 +422,16 @@ list <State> GameAi::GenerateStateList() {
     int old = mCurrentState.GetOldMove();
 
     //if to prevent to reveres the move
-    if(old != DOWN) {
+    if (old != DOWN) {
     	GenerateAMove(currentBoard, pStateList, UP);
     }
-    if(old != UP) {
+    if (old != UP) {
     	GenerateAMove(currentBoard, pStateList, DOWN);
     }
-    if(old != RIGHT) {
+    if (old != RIGHT) {
     	GenerateAMove(currentBoard, pStateList, LEFT);
     }
-    if(old != LEFT) {
+    if (old != LEFT) {
     	GenerateAMove(currentBoard, pStateList, RIGHT);
     }
 
