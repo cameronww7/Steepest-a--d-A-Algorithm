@@ -2,7 +2,7 @@
  * Name	1		:	Cameron Walters
  * Name 2		:	Payaam Emami
  * Name 3		:	Itsarapong Sawangsri
- * Name 4		:	Justin Aebiskiver
+ * Name 4		:	Justin Shelley
  * Name 5		:	Kenny Nham
  * Project Name	:	Assignment 1
  * Due Date		:	6/20
@@ -142,43 +142,6 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 
 
 		//Apply heuristics to all states
-		//cout << endl << "+++APPLYING HEURISTICS:" << endl << endl;
-		/* for Kenny code
-		for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {        
-			itr->SetHeuristicValue(CalulateHeuristicOne(*itr));
-			itr->DisplayState();
-
-			cout << "Heuristic: " << itr->GetHeuristicValue() << " " << endl << endl;
-		}
-
-
-		cout << endl << "+++SELECTING THE BEST STATE:"<< endl << endl;
-		State bestState = stateList.front();
-		//bestState.SetHeuristicValue(1000);
-		for (list<State>::iterator itr = ++stateList.begin(); itr != stateList.end(); itr++) {
-			if (*itr > bestState){
-				bestState = *itr;
-				//cout << "===" <<bestState.GetHeuristicValue() << endl;
-			}
-		}
-
-
-
-		else if (xHeuristicNumber == 2){
-			for (std::list<State>::iterator itr = stateList.begin(); itr != stateList.end(); itr++) {      
-				
-				if(itr->GetHeuristicValue() > CalulateHeuristicTwo(*itr))
-				{
-					itr->SetHeuristicValue(CalulateHeuristicTwo(*itr));
-					
-				}
-				//itr->DisplayState();
-				//cout << "Heuristic2: " << CalulateHeuristicTwo(*itr) << " " << endl;
-			}
-		}
-		*/
-
-		//Testing oat
 		if(xHeuristicNumber == 1){
 			for (std::list<State>::iterator itr = stateList.begin(); 
 					itr != stateList.end(); 
@@ -274,6 +237,9 @@ int GameAi::PlayBestFirstSearch() {
 				cout << "Entering the first if" << endl;
 
 				itr1->SetHeuristicValue(CalulateHeuristicOne(*itr1));
+
+				cout << "State heuristic: " << itr1->GetHeuristicValue() << endl;
+
 				// assigns the path value to the current state
 				itr1->SetPathValue(pathCounter);
 				openList.push_front(*itr1);
@@ -294,6 +260,7 @@ int GameAi::PlayBestFirstSearch() {
 				currentPathValue = itr1->GetPathValue();
 
 				// If the current path we took to this node is shorter than the old path
+				cout << endl << "pathCounter: " << pathCounter << endl;
 				if(pathCounter < currentPathValue) {
 					cout << "Inside path counter part" << endl;
 					// Update path counter
