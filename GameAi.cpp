@@ -154,6 +154,7 @@ int GameAi::CalulateHeuristicOne(State xState) {
 	} else {
 		temp = mNumSteps;
 	}
+	//cout << "h "<<count + temp;
 	return count + temp;
 }
 
@@ -194,6 +195,7 @@ int GameAi::CalulateHeuristicTwo(State xState) {
 	} else {
 		temp = mNumSteps;
 	}
+	//cout << "h "<<count + temp;
 	return count + temp;
 }
 //=============CalulateHeuristicThree===============
@@ -227,6 +229,7 @@ int GameAi::CalulateHeuristicThree(State xState) {
 	} else {
 		temp = mNumSteps;
 	}
+	//cout << "h "<<count + temp;
 	return count + temp;
 }
 
@@ -271,6 +274,7 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 				bestState.SetBoard(itr->GetBoardState());
 				bestState.SetOldMove(itr->GetOldMove());
 			} else if (bestState == *itr) {
+				//Random if the Heuristic have the same value
 				if (rand() % 2) {
 					bestState.SetHeuristicValue(itr->GetHeuristicValue());
 					bestState.SetBoard(itr->GetBoardState());
@@ -281,6 +285,7 @@ int GameAi::PlayGameSteepHillClimb(int xHeuristicNumber) {
 
 		//Update the current State
 		mCurrentBoard = bestState.GetBoardState();
+		mCurrentState.SetHeuristicValue(bestState.GetHeuristicValue());
 		mCurrentState.SetOldMove(bestState.GetOldMove());
 		mCurrentState.SetBoard(bestState.GetBoardState());
 
@@ -310,6 +315,7 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 	int counter 		 = 0;
 
 	openList.push_front(mCurrentBoard); // Pushing Root Node Current State
+	currentState.SetPathValue(0);
 
 	while (!openList.empty() && !mCurrentBoard.CheckForWin() && currentState.GetPathValue() < MAX_STEPS) {
 		// Assign the first value from open list into X and remove it from the open list
@@ -317,6 +323,7 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 		openList.pop_front();
 		// Generates a list of possible states
 		std::list<State> stateList = GenerateStateList();
+
 		counter++;
 
 		pathCounter++;
@@ -324,7 +331,7 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 		for (list<State>::iterator itr1 = stateList.begin(); itr1 != stateList.end(); itr1++) {
 			bool stateIsOnOpenList  = SearchListForCurrentState(*itr1, openList);
 			bool stateIsOnCloseList = SearchListForCurrentState(*itr1, closeList);
-			itr1->SetPathValue(pathCounter);
+			//itr1->SetPathValue(pathCounter);
 			// Visiting a node that we've never encountered before
 			if (!stateIsOnOpenList && !stateIsOnCloseList) {
 
@@ -338,14 +345,17 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 				}
 
 				// assigns the path value to the current state
-				itr1->SetPathValue(pathCounter);
+
+				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				itr1->SetPathValue(currentState.GetPathValue() + 1);
+
 				openList.push_front(*itr1);
 
 			} else if (stateIsOnOpenList) {
 				// If the current path we took to this node is shorter than the old path
 				if(pathCounter < itr1->GetPathValue()) {
 					// Update path counter
-					itr1->SetPathValue(pathCounter);
+					itr1->SetPathValue(currentState.GetPathValue() + 1);
 				}
 				
 			} else if (stateIsOnCloseList) {
@@ -353,7 +363,7 @@ int GameAi::PlayBestFirstSearch(const int xHeuristicNumber) {
 				// If the current path we took to this node is shorter than the old path
 				if (pathCounter < currentPathValue) {
 					// Update path counter
-					itr1->SetPathValue(pathCounter);
+					itr1->SetPathValue(currentState.GetPathValue() + 1);
 
 					closeList.erase(itr1);
 					// Add to open list

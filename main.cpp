@@ -52,6 +52,10 @@ int main() {
 	std::cout << std::endl << "Goal Board:" << std::endl;
 	displayBoard(init.GetWinBoard());
 	
+
+	//====================================================================================
+	//| 					Steepest-Ascent Hill-Climbing
+	//====================================================================================
 	std::cout << "============ Steepest-Ascent Hill-Climbing ============ " << std::endl << std::endl;
 	std::cout << "Algorithm: Steepest-Ascent Hill-Climbing" << std::endl << std::endl;
 
@@ -94,6 +98,11 @@ int main() {
 	generator.CleanGameAi();
 	std::cout << std::endl << std::endl;
 
+	
+
+	//====================================================================================
+	//| 					Best First Search
+	//====================================================================================
 	std::cout << "============ Best-First Search ============ " << std::endl << std::endl;
 	std::cout << "Algorithm: Best-First Search" << std::endl;
 
@@ -135,6 +144,8 @@ int main() {
 	}
 	generator.CleanGameAi();
 	std::cout << std::endl << std::endl;
+	
+
 	return 0;
 }
 
